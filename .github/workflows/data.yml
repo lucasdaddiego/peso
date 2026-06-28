@@ -1,0 +1,56 @@
+name: Data reproduces INDEC/BCRA
+
+# The pipeline must still reproduce the official figures (`make data`), and the committed artifact
+# must match what the pipeline emits. Path-filtered to the pipeline/data files so a web-only PR
+# doesn't reach for the live sources.
+#
+# Because the series are vintage-pinned (config.DATA_VINTAGE), every month <= the vintage is fixed,
+# so a fresh fetch reproduces the committed artifact even though the upstream APIs keep appending
+# new months. If a source ever revises a *past* month, artifact_check will flag the drift — that's
+# the intended signal to re-run `make data` and recommit.
+
+on:
+  pull_request:
+    paths:
+      - "pipeline/**"
+      - "data/**"
+      - "Makefile"
+      - "pyproject.toml"
+      - "uv.lock"
+      - ".github/workflows/data.yml"
+  push:
+    branches: [master, main]
+    paths:
+      - "pipeline/**"
+      - "data/**"
+      - "Makefile"
+      - "pyproject.toml"
+      - "uv.lock"
+      - ".github/workflows/data.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-data-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  data:
+    name: Pipeline reproduces the official series
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+      - name: Sync Python deps
+        run: uv sync
+      - name: Fetch + splice + validate the artifact
+        run: make data
+      - name: Committed artifact matches the pipeline output (numeric tolerance)
+        run: |
+          git show HEAD:data/series.v1.json > committed-data.json
+          git show HEAD:web/public/series.v1.json > committed-web.json
+          uv run python -m pipeline.artifact_check committed-data.json data/series.v1.json
+          uv run python -m pipeline.artifact_check committed-web.json web/public/series.v1.json

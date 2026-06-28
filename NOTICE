@@ -1,0 +1,30 @@
+The MIT license in LICENSE covers the CODE in this repository. The terms below
+describe the DATA shipped alongside it (data/series.v1.json and the copy in
+web/public/).
+
+DATA
+----
+The committed series are derived from public official statistics, redistributed
+here only as aggregate/derived figures with attribution:
+
+  • IPC (consumer price index)
+      - 1993–2006  INDEC, IPC Gran Buenos Aires (base abril 2008)
+      - 2007–2016  Dirección Provincial de Estadística y Censos de San Luis,
+                   IPC San Luis — used as a credible alternative for the years
+                   the national INDEC was intervened (2007–2015)
+      - 2016–      INDEC, IPC Nacional (base diciembre 2016)
+    Accessed via the datos.gob.ar time-series API.
+
+  • Exchange rate (peso/US dollar)
+      - Official:  BCRA reference rate (dólar billete), via datos.gob.ar
+      - Blue/informal (from 2011): Bluelytics (bluelytics.com.ar)
+
+These are official indices and rates; only the spliced/derived monthly series is
+redistributed, with the sources cited above and in pipeline/config.py.
+
+Attribution:
+  Elaboración propia en base a series oficiales del INDEC (IPC) y del BCRA (tipo
+  de cambio), vía datos.gob.ar, empalmadas con el IPC de San Luis para el período
+  de intervención del INDEC (2007–2015), y cotización informal histórica de
+  Bluelytics. Fuentes: INDEC (www.indec.gob.ar), BCRA (www.bcra.gob.ar),
+  datos.gob.ar, bluelytics.com.ar.
