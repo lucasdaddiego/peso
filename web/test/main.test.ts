@@ -85,6 +85,24 @@ describe("init smoke", () => {
     expect($("live-blue").innerHTML).toBe("");
     expect($("result").innerHTML).toContain("de hoy");
   });
+
+  it("shows an error and bails when the artifact fails to load", async () => {
+    document.body.innerHTML = bodyHtml;
+    window.history.replaceState(null, "", "/");
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async (url: string) => {
+        if (String(url).includes("dolarapi")) return { ok: true, json: async () => BLUE };
+        return { ok: false, status: 404, json: async () => ({}) };
+      }),
+    );
+    vi.resetModules();
+    await import("../src/main");
+    await vi.waitFor(() => {
+      if (!$("source-badge").textContent?.includes("No se pudieron cargar")) throw new Error("not loaded");
+    });
+    expect($("result").innerHTML).toBe(""); // bailed before any render
+  });
 });
 
 describe("start month", () => {

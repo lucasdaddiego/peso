@@ -8,13 +8,8 @@ afterEach(() => {
 
 describe("fetchBlue", () => {
   it("returns the rate on a valid response", async () => {
-    vi.stubGlobal("fetch", vi.fn(async () => ({ ok: true, json: async () => ({ venta: 1515, fechaActualizacion: "2026-06-28" }) })));
-    expect(await fetchBlue()).toEqual({ venta: 1515, fecha: "2026-06-28" });
-  });
-
-  it("defaults fecha to empty string when absent", async () => {
-    vi.stubGlobal("fetch", vi.fn(async () => ({ ok: true, json: async () => ({ venta: 1500 }) })));
-    expect(await fetchBlue()).toEqual({ venta: 1500, fecha: "" });
+    vi.stubGlobal("fetch", vi.fn(async () => ({ ok: true, json: async () => ({ venta: 1515 }) })));
+    expect(await fetchBlue()).toEqual({ venta: 1515 });
   });
 
   it("returns null on a non-ok response", async () => {

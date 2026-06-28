@@ -54,7 +54,7 @@ def validate() -> None:
         g.check(f"Inflación {year} (IPC-GBA)", annual.get(year, float("nan")), exp, 0.2, unit="pp")
     # Convertibility: 1 peso = 1 USD across 1993–2001 (the official ref rate hovers ~1.00).
     conv = [r["off"] for m, r in by_month.items() if "1993-01" <= m <= "2001-12"]
-    worst = max(abs(x - config.CONVERTIBILITY_FX) for x in conv)
+    worst = max((abs(x - config.CONVERTIBILITY_FX) for x in conv), default=0.0)
     g.check(
         "Tipo de cambio en convertibilidad",
         config.CONVERTIBILITY_FX + worst,

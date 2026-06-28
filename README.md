@@ -4,11 +4,24 @@
 [![CI (web)](https://github.com/lucasdaddiego/peso/actions/workflows/ci.yml/badge.svg)](https://github.com/lucasdaddiego/peso/actions/workflows/ci.yml)
 [![Python checks](https://github.com/lucasdaddiego/peso/actions/workflows/python.yml/badge.svg)](https://github.com/lucasdaddiego/peso/actions/workflows/python.yml)
 [![Data reproduces INDEC/BCRA](https://github.com/lucasdaddiego/peso/actions/workflows/data.yml/badge.svg)](https://github.com/lucasdaddiego/peso/actions/workflows/data.yml)
-
 [![Coverage 100%](https://img.shields.io/badge/coverage-100%25-brightgreen)](https://github.com/lucasdaddiego/peso/actions)
+
 [![Python 3.14](https://img.shields.io/badge/python-3.14-3776AB?logo=python&logoColor=white)](pyproject.toml)
-[![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)](web/tsconfig.json)
+[![TypeScript strict](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)](web/tsconfig.json)
+[![Vite](https://img.shields.io/badge/Vite-6-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Observable Plot](https://img.shields.io/badge/charts-Observable_Plot-6c5ce7?logo=observable&logoColor=white)](https://observablehq.com/plot/)
+
+[![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![Checked with mypy](https://www.mypy-lang.org/static/mypy_badge.svg)](https://mypy-lang.org/)
+[![pytest](https://img.shields.io/badge/tested_with-pytest-0A9EDC?logo=pytest&logoColor=white)](https://docs.pytest.org/)
+[![Vitest](https://img.shields.io/badge/tested_with-Vitest-6E9F18?logo=vitest&logoColor=white)](https://vitest.dev/)
+
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![data: INDEC + BCRA](https://img.shields.io/badge/data-INDEC_%2B_BCRA_via_datos.gob.ar-2a5c8a)](https://datos.gob.ar/)
+[![Last commit](https://img.shields.io/github/last-commit/lucasdaddiego/peso)](https://github.com/lucasdaddiego/peso/commits)
+[![Code size](https://img.shields.io/github/languages/code-size/lucasdaddiego/peso)](https://github.com/lucasdaddiego/peso)
+[![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/lucasdaddiego/peso/pulls)
 
 **What is X pesos from year Y worth today?** This tool answers it from **real INDEC and BCRA
 data** — it downloads the official consumer-price and exchange-rate series, splices them into one
@@ -29,7 +42,7 @@ broken series across the years the INDEC was intervened.
 
 It has two parts:
 
-1. **`pipeline/`** — an offline, reproducible Python pipeline (uv + pandas + numpy) that fetches the
+1. **`pipeline/`** — an offline, reproducible Python pipeline (uv, standard-library only) that fetches the
    real source series, **splices** them, validates against known anchors, and emits one small,
    provenance-stamped JSON artifact.
 2. **`web/`** — a static Vite + TypeScript site that reads that JSON and renders honest graphics

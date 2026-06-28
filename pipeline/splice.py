@@ -82,5 +82,9 @@ def annual_inflation(index: dict[str, float]) -> list[dict]:
         a, b = index.get(f"{y - 1}-12"), index.get(f"{y}-12")
         if a is None or b is None:
             continue
-        out.append({"year": y, "pct": round((b / a - 1.0) * 100.0, 2), "source": display_source(f"{y}-12")})
+        # Tag by an interior month, not December. The Dec–Dec figure is driven by the year's MoM
+        # growth, and within a calendar year the owning source never changes (the segment breakpoints
+        # fall at year-ends). Tagging by "{y}-12" would mislabel 2016 — whose growth is entirely San
+        # Luis — as "nacional", because 2016-12 is display-tagged with the national base month.
+        out.append({"year": y, "pct": round((b / a - 1.0) * 100.0, 2), "source": display_source(f"{y}-06")})
     return out

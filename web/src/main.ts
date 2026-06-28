@@ -1,16 +1,11 @@
 import "./styles.css";
 import * as charts from "./charts";
-import { fmtARS, fmtMonth, fmtNum, fmtPct, fmtPctBig, fmtUSD, fmtX, parseMoney } from "./format";
+import { fmtARS, fmtMonth, fmtNum, fmtPct, fmtPctBig, fmtUSD, fmtX, MESES, parseMoney } from "./format";
 import { buildModel, monthsBetween, type Model } from "./inflation";
 import { fetchBlue, type BlueRate } from "./usd";
 import type { Artifact } from "./types";
 
 const $ = <T extends HTMLElement = HTMLElement>(id: string) => document.getElementById(id) as T;
-
-const MESES = [
-  "enero", "febrero", "marzo", "abril", "mayo", "junio",
-  "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre",
-];
 
 const state = {
   amountARS: 1000,
@@ -23,7 +18,14 @@ let data: Artifact;
 let model: Model;
 
 async function init() {
-  data = await fetch("/series.v1.json").then((r) => r.json());
+  try {
+    const res = await fetch("/series.v1.json");
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    data = await res.json();
+  } catch {
+    $("source-badge").textContent = "No se pudieron cargar los datos. Recargá la página.";
+    return;
+  }
   model = buildModel(data);
   state.blue = await fetchBlue();
   // Stateless: no params, no storage. Strip any stray query string on load.
@@ -152,7 +154,7 @@ function renderHeadline() {
   const from = state.startMonth;
   const equiv = equivToday();
   const mult = model.cpi(data.vintage) / model.cpi(from);
-  const cumPct = (mult - 1) * 100;
+  const cumPct = model.cumulativePct(from);
   const annPct = model.annualisedPct(from);
   const n = elapsedMonths();
   const years = (n / 12).toLocaleString("es-AR", { maximumFractionDigits: 1 });

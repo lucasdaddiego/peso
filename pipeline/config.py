@@ -111,7 +111,6 @@ SEGMENTS: list[SegmentMeta] = [
 # no meaningful parallel market, so blue is set equal to the official rate for those months.
 # --------------------------------------------------------------------------------------
 BLUELYTICS_CSV = "https://api.bluelytics.com.ar/v2/evolution.csv"
-BLUE_LIVE_URL = "https://dolarapi.com/v1/dolares/blue"  # display-only "cotización de hoy"
 BLUE_FIRST_MONTH = "2011-01"  # earliest Bluelytics blue datum; earlier months: blue := official
 FX_AGGREGATION = "month_end"  # use the last business-day rate of each month
 

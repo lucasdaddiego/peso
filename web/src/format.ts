@@ -37,7 +37,7 @@ export function fmtPctBig(n: number): string {
   return fmtPct(n);
 }
 
-const MESES = [
+export const MESES = [
   "enero", "febrero", "marzo", "abril", "mayo", "junio",
   "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre",
 ];

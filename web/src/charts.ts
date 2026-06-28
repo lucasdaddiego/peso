@@ -143,13 +143,16 @@ export function renderBrecha(el: HTMLElement, rows: SeriesRow[]) {
   clear(el);
   const data = rows.map((r) => ({ x: xOf(r.m), pct: (r.blue / r.off - 1) * 100 }));
   const hi = Math.max(...data.map((d) => d.pct), 10);
+  // Floor the axis at 0, but dip below when the blue actually traded under the official rate
+  // (e.g. through 2011). Math.min(…, 0) keeps the floor at exactly 0 when there are no negatives.
+  const lo = Math.min(...data.map((d) => d.pct), 0);
   const plot = Plot.plot({
     width: el.clientWidth || 680,
     height: 220,
     marginLeft: 48,
     marginBottom: 40,
     x: { label: null, tickFormat: (d: number) => String(Math.round(d)) },
-    y: { label: "↑ brecha cambiaria", grid: true, domain: [0, hi * 1.05], tickFormat: (d: number) => `${Math.round(d)}%` },
+    y: { label: "↑ brecha cambiaria", grid: true, domain: [lo * 1.05, hi * 1.05], tickFormat: (d: number) => `${Math.round(d)}%` },
     style: { background: "transparent", color: INK, fontFamily: "inherit", fontSize: "11px" },
     marks: [
       Plot.areaY(data, { x: "x", y: "pct", fill: WARN, fillOpacity: 0.14 }),

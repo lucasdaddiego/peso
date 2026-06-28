@@ -6,10 +6,8 @@ readme = "README.md"
 license = "MIT"
 authors = [{ name = "Lucas Daddiego" }]
 requires-python = ">=3.14,<3.15"
-dependencies = [
-    "pandas>=2.2",
-    "numpy>=2.0",
-]
+# The pipeline is deliberately standard-library only (json, csv, urllib, datetime, …) — no runtime deps.
+dependencies = []
 
 [project.urls]
 Repository = "https://github.com/lucasdaddiego/peso"
@@ -25,7 +23,6 @@ dev = [
     "pytest-cov>=5.0",
     "ruff>=0.6",
     "mypy>=1.11",
-    "pandas-stubs>=2.2",
 ]
 
 # --------------------------------------------------------------------------------------
@@ -51,7 +48,7 @@ exclude_lines = [
 ]
 
 # --------------------------------------------------------------------------------------
-# Lint + format (ruff) and types (mypy). Pragmatic on pandas/numpy.
+# Lint + format (ruff) and types (mypy).
 # --------------------------------------------------------------------------------------
 [tool.ruff]
 line-length = 120
