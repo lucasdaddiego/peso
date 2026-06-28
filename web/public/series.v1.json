@@ -1,0 +1,3859 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-06-28T20:27:35+00:00",
+  "currency": "ARS",
+  "vintage": "2026-05",
+  "vintage_label": "mayo 2026",
+  "base_month": "2026-05",
+  "start_month": "1993-01",
+  "source": {
+    "ipc_segments": [
+      {
+        "key": "gba",
+        "start": "1993-01",
+        "end": "2006-12",
+        "label": "INDEC IPC-GBA (oficial, pre-intervención)",
+        "source": "INDEC — IPC Gran Buenos Aires, base abril 2008",
+        "series_id": "97.2_ING_2008_M_17",
+        "note": "Serie oficial confiable, anterior a la intervención del INDEC."
+      },
+      {
+        "key": "sanluis",
+        "start": "2007-01",
+        "end": "2016-11",
+        "label": "IPC San Luis (alternativa provincial, INDEC intervenido)",
+        "source": "Dirección Provincial de Estadística y Censos de San Luis",
+        "series_id": "197.1_NIVEL_GENERAL_2014_0_13",
+        "note": "Durante 2007–2015 el INDEC nacional fue intervenido y subdeclaró la inflación. San Luis, fuera de esa intervención, es uno de los índices provinciales usados como referencia creíble ('inflación verdadera')."
+      },
+      {
+        "key": "nacional",
+        "start": "2016-12",
+        "end": "2026-05",
+        "label": "INDEC IPC Nacional (oficial, base dic-2016)",
+        "source": "INDEC — IPC Nacional, base diciembre 2016",
+        "series_id": "148.3_INIVELNAL_DICI_M_26",
+        "note": "Serie oficial nacional, posterior a la normalización del INDEC."
+      }
+    ],
+    "fx_official": {
+      "label": "Tipo de cambio de referencia BCRA (dólar billete)",
+      "series_id": "175.1_DR_ESTANSE_0_0_20",
+      "url": "https://www.bcra.gob.ar"
+    },
+    "fx_blue": {
+      "label": "Dólar informal ('blue') — Bluelytics",
+      "url": "https://api.bluelytics.com.ar/v2/evolution.csv",
+      "first_month": "2011-01",
+      "note": "Antes del cepo (2011) no había un mercado paralelo relevante; se usa el oficial."
+    },
+    "api": "https://apis.datos.gob.ar/series/api/series/"
+  },
+  "series": [
+    {
+      "m": "1993-01",
+      "cpi": 0.038975,
+      "src": "gba",
+      "mom": null,
+      "off": 0.9998,
+      "blue": 0.9998,
+      "blue_est": true
+    },
+    {
+      "m": "1993-02",
+      "cpi": 0.03926,
+      "src": "gba",
+      "mom": 0.7312,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1993-03",
+      "cpi": 0.039555,
+      "src": "gba",
+      "mom": 0.7514,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1993-04",
+      "cpi": 0.039969,
+      "src": "gba",
+      "mom": 1.0466,
+      "off": 0.999,
+      "blue": 0.999,
+      "blue_est": true
+    },
+    {
+      "m": "1993-05",
+      "cpi": 0.040483,
+      "src": "gba",
+      "mom": 1.286,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1993-06",
+      "cpi": 0.040774,
+      "src": "gba",
+      "mom": 0.7188,
+      "off": 0.999,
+      "blue": 0.999,
+      "blue_est": true
+    },
+    {
+      "m": "1993-07",
+      "cpi": 0.040905,
+      "src": "gba",
+      "mom": 0.3213,
+      "off": 0.9992,
+      "blue": 0.9992,
+      "blue_est": true
+    },
+    {
+      "m": "1993-08",
+      "cpi": 0.040912,
+      "src": "gba",
+      "mom": 0.0171,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1993-09",
+      "cpi": 0.041249,
+      "src": "gba",
+      "mom": 0.8237,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1993-10",
+      "cpi": 0.041482,
+      "src": "gba",
+      "mom": 0.5649,
+      "off": 0.9998,
+      "blue": 0.9998,
+      "blue_est": true
+    },
+    {
+      "m": "1993-11",
+      "cpi": 0.041506,
+      "src": "gba",
+      "mom": 0.0579,
+      "off": 0.999,
+      "blue": 0.999,
+      "blue_est": true
+    },
+    {
+      "m": "1993-12",
+      "cpi": 0.0415,
+      "src": "gba",
+      "mom": -0.0145,
+      "off": 0.999,
+      "blue": 0.999,
+      "blue_est": true
+    },
+    {
+      "m": "1994-01",
+      "cpi": 0.041542,
+      "src": "gba",
+      "mom": 0.1012,
+      "off": 0.999,
+      "blue": 0.999,
+      "blue_est": true
+    },
+    {
+      "m": "1994-02",
+      "cpi": 0.041541,
+      "src": "gba",
+      "mom": -0.0024,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1994-03",
+      "cpi": 0.041599,
+      "src": "gba",
+      "mom": 0.1396,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1994-04",
+      "cpi": 0.0417,
+      "src": "gba",
+      "mom": 0.2428,
+      "off": 0.999,
+      "blue": 0.999,
+      "blue_est": true
+    },
+    {
+      "m": "1994-05",
+      "cpi": 0.041844,
+      "src": "gba",
+      "mom": 0.3453,
+      "off": 0.999,
+      "blue": 0.999,
+      "blue_est": true
+    },
+    {
+      "m": "1994-06",
+      "cpi": 0.042006,
+      "src": "gba",
+      "mom": 0.3872,
+      "off": 0.999,
+      "blue": 0.999,
+      "blue_est": true
+    },
+    {
+      "m": "1994-07",
+      "cpi": 0.042394,
+      "src": "gba",
+      "mom": 0.9237,
+      "off": 0.999,
+      "blue": 0.999,
+      "blue_est": true
+    },
+    {
+      "m": "1994-08",
+      "cpi": 0.042482,
+      "src": "gba",
+      "mom": 0.2076,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1994-09",
+      "cpi": 0.042772,
+      "src": "gba",
+      "mom": 0.6826,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1994-10",
+      "cpi": 0.042909,
+      "src": "gba",
+      "mom": 0.3203,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1994-11",
+      "cpi": 0.043006,
+      "src": "gba",
+      "mom": 0.2261,
+      "off": 0.9992,
+      "blue": 0.9992,
+      "blue_est": true
+    },
+    {
+      "m": "1994-12",
+      "cpi": 0.0431,
+      "src": "gba",
+      "mom": 0.2186,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1995-01",
+      "cpi": 0.043637,
+      "src": "gba",
+      "mom": 1.2459,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1995-02",
+      "cpi": 0.043636,
+      "src": "gba",
+      "mom": -0.0023,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1995-03",
+      "cpi": 0.04344,
+      "src": "gba",
+      "mom": -0.4492,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1995-04",
+      "cpi": 0.043638,
+      "src": "gba",
+      "mom": 0.4558,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1995-05",
+      "cpi": 0.043647,
+      "src": "gba",
+      "mom": 0.0206,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1995-06",
+      "cpi": 0.043558,
+      "src": "gba",
+      "mom": -0.2039,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1995-07",
+      "cpi": 0.043734,
+      "src": "gba",
+      "mom": 0.4041,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1995-08",
+      "cpi": 0.043628,
+      "src": "gba",
+      "mom": -0.2424,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1995-09",
+      "cpi": 0.0437,
+      "src": "gba",
+      "mom": 0.165,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1995-10",
+      "cpi": 0.043849,
+      "src": "gba",
+      "mom": 0.341,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1995-11",
+      "cpi": 0.043748,
+      "src": "gba",
+      "mom": -0.2303,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1995-12",
+      "cpi": 0.043793,
+      "src": "gba",
+      "mom": 0.1029,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1996-01",
+      "cpi": 0.043924,
+      "src": "gba",
+      "mom": 0.2991,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1996-02",
+      "cpi": 0.043781,
+      "src": "gba",
+      "mom": -0.3256,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1996-03",
+      "cpi": 0.043545,
+      "src": "gba",
+      "mom": -0.539,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1996-04",
+      "cpi": 0.043546,
+      "src": "gba",
+      "mom": 0.0023,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1996-05",
+      "cpi": 0.043507,
+      "src": "gba",
+      "mom": -0.0896,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1996-06",
+      "cpi": 0.043508,
+      "src": "gba",
+      "mom": 0.0023,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1996-07",
+      "cpi": 0.043744,
+      "src": "gba",
+      "mom": 0.5424,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1996-08",
+      "cpi": 0.04371,
+      "src": "gba",
+      "mom": -0.0777,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1996-09",
+      "cpi": 0.04379,
+      "src": "gba",
+      "mom": 0.183,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1996-10",
+      "cpi": 0.04401,
+      "src": "gba",
+      "mom": 0.5024,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1996-11",
+      "cpi": 0.043942,
+      "src": "gba",
+      "mom": -0.1545,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1996-12",
+      "cpi": 0.043817,
+      "src": "gba",
+      "mom": -0.2845,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1997-01",
+      "cpi": 0.044021,
+      "src": "gba",
+      "mom": 0.4656,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1997-02",
+      "cpi": 0.044191,
+      "src": "gba",
+      "mom": 0.3862,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1997-03",
+      "cpi": 0.043973,
+      "src": "gba",
+      "mom": -0.4933,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1997-04",
+      "cpi": 0.043827,
+      "src": "gba",
+      "mom": -0.332,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1997-05",
+      "cpi": 0.043791,
+      "src": "gba",
+      "mom": -0.0821,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1997-06",
+      "cpi": 0.043891,
+      "src": "gba",
+      "mom": 0.2284,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1997-07",
+      "cpi": 0.043988,
+      "src": "gba",
+      "mom": 0.221,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1997-08",
+      "cpi": 0.044061,
+      "src": "gba",
+      "mom": 0.166,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1997-09",
+      "cpi": 0.04404,
+      "src": "gba",
+      "mom": -0.0477,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1997-10",
+      "cpi": 0.043971,
+      "src": "gba",
+      "mom": -0.1567,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1997-11",
+      "cpi": 0.043886,
+      "src": "gba",
+      "mom": -0.1933,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1997-12",
+      "cpi": 0.04396,
+      "src": "gba",
+      "mom": 0.1686,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1998-01",
+      "cpi": 0.044237,
+      "src": "gba",
+      "mom": 0.6301,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1998-02",
+      "cpi": 0.044391,
+      "src": "gba",
+      "mom": 0.3481,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1998-03",
+      "cpi": 0.044335,
+      "src": "gba",
+      "mom": -0.1262,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1998-04",
+      "cpi": 0.04434,
+      "src": "gba",
+      "mom": 0.0113,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1998-05",
+      "cpi": 0.044308,
+      "src": "gba",
+      "mom": -0.0722,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1998-06",
+      "cpi": 0.044393,
+      "src": "gba",
+      "mom": 0.1918,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1998-07",
+      "cpi": 0.044531,
+      "src": "gba",
+      "mom": 0.3109,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1998-08",
+      "cpi": 0.04454,
+      "src": "gba",
+      "mom": 0.0202,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1998-09",
+      "cpi": 0.044527,
+      "src": "gba",
+      "mom": -0.0292,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1998-10",
+      "cpi": 0.044364,
+      "src": "gba",
+      "mom": -0.3661,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1998-11",
+      "cpi": 0.044258,
+      "src": "gba",
+      "mom": -0.2389,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1998-12",
+      "cpi": 0.044252,
+      "src": "gba",
+      "mom": -0.0136,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1999-01",
+      "cpi": 0.044461,
+      "src": "gba",
+      "mom": 0.4723,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1999-02",
+      "cpi": 0.04439,
+      "src": "gba",
+      "mom": -0.1597,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1999-03",
+      "cpi": 0.044056,
+      "src": "gba",
+      "mom": -0.7524,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1999-04",
+      "cpi": 0.044013,
+      "src": "gba",
+      "mom": -0.0976,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1999-05",
+      "cpi": 0.043796,
+      "src": "gba",
+      "mom": -0.493,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1999-06",
+      "cpi": 0.043794,
+      "src": "gba",
+      "mom": -0.0046,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1999-07",
+      "cpi": 0.043875,
+      "src": "gba",
+      "mom": 0.185,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1999-08",
+      "cpi": 0.04371,
+      "src": "gba",
+      "mom": -0.3761,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1999-09",
+      "cpi": 0.043623,
+      "src": "gba",
+      "mom": -0.199,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1999-10",
+      "cpi": 0.043616,
+      "src": "gba",
+      "mom": -0.016,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1999-11",
+      "cpi": 0.043478,
+      "src": "gba",
+      "mom": -0.3164,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "1999-12",
+      "cpi": 0.043451,
+      "src": "gba",
+      "mom": -0.0621,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "2000-01",
+      "cpi": 0.043819,
+      "src": "gba",
+      "mom": 0.8469,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "2000-02",
+      "cpi": 0.04382,
+      "src": "gba",
+      "mom": 0.0023,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "2000-03",
+      "cpi": 0.043589,
+      "src": "gba",
+      "mom": -0.5272,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "2000-04",
+      "cpi": 0.04354,
+      "src": "gba",
+      "mom": -0.1124,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "2000-05",
+      "cpi": 0.043371,
+      "src": "gba",
+      "mom": -0.3881,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "2000-06",
+      "cpi": 0.04329,
+      "src": "gba",
+      "mom": -0.1868,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "2000-07",
+      "cpi": 0.043478,
+      "src": "gba",
+      "mom": 0.4343,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "2000-08",
+      "cpi": 0.043385,
+      "src": "gba",
+      "mom": -0.2139,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "2000-09",
+      "cpi": 0.043318,
+      "src": "gba",
+      "mom": -0.1544,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "2000-10",
+      "cpi": 0.043396,
+      "src": "gba",
+      "mom": 0.1801,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "2000-11",
+      "cpi": 0.043183,
+      "src": "gba",
+      "mom": -0.4908,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "2000-12",
+      "cpi": 0.043134,
+      "src": "gba",
+      "mom": -0.1135,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "2001-01",
+      "cpi": 0.043169,
+      "src": "gba",
+      "mom": 0.0811,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "2001-02",
+      "cpi": 0.043071,
+      "src": "gba",
+      "mom": -0.227,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "2001-03",
+      "cpi": 0.043153,
+      "src": "gba",
+      "mom": 0.1904,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "2001-04",
+      "cpi": 0.043441,
+      "src": "gba",
+      "mom": 0.6674,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "2001-05",
+      "cpi": 0.043469,
+      "src": "gba",
+      "mom": 0.0645,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "2001-06",
+      "cpi": 0.043156,
+      "src": "gba",
+      "mom": -0.7201,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "2001-07",
+      "cpi": 0.043015,
+      "src": "gba",
+      "mom": -0.3267,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "2001-08",
+      "cpi": 0.042861,
+      "src": "gba",
+      "mom": -0.358,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "2001-09",
+      "cpi": 0.042828,
+      "src": "gba",
+      "mom": -0.077,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "2001-10",
+      "cpi": 0.042639,
+      "src": "gba",
+      "mom": -0.4413,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "2001-11",
+      "cpi": 0.042499,
+      "src": "gba",
+      "mom": -0.3283,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "2001-12",
+      "cpi": 0.042467,
+      "src": "gba",
+      "mom": -0.0753,
+      "off": 1.0,
+      "blue": 1.0,
+      "blue_est": true
+    },
+    {
+      "m": "2002-01",
+      "cpi": 0.043441,
+      "src": "gba",
+      "mom": 2.2935,
+      "off": 2.05,
+      "blue": 2.05,
+      "blue_est": true
+    },
+    {
+      "m": "2002-02",
+      "cpi": 0.044805,
+      "src": "gba",
+      "mom": 3.1399,
+      "off": 2.15,
+      "blue": 2.15,
+      "blue_est": true
+    },
+    {
+      "m": "2002-03",
+      "cpi": 0.046577,
+      "src": "gba",
+      "mom": 3.9549,
+      "off": 3.0,
+      "blue": 3.0,
+      "blue_est": true
+    },
+    {
+      "m": "2002-04",
+      "cpi": 0.051416,
+      "src": "gba",
+      "mom": 10.3892,
+      "off": 2.98,
+      "blue": 2.98,
+      "blue_est": true
+    },
+    {
+      "m": "2002-05",
+      "cpi": 0.053478,
+      "src": "gba",
+      "mom": 4.0104,
+      "off": 3.6,
+      "blue": 3.6,
+      "blue_est": true
+    },
+    {
+      "m": "2002-06",
+      "cpi": 0.055415,
+      "src": "gba",
+      "mom": 3.6221,
+      "off": 3.8,
+      "blue": 3.8,
+      "blue_est": true
+    },
+    {
+      "m": "2002-07",
+      "cpi": 0.057182,
+      "src": "gba",
+      "mom": 3.1887,
+      "off": 3.7,
+      "blue": 3.7,
+      "blue_est": true
+    },
+    {
+      "m": "2002-08",
+      "cpi": 0.058521,
+      "src": "gba",
+      "mom": 2.3416,
+      "off": 3.63,
+      "blue": 3.63,
+      "blue_est": true
+    },
+    {
+      "m": "2002-09",
+      "cpi": 0.059312,
+      "src": "gba",
+      "mom": 1.3517,
+      "off": 3.75,
+      "blue": 3.75,
+      "blue_est": true
+    },
+    {
+      "m": "2002-10",
+      "cpi": 0.059441,
+      "src": "gba",
+      "mom": 0.2175,
+      "off": 3.52,
+      "blue": 3.52,
+      "blue_est": true
+    },
+    {
+      "m": "2002-11",
+      "cpi": 0.059744,
+      "src": "gba",
+      "mom": 0.5097,
+      "off": 3.64,
+      "blue": 3.64,
+      "blue_est": true
+    },
+    {
+      "m": "2002-12",
+      "cpi": 0.059856,
+      "src": "gba",
+      "mom": 0.1875,
+      "off": 3.37,
+      "blue": 3.37,
+      "blue_est": true
+    },
+    {
+      "m": "2003-01",
+      "cpi": 0.060646,
+      "src": "gba",
+      "mom": 1.3198,
+      "off": 3.21,
+      "blue": 3.21,
+      "blue_est": true
+    },
+    {
+      "m": "2003-02",
+      "cpi": 0.060989,
+      "src": "gba",
+      "mom": 0.5656,
+      "off": 3.19,
+      "blue": 3.19,
+      "blue_est": true
+    },
+    {
+      "m": "2003-03",
+      "cpi": 0.061345,
+      "src": "gba",
+      "mom": 0.5837,
+      "off": 2.98,
+      "blue": 2.98,
+      "blue_est": true
+    },
+    {
+      "m": "2003-04",
+      "cpi": 0.061379,
+      "src": "gba",
+      "mom": 0.0554,
+      "off": 2.82,
+      "blue": 2.82,
+      "blue_est": true
+    },
+    {
+      "m": "2003-05",
+      "cpi": 0.061143,
+      "src": "gba",
+      "mom": -0.3845,
+      "off": 2.85,
+      "blue": 2.85,
+      "blue_est": true
+    },
+    {
+      "m": "2003-06",
+      "cpi": 0.061091,
+      "src": "gba",
+      "mom": -0.085,
+      "off": 2.8,
+      "blue": 2.8,
+      "blue_est": true
+    },
+    {
+      "m": "2003-07",
+      "cpi": 0.061362,
+      "src": "gba",
+      "mom": 0.4436,
+      "off": 2.92,
+      "blue": 2.92,
+      "blue_est": true
+    },
+    {
+      "m": "2003-08",
+      "cpi": 0.061377,
+      "src": "gba",
+      "mom": 0.0244,
+      "off": 2.956,
+      "blue": 2.956,
+      "blue_est": true
+    },
+    {
+      "m": "2003-09",
+      "cpi": 0.061402,
+      "src": "gba",
+      "mom": 0.0407,
+      "off": 2.915,
+      "blue": 2.915,
+      "blue_est": true
+    },
+    {
+      "m": "2003-10",
+      "cpi": 0.061764,
+      "src": "gba",
+      "mom": 0.5896,
+      "off": 2.865,
+      "blue": 2.865,
+      "blue_est": true
+    },
+    {
+      "m": "2003-11",
+      "cpi": 0.061916,
+      "src": "gba",
+      "mom": 0.2461,
+      "off": 2.99,
+      "blue": 2.99,
+      "blue_est": true
+    },
+    {
+      "m": "2003-12",
+      "cpi": 0.062047,
+      "src": "gba",
+      "mom": 0.2116,
+      "off": 2.93,
+      "blue": 2.93,
+      "blue_est": true
+    },
+    {
+      "m": "2004-01",
+      "cpi": 0.062308,
+      "src": "gba",
+      "mom": 0.4206,
+      "off": 2.928,
+      "blue": 2.928,
+      "blue_est": true
+    },
+    {
+      "m": "2004-02",
+      "cpi": 0.062371,
+      "src": "gba",
+      "mom": 0.1011,
+      "off": 2.923,
+      "blue": 2.923,
+      "blue_est": true
+    },
+    {
+      "m": "2004-03",
+      "cpi": 0.062741,
+      "src": "gba",
+      "mom": 0.5932,
+      "off": 2.86,
+      "blue": 2.86,
+      "blue_est": true
+    },
+    {
+      "m": "2004-04",
+      "cpi": 0.063279,
+      "src": "gba",
+      "mom": 0.8575,
+      "off": 2.84,
+      "blue": 2.84,
+      "blue_est": true
+    },
+    {
+      "m": "2004-05",
+      "cpi": 0.063742,
+      "src": "gba",
+      "mom": 0.7317,
+      "off": 2.96,
+      "blue": 2.96,
+      "blue_est": true
+    },
+    {
+      "m": "2004-06",
+      "cpi": 0.064102,
+      "src": "gba",
+      "mom": 0.5648,
+      "off": 2.958,
+      "blue": 2.958,
+      "blue_est": true
+    },
+    {
+      "m": "2004-07",
+      "cpi": 0.064398,
+      "src": "gba",
+      "mom": 0.4618,
+      "off": 2.98,
+      "blue": 2.98,
+      "blue_est": true
+    },
+    {
+      "m": "2004-08",
+      "cpi": 0.064619,
+      "src": "gba",
+      "mom": 0.3432,
+      "off": 2.997,
+      "blue": 2.997,
+      "blue_est": true
+    },
+    {
+      "m": "2004-09",
+      "cpi": 0.065026,
+      "src": "gba",
+      "mom": 0.6298,
+      "off": 2.981,
+      "blue": 2.981,
+      "blue_est": true
+    },
+    {
+      "m": "2004-10",
+      "cpi": 0.065283,
+      "src": "gba",
+      "mom": 0.3952,
+      "off": 2.97,
+      "blue": 2.97,
+      "blue_est": true
+    },
+    {
+      "m": "2004-11",
+      "cpi": 0.065284,
+      "src": "gba",
+      "mom": 0.0015,
+      "off": 2.945,
+      "blue": 2.945,
+      "blue_est": true
+    },
+    {
+      "m": "2004-12",
+      "cpi": 0.06583,
+      "src": "gba",
+      "mom": 0.8363,
+      "off": 2.979,
+      "blue": 2.979,
+      "blue_est": true
+    },
+    {
+      "m": "2005-01",
+      "cpi": 0.066808,
+      "src": "gba",
+      "mom": 1.4856,
+      "off": 2.924,
+      "blue": 2.924,
+      "blue_est": true
+    },
+    {
+      "m": "2005-02",
+      "cpi": 0.06744,
+      "src": "gba",
+      "mom": 0.946,
+      "off": 2.938,
+      "blue": 2.938,
+      "blue_est": true
+    },
+    {
+      "m": "2005-03",
+      "cpi": 0.068483,
+      "src": "gba",
+      "mom": 1.5466,
+      "off": 2.917,
+      "blue": 2.917,
+      "blue_est": true
+    },
+    {
+      "m": "2005-04",
+      "cpi": 0.068819,
+      "src": "gba",
+      "mom": 0.4906,
+      "off": 2.91,
+      "blue": 2.91,
+      "blue_est": true
+    },
+    {
+      "m": "2005-05",
+      "cpi": 0.069232,
+      "src": "gba",
+      "mom": 0.6001,
+      "off": 2.883,
+      "blue": 2.883,
+      "blue_est": true
+    },
+    {
+      "m": "2005-06",
+      "cpi": 0.069866,
+      "src": "gba",
+      "mom": 0.9158,
+      "off": 2.887,
+      "blue": 2.887,
+      "blue_est": true
+    },
+    {
+      "m": "2005-07",
+      "cpi": 0.070568,
+      "src": "gba",
+      "mom": 1.0048,
+      "off": 2.861,
+      "blue": 2.861,
+      "blue_est": true
+    },
+    {
+      "m": "2005-08",
+      "cpi": 0.070876,
+      "src": "gba",
+      "mom": 0.4365,
+      "off": 2.911,
+      "blue": 2.911,
+      "blue_est": true
+    },
+    {
+      "m": "2005-09",
+      "cpi": 0.0717,
+      "src": "gba",
+      "mom": 1.1626,
+      "off": 2.91,
+      "blue": 2.91,
+      "blue_est": true
+    },
+    {
+      "m": "2005-10",
+      "cpi": 0.07226,
+      "src": "gba",
+      "mom": 0.781,
+      "off": 3.002,
+      "blue": 3.002,
+      "blue_est": true
+    },
+    {
+      "m": "2005-11",
+      "cpi": 0.073132,
+      "src": "gba",
+      "mom": 1.2068,
+      "off": 2.966,
+      "blue": 2.966,
+      "blue_est": true
+    },
+    {
+      "m": "2005-12",
+      "cpi": 0.073946,
+      "src": "gba",
+      "mom": 1.1131,
+      "off": 3.032,
+      "blue": 3.032,
+      "blue_est": true
+    },
+    {
+      "m": "2006-01",
+      "cpi": 0.07489,
+      "src": "gba",
+      "mom": 1.2766,
+      "off": 3.066,
+      "blue": 3.066,
+      "blue_est": true
+    },
+    {
+      "m": "2006-02",
+      "cpi": 0.075187,
+      "src": "gba",
+      "mom": 0.3966,
+      "off": 3.074,
+      "blue": 3.074,
+      "blue_est": true
+    },
+    {
+      "m": "2006-03",
+      "cpi": 0.076093,
+      "src": "gba",
+      "mom": 1.205,
+      "off": 3.082,
+      "blue": 3.082,
+      "blue_est": true
+    },
+    {
+      "m": "2006-04",
+      "cpi": 0.076833,
+      "src": "gba",
+      "mom": 0.9725,
+      "off": 3.048,
+      "blue": 3.048,
+      "blue_est": true
+    },
+    {
+      "m": "2006-05",
+      "cpi": 0.077193,
+      "src": "gba",
+      "mom": 0.4685,
+      "off": 3.085,
+      "blue": 3.085,
+      "blue_est": true
+    },
+    {
+      "m": "2006-06",
+      "cpi": 0.077566,
+      "src": "gba",
+      "mom": 0.4832,
+      "off": 3.086,
+      "blue": 3.086,
+      "blue_est": true
+    },
+    {
+      "m": "2006-07",
+      "cpi": 0.078045,
+      "src": "gba",
+      "mom": 0.6175,
+      "off": 3.072,
+      "blue": 3.072,
+      "blue_est": true
+    },
+    {
+      "m": "2006-08",
+      "cpi": 0.078484,
+      "src": "gba",
+      "mom": 0.5625,
+      "off": 3.097,
+      "blue": 3.097,
+      "blue_est": true
+    },
+    {
+      "m": "2006-09",
+      "cpi": 0.07919,
+      "src": "gba",
+      "mom": 0.8995,
+      "off": 3.104,
+      "blue": 3.104,
+      "blue_est": true
+    },
+    {
+      "m": "2006-10",
+      "cpi": 0.079868,
+      "src": "gba",
+      "mom": 0.8562,
+      "off": 3.089,
+      "blue": 3.089,
+      "blue_est": true
+    },
+    {
+      "m": "2006-11",
+      "cpi": 0.080433,
+      "src": "gba",
+      "mom": 0.7074,
+      "off": 3.068,
+      "blue": 3.068,
+      "blue_est": true
+    },
+    {
+      "m": "2006-12",
+      "cpi": 0.081222,
+      "src": "gba",
+      "mom": 0.9809,
+      "off": 3.062,
+      "blue": 3.062,
+      "blue_est": true
+    },
+    {
+      "m": "2007-01",
+      "cpi": 0.082128,
+      "src": "sanluis",
+      "mom": 1.1155,
+      "off": 3.107,
+      "blue": 3.107,
+      "blue_est": true
+    },
+    {
+      "m": "2007-02",
+      "cpi": 0.08267,
+      "src": "sanluis",
+      "mom": 0.6599,
+      "off": 3.1,
+      "blue": 3.1,
+      "blue_est": true
+    },
+    {
+      "m": "2007-03",
+      "cpi": 0.083531,
+      "src": "sanluis",
+      "mom": 1.0415,
+      "off": 3.1,
+      "blue": 3.1,
+      "blue_est": true
+    },
+    {
+      "m": "2007-04",
+      "cpi": 0.085426,
+      "src": "sanluis",
+      "mom": 2.2686,
+      "off": 3.09,
+      "blue": 3.09,
+      "blue_est": true
+    },
+    {
+      "m": "2007-05",
+      "cpi": 0.087206,
+      "src": "sanluis",
+      "mom": 2.0837,
+      "off": 3.077,
+      "blue": 3.077,
+      "blue_est": true
+    },
+    {
+      "m": "2007-06",
+      "cpi": 0.089522,
+      "src": "sanluis",
+      "mom": 2.6558,
+      "off": 3.093,
+      "blue": 3.093,
+      "blue_est": true
+    },
+    {
+      "m": "2007-07",
+      "cpi": 0.091805,
+      "src": "sanluis",
+      "mom": 2.5502,
+      "off": 3.121,
+      "blue": 3.121,
+      "blue_est": true
+    },
+    {
+      "m": "2007-08",
+      "cpi": 0.094855,
+      "src": "sanluis",
+      "mom": 3.3223,
+      "off": 3.156,
+      "blue": 3.156,
+      "blue_est": true
+    },
+    {
+      "m": "2007-09",
+      "cpi": 0.096756,
+      "src": "sanluis",
+      "mom": 2.0041,
+      "off": 3.15,
+      "blue": 3.15,
+      "blue_est": true
+    },
+    {
+      "m": "2007-10",
+      "cpi": 0.09814,
+      "src": "sanluis",
+      "mom": 1.4304,
+      "off": 3.142,
+      "blue": 3.142,
+      "blue_est": true
+    },
+    {
+      "m": "2007-11",
+      "cpi": 0.097745,
+      "src": "sanluis",
+      "mom": -0.4025,
+      "off": 3.145,
+      "blue": 3.145,
+      "blue_est": true
+    },
+    {
+      "m": "2007-12",
+      "cpi": 0.098701,
+      "src": "sanluis",
+      "mom": 0.9781,
+      "off": 3.149,
+      "blue": 3.149,
+      "blue_est": true
+    },
+    {
+      "m": "2008-01",
+      "cpi": 0.100698,
+      "src": "sanluis",
+      "mom": 2.0233,
+      "off": 3.158,
+      "blue": 3.158,
+      "blue_est": true
+    },
+    {
+      "m": "2008-02",
+      "cpi": 0.10295,
+      "src": "sanluis",
+      "mom": 2.2364,
+      "off": 3.161,
+      "blue": 3.161,
+      "blue_est": true
+    },
+    {
+      "m": "2008-03",
+      "cpi": 0.107135,
+      "src": "sanluis",
+      "mom": 4.0651,
+      "off": 3.168,
+      "blue": 3.168,
+      "blue_est": true
+    },
+    {
+      "m": "2008-04",
+      "cpi": 0.110337,
+      "src": "sanluis",
+      "mom": 2.9888,
+      "off": 3.164,
+      "blue": 3.164,
+      "blue_est": true
+    },
+    {
+      "m": "2008-05",
+      "cpi": 0.110612,
+      "src": "sanluis",
+      "mom": 0.2492,
+      "off": 3.099,
+      "blue": 3.099,
+      "blue_est": true
+    },
+    {
+      "m": "2008-06",
+      "cpi": 0.113291,
+      "src": "sanluis",
+      "mom": 2.422,
+      "off": 3.025,
+      "blue": 3.025,
+      "blue_est": true
+    },
+    {
+      "m": "2008-07",
+      "cpi": 0.11488,
+      "src": "sanluis",
+      "mom": 1.4026,
+      "off": 3.044,
+      "blue": 3.044,
+      "blue_est": true
+    },
+    {
+      "m": "2008-08",
+      "cpi": 0.115817,
+      "src": "sanluis",
+      "mom": 0.8156,
+      "off": 3.03,
+      "blue": 3.03,
+      "blue_est": true
+    },
+    {
+      "m": "2008-09",
+      "cpi": 0.117068,
+      "src": "sanluis",
+      "mom": 1.0802,
+      "off": 3.135,
+      "blue": 3.135,
+      "blue_est": true
+    },
+    {
+      "m": "2008-10",
+      "cpi": 0.11775,
+      "src": "sanluis",
+      "mom": 0.5826,
+      "off": 3.388,
+      "blue": 3.388,
+      "blue_est": true
+    },
+    {
+      "m": "2008-11",
+      "cpi": 0.118503,
+      "src": "sanluis",
+      "mom": 0.6395,
+      "off": 3.373,
+      "blue": 3.373,
+      "blue_est": true
+    },
+    {
+      "m": "2008-12",
+      "cpi": 0.119032,
+      "src": "sanluis",
+      "mom": 0.4464,
+      "off": 3.453,
+      "blue": 3.453,
+      "blue_est": true
+    },
+    {
+      "m": "2009-01",
+      "cpi": 0.12041,
+      "src": "sanluis",
+      "mom": 1.1577,
+      "off": 3.488,
+      "blue": 3.488,
+      "blue_est": true
+    },
+    {
+      "m": "2009-02",
+      "cpi": 0.120398,
+      "src": "sanluis",
+      "mom": -0.01,
+      "off": 3.567,
+      "blue": 3.567,
+      "blue_est": true
+    },
+    {
+      "m": "2009-03",
+      "cpi": 0.123211,
+      "src": "sanluis",
+      "mom": 2.3364,
+      "off": 3.72,
+      "blue": 3.72,
+      "blue_est": true
+    },
+    {
+      "m": "2009-04",
+      "cpi": 0.125456,
+      "src": "sanluis",
+      "mom": 1.8221,
+      "off": 3.714,
+      "blue": 3.714,
+      "blue_est": true
+    },
+    {
+      "m": "2009-05",
+      "cpi": 0.126541,
+      "src": "sanluis",
+      "mom": 0.8648,
+      "off": 3.749,
+      "blue": 3.749,
+      "blue_est": true
+    },
+    {
+      "m": "2009-06",
+      "cpi": 0.127211,
+      "src": "sanluis",
+      "mom": 0.5295,
+      "off": 3.797,
+      "blue": 3.797,
+      "blue_est": true
+    },
+    {
+      "m": "2009-07",
+      "cpi": 0.128487,
+      "src": "sanluis",
+      "mom": 1.0031,
+      "off": 3.83,
+      "blue": 3.83,
+      "blue_est": true
+    },
+    {
+      "m": "2009-08",
+      "cpi": 0.130873,
+      "src": "sanluis",
+      "mom": 1.857,
+      "off": 3.851,
+      "blue": 3.851,
+      "blue_est": true
+    },
+    {
+      "m": "2009-09",
+      "cpi": 0.132888,
+      "src": "sanluis",
+      "mom": 1.5397,
+      "off": 3.843,
+      "blue": 3.843,
+      "blue_est": true
+    },
+    {
+      "m": "2009-10",
+      "cpi": 0.135096,
+      "src": "sanluis",
+      "mom": 1.6615,
+      "off": 3.819,
+      "blue": 3.819,
+      "blue_est": true
+    },
+    {
+      "m": "2009-11",
+      "cpi": 0.136646,
+      "src": "sanluis",
+      "mom": 1.1473,
+      "off": 3.811,
+      "blue": 3.811,
+      "blue_est": true
+    },
+    {
+      "m": "2009-12",
+      "cpi": 0.141022,
+      "src": "sanluis",
+      "mom": 3.2024,
+      "off": 3.8,
+      "blue": 3.8,
+      "blue_est": true
+    },
+    {
+      "m": "2010-01",
+      "cpi": 0.144148,
+      "src": "sanluis",
+      "mom": 2.2167,
+      "off": 3.835,
+      "blue": 3.835,
+      "blue_est": true
+    },
+    {
+      "m": "2010-02",
+      "cpi": 0.150425,
+      "src": "sanluis",
+      "mom": 4.3546,
+      "off": 3.859,
+      "blue": 3.859,
+      "blue_est": true
+    },
+    {
+      "m": "2010-03",
+      "cpi": 0.154381,
+      "src": "sanluis",
+      "mom": 2.6299,
+      "off": 3.878,
+      "blue": 3.878,
+      "blue_est": true
+    },
+    {
+      "m": "2010-04",
+      "cpi": 0.156492,
+      "src": "sanluis",
+      "mom": 1.3674,
+      "off": 3.888,
+      "blue": 3.888,
+      "blue_est": true
+    },
+    {
+      "m": "2010-05",
+      "cpi": 0.158967,
+      "src": "sanluis",
+      "mom": 1.5816,
+      "off": 3.929,
+      "blue": 3.929,
+      "blue_est": true
+    },
+    {
+      "m": "2010-06",
+      "cpi": 0.160696,
+      "src": "sanluis",
+      "mom": 1.0876,
+      "off": 3.931,
+      "blue": 3.931,
+      "blue_est": true
+    },
+    {
+      "m": "2010-07",
+      "cpi": 0.16305,
+      "src": "sanluis",
+      "mom": 1.4649,
+      "off": 3.94,
+      "blue": 3.94,
+      "blue_est": true
+    },
+    {
+      "m": "2010-08",
+      "cpi": 0.164779,
+      "src": "sanluis",
+      "mom": 1.0604,
+      "off": 3.95,
+      "blue": 3.95,
+      "blue_est": true
+    },
+    {
+      "m": "2010-09",
+      "cpi": 0.167394,
+      "src": "sanluis",
+      "mom": 1.587,
+      "off": 3.96,
+      "blue": 3.96,
+      "blue_est": true
+    },
+    {
+      "m": "2010-10",
+      "cpi": 0.172862,
+      "src": "sanluis",
+      "mom": 3.2665,
+      "off": 3.957,
+      "blue": 3.957,
+      "blue_est": true
+    },
+    {
+      "m": "2010-11",
+      "cpi": 0.176141,
+      "src": "sanluis",
+      "mom": 1.8969,
+      "off": 3.988,
+      "blue": 3.988,
+      "blue_est": true
+    },
+    {
+      "m": "2010-12",
+      "cpi": 0.179139,
+      "src": "sanluis",
+      "mom": 1.702,
+      "off": 3.976,
+      "blue": 3.976,
+      "blue_est": true
+    },
+    {
+      "m": "2011-01",
+      "cpi": 0.18111,
+      "src": "sanluis",
+      "mom": 1.1003,
+      "off": 4.008,
+      "blue": 4.0,
+      "blue_est": false
+    },
+    {
+      "m": "2011-02",
+      "cpi": 0.183062,
+      "src": "sanluis",
+      "mom": 1.0778,
+      "off": 4.03,
+      "blue": 4.0,
+      "blue_est": false
+    },
+    {
+      "m": "2011-03",
+      "cpi": 0.18793,
+      "src": "sanluis",
+      "mom": 2.6592,
+      "off": 4.054,
+      "blue": 4.0,
+      "blue_est": false
+    },
+    {
+      "m": "2011-04",
+      "cpi": 0.19281,
+      "src": "sanluis",
+      "mom": 2.5967,
+      "off": 4.08,
+      "blue": 4.0,
+      "blue_est": false
+    },
+    {
+      "m": "2011-05",
+      "cpi": 0.196165,
+      "src": "sanluis",
+      "mom": 1.7401,
+      "off": 4.09,
+      "blue": 4.0,
+      "blue_est": false
+    },
+    {
+      "m": "2011-06",
+      "cpi": 0.199119,
+      "src": "sanluis",
+      "mom": 1.5059,
+      "off": 4.11,
+      "blue": 4.0,
+      "blue_est": false
+    },
+    {
+      "m": "2011-07",
+      "cpi": 0.202583,
+      "src": "sanluis",
+      "mom": 1.7397,
+      "off": 4.145,
+      "blue": 4.0,
+      "blue_est": false
+    },
+    {
+      "m": "2011-08",
+      "cpi": 0.207508,
+      "src": "sanluis",
+      "mom": 2.4311,
+      "off": 4.2,
+      "blue": 4.0,
+      "blue_est": false
+    },
+    {
+      "m": "2011-09",
+      "cpi": 0.211489,
+      "src": "sanluis",
+      "mom": 1.9185,
+      "off": 4.205,
+      "blue": 4.0,
+      "blue_est": false
+    },
+    {
+      "m": "2011-10",
+      "cpi": 0.213817,
+      "src": "sanluis",
+      "mom": 1.1008,
+      "off": 4.236,
+      "blue": 4.0,
+      "blue_est": false
+    },
+    {
+      "m": "2011-11",
+      "cpi": 0.21679,
+      "src": "sanluis",
+      "mom": 1.3904,
+      "off": 4.281,
+      "blue": 5.0,
+      "blue_est": false
+    },
+    {
+      "m": "2011-12",
+      "cpi": 0.220834,
+      "src": "sanluis",
+      "mom": 1.8654,
+      "off": 4.304,
+      "blue": 5.0,
+      "blue_est": false
+    },
+    {
+      "m": "2012-01",
+      "cpi": 0.223386,
+      "src": "sanluis",
+      "mom": 1.1556,
+      "off": 4.337,
+      "blue": 5.0,
+      "blue_est": false
+    },
+    {
+      "m": "2012-02",
+      "cpi": 0.226671,
+      "src": "sanluis",
+      "mom": 1.4705,
+      "off": 4.357,
+      "blue": 5.0,
+      "blue_est": false
+    },
+    {
+      "m": "2012-03",
+      "cpi": 0.234352,
+      "src": "sanluis",
+      "mom": 3.3886,
+      "off": 4.379,
+      "blue": 5.0,
+      "blue_est": false
+    },
+    {
+      "m": "2012-04",
+      "cpi": 0.239041,
+      "src": "sanluis",
+      "mom": 2.0008,
+      "off": 4.417,
+      "blue": 5.0,
+      "blue_est": false
+    },
+    {
+      "m": "2012-05",
+      "cpi": 0.243602,
+      "src": "sanluis",
+      "mom": 1.908,
+      "off": 4.471,
+      "blue": 5.0,
+      "blue_est": false
+    },
+    {
+      "m": "2012-06",
+      "cpi": 0.246856,
+      "src": "sanluis",
+      "mom": 1.3358,
+      "off": 4.527,
+      "blue": 6.0,
+      "blue_est": false
+    },
+    {
+      "m": "2012-07",
+      "cpi": 0.252986,
+      "src": "sanluis",
+      "mom": 2.4832,
+      "off": 4.585,
+      "blue": 6.0,
+      "blue_est": false
+    },
+    {
+      "m": "2012-08",
+      "cpi": 0.25557,
+      "src": "sanluis",
+      "mom": 1.0214,
+      "off": 4.638,
+      "blue": 6.0,
+      "blue_est": false
+    },
+    {
+      "m": "2012-09",
+      "cpi": 0.259589,
+      "src": "sanluis",
+      "mom": 1.5726,
+      "off": 4.697,
+      "blue": 6.0,
+      "blue_est": false
+    },
+    {
+      "m": "2012-10",
+      "cpi": 0.263468,
+      "src": "sanluis",
+      "mom": 1.4943,
+      "off": 4.766,
+      "blue": 6.0,
+      "blue_est": false
+    },
+    {
+      "m": "2012-11",
+      "cpi": 0.268469,
+      "src": "sanluis",
+      "mom": 1.8981,
+      "off": 4.838,
+      "blue": 6.0,
+      "blue_est": false
+    },
+    {
+      "m": "2012-12",
+      "cpi": 0.27164,
+      "src": "sanluis",
+      "mom": 1.1811,
+      "off": 4.918,
+      "blue": 6.0,
+      "blue_est": false
+    },
+    {
+      "m": "2013-01",
+      "cpi": 0.276169,
+      "src": "sanluis",
+      "mom": 1.6673,
+      "off": 4.978,
+      "blue": 7.0,
+      "blue_est": false
+    },
+    {
+      "m": "2013-02",
+      "cpi": 0.28309,
+      "src": "sanluis",
+      "mom": 2.5061,
+      "off": 5.046,
+      "blue": 8.0,
+      "blue_est": false
+    },
+    {
+      "m": "2013-03",
+      "cpi": 0.290101,
+      "src": "sanluis",
+      "mom": 2.4766,
+      "off": 5.122,
+      "blue": 8.0,
+      "blue_est": false
+    },
+    {
+      "m": "2013-04",
+      "cpi": 0.294841,
+      "src": "sanluis",
+      "mom": 1.6339,
+      "off": 5.187,
+      "blue": 8.0,
+      "blue_est": false
+    },
+    {
+      "m": "2013-05",
+      "cpi": 0.300474,
+      "src": "sanluis",
+      "mom": 1.9105,
+      "off": 5.284,
+      "blue": 10.0,
+      "blue_est": false
+    },
+    {
+      "m": "2013-06",
+      "cpi": 0.307523,
+      "src": "sanluis",
+      "mom": 2.346,
+      "off": 5.388,
+      "blue": 8.0,
+      "blue_est": false
+    },
+    {
+      "m": "2013-07",
+      "cpi": 0.314483,
+      "src": "sanluis",
+      "mom": 2.2632,
+      "off": 5.505,
+      "blue": 8.0,
+      "blue_est": false
+    },
+    {
+      "m": "2013-08",
+      "cpi": 0.320454,
+      "src": "sanluis",
+      "mom": 1.8987,
+      "off": 5.672,
+      "blue": 8.0,
+      "blue_est": false
+    },
+    {
+      "m": "2013-09",
+      "cpi": 0.326547,
+      "src": "sanluis",
+      "mom": 1.9014,
+      "off": 5.793,
+      "blue": 9.0,
+      "blue_est": false
+    },
+    {
+      "m": "2013-10",
+      "cpi": 0.337475,
+      "src": "sanluis",
+      "mom": 3.3465,
+      "off": 5.912,
+      "blue": 9.0,
+      "blue_est": false
+    },
+    {
+      "m": "2013-11",
+      "cpi": 0.347114,
+      "src": "sanluis",
+      "mom": 2.8562,
+      "off": 6.141,
+      "blue": 10.0,
+      "blue_est": false
+    },
+    {
+      "m": "2013-12",
+      "cpi": 0.358412,
+      "src": "sanluis",
+      "mom": 3.2548,
+      "off": 6.521,
+      "blue": 9.0,
+      "blue_est": false
+    },
+    {
+      "m": "2014-01",
+      "cpi": 0.373409,
+      "src": "sanluis",
+      "mom": 4.1843,
+      "off": 8.01,
+      "blue": 10.0,
+      "blue_est": false
+    },
+    {
+      "m": "2014-02",
+      "cpi": 0.40019,
+      "src": "sanluis",
+      "mom": 7.172,
+      "off": 7.874,
+      "blue": 12.0,
+      "blue_est": false
+    },
+    {
+      "m": "2014-03",
+      "cpi": 0.416183,
+      "src": "sanluis",
+      "mom": 3.9964,
+      "off": 8.002,
+      "blue": 11.0,
+      "blue_est": false
+    },
+    {
+      "m": "2014-04",
+      "cpi": 0.42477,
+      "src": "sanluis",
+      "mom": 2.0633,
+      "off": 8.002,
+      "blue": 11.0,
+      "blue_est": false
+    },
+    {
+      "m": "2014-05",
+      "cpi": 0.435608,
+      "src": "sanluis",
+      "mom": 2.5515,
+      "off": 8.08,
+      "blue": 11.0,
+      "blue_est": false
+    },
+    {
+      "m": "2014-06",
+      "cpi": 0.443448,
+      "src": "sanluis",
+      "mom": 1.7998,
+      "off": 8.133,
+      "blue": 11.0,
+      "blue_est": false
+    },
+    {
+      "m": "2014-07",
+      "cpi": 0.452175,
+      "src": "sanluis",
+      "mom": 1.968,
+      "off": 8.213,
+      "blue": 12.0,
+      "blue_est": false
+    },
+    {
+      "m": "2014-08",
+      "cpi": 0.463543,
+      "src": "sanluis",
+      "mom": 2.5141,
+      "off": 8.401,
+      "blue": 13.0,
+      "blue_est": false
+    },
+    {
+      "m": "2014-09",
+      "cpi": 0.477884,
+      "src": "sanluis",
+      "mom": 3.0938,
+      "off": 8.43,
+      "blue": 14.0,
+      "blue_est": false
+    },
+    {
+      "m": "2014-10",
+      "cpi": 0.483881,
+      "src": "sanluis",
+      "mom": 1.2549,
+      "off": 8.5,
+      "blue": 16.0,
+      "blue_est": false
+    },
+    {
+      "m": "2014-11",
+      "cpi": 0.490981,
+      "src": "sanluis",
+      "mom": 1.4673,
+      "off": 8.524,
+      "blue": 14.0,
+      "blue_est": false
+    },
+    {
+      "m": "2014-12",
+      "cpi": 0.498222,
+      "src": "sanluis",
+      "mom": 1.4748,
+      "off": 8.551,
+      "blue": 13.0,
+      "blue_est": false
+    },
+    {
+      "m": "2015-01",
+      "cpi": 0.505717,
+      "src": "sanluis",
+      "mom": 1.5043,
+      "off": 8.644,
+      "blue": 14.0,
+      "blue_est": false
+    },
+    {
+      "m": "2015-02",
+      "cpi": 0.515841,
+      "src": "sanluis",
+      "mom": 2.0019,
+      "off": 8.726,
+      "blue": 14.0,
+      "blue_est": false
+    },
+    {
+      "m": "2015-03",
+      "cpi": 0.52645,
+      "src": "sanluis",
+      "mom": 2.0566,
+      "off": 8.822,
+      "blue": 13.0,
+      "blue_est": false
+    },
+    {
+      "m": "2015-04",
+      "cpi": 0.536051,
+      "src": "sanluis",
+      "mom": 1.8237,
+      "off": 8.907,
+      "blue": 13.0,
+      "blue_est": false
+    },
+    {
+      "m": "2015-05",
+      "cpi": 0.546545,
+      "src": "sanluis",
+      "mom": 1.9576,
+      "off": 8.992,
+      "blue": 13.0,
+      "blue_est": false
+    },
+    {
+      "m": "2015-06",
+      "cpi": 0.552612,
+      "src": "sanluis",
+      "mom": 1.1101,
+      "off": 9.088,
+      "blue": 13.0,
+      "blue_est": false
+    },
+    {
+      "m": "2015-07",
+      "cpi": 0.565345,
+      "src": "sanluis",
+      "mom": 2.3041,
+      "off": 9.19,
+      "blue": 13.0,
+      "blue_est": false
+    },
+    {
+      "m": "2015-08",
+      "cpi": 0.576171,
+      "src": "sanluis",
+      "mom": 1.9149,
+      "off": 9.296,
+      "blue": 15.0,
+      "blue_est": false
+    },
+    {
+      "m": "2015-09",
+      "cpi": 0.590238,
+      "src": "sanluis",
+      "mom": 2.4415,
+      "off": 9.422,
+      "blue": 15.0,
+      "blue_est": false
+    },
+    {
+      "m": "2015-10",
+      "cpi": 0.598403,
+      "src": "sanluis",
+      "mom": 1.3833,
+      "off": 9.546,
+      "blue": 16.0,
+      "blue_est": false
+    },
+    {
+      "m": "2015-11",
+      "cpi": 0.615583,
+      "src": "sanluis",
+      "mom": 2.871,
+      "off": 9.688,
+      "blue": 16.0,
+      "blue_est": false
+    },
+    {
+      "m": "2015-12",
+      "cpi": 0.655505,
+      "src": "sanluis",
+      "mom": 6.4852,
+      "off": 13.04,
+      "blue": 15.0,
+      "blue_est": false
+    },
+    {
+      "m": "2016-01",
+      "cpi": 0.682987,
+      "src": "sanluis",
+      "mom": 4.1925,
+      "off": 13.96,
+      "blue": 14.0,
+      "blue_est": false
+    },
+    {
+      "m": "2016-02",
+      "cpi": 0.701513,
+      "src": "sanluis",
+      "mom": 2.7125,
+      "off": 15.8,
+      "blue": 14.0,
+      "blue_est": false
+    },
+    {
+      "m": "2016-03",
+      "cpi": 0.722392,
+      "src": "sanluis",
+      "mom": 2.9763,
+      "off": 14.7,
+      "blue": 16.0,
+      "blue_est": false
+    },
+    {
+      "m": "2016-04",
+      "cpi": 0.746915,
+      "src": "sanluis",
+      "mom": 3.3947,
+      "off": 14.25,
+      "blue": 15.0,
+      "blue_est": false
+    },
+    {
+      "m": "2016-05",
+      "cpi": 0.778193,
+      "src": "sanluis",
+      "mom": 4.1876,
+      "off": 13.991,
+      "blue": 15.0,
+      "blue_est": false
+    },
+    {
+      "m": "2016-06",
+      "cpi": 0.789599,
+      "src": "sanluis",
+      "mom": 1.4657,
+      "off": 15.04,
+      "blue": 14.0,
+      "blue_est": false
+    },
+    {
+      "m": "2016-07",
+      "cpi": 0.807468,
+      "src": "sanluis",
+      "mom": 2.263,
+      "off": 15.01,
+      "blue": 15.0,
+      "blue_est": false
+    },
+    {
+      "m": "2016-08",
+      "cpi": 0.812603,
+      "src": "sanluis",
+      "mom": 0.6359,
+      "off": 14.93,
+      "blue": 15.0,
+      "blue_est": false
+    },
+    {
+      "m": "2016-09",
+      "cpi": 0.826306,
+      "src": "sanluis",
+      "mom": 1.6863,
+      "off": 15.31,
+      "blue": 15.0,
+      "blue_est": false
+    },
+    {
+      "m": "2016-10",
+      "cpi": 0.843096,
+      "src": "sanluis",
+      "mom": 2.0319,
+      "off": 15.15,
+      "blue": 16.0,
+      "blue_est": false
+    },
+    {
+      "m": "2016-11",
+      "cpi": 0.854209,
+      "src": "sanluis",
+      "mom": 1.3181,
+      "off": 15.868,
+      "blue": 16.0,
+      "blue_est": false
+    },
+    {
+      "m": "2016-12",
+      "cpi": 0.86152,
+      "src": "nacional",
+      "mom": 0.8559,
+      "off": 15.89,
+      "blue": 16.0,
+      "blue_est": false
+    },
+    {
+      "m": "2017-01",
+      "cpi": 0.875183,
+      "src": "nacional",
+      "mom": 1.5859,
+      "off": 15.897,
+      "blue": 17.0,
+      "blue_est": false
+    },
+    {
+      "m": "2017-02",
+      "cpi": 0.893275,
+      "src": "nacional",
+      "mom": 2.0672,
+      "off": 15.48,
+      "blue": 17.0,
+      "blue_est": false
+    },
+    {
+      "m": "2017-03",
+      "cpi": 0.914483,
+      "src": "nacional",
+      "mom": 2.3742,
+      "off": 15.39,
+      "blue": 16.0,
+      "blue_est": false
+    },
+    {
+      "m": "2017-04",
+      "cpi": 0.93877,
+      "src": "nacional",
+      "mom": 2.6558,
+      "off": 15.4,
+      "blue": 16.0,
+      "blue_est": false
+    },
+    {
+      "m": "2017-05",
+      "cpi": 0.952239,
+      "src": "nacional",
+      "mom": 1.4347,
+      "off": 16.1,
+      "blue": 16.0,
+      "blue_est": false
+    },
+    {
+      "m": "2017-06",
+      "cpi": 0.96359,
+      "src": "nacional",
+      "mom": 1.192,
+      "off": 16.601,
+      "blue": 16.0,
+      "blue_est": false
+    },
+    {
+      "m": "2017-07",
+      "cpi": 0.980282,
+      "src": "nacional",
+      "mom": 1.7323,
+      "off": 17.64,
+      "blue": 17.0,
+      "blue_est": false
+    },
+    {
+      "m": "2017-08",
+      "cpi": 0.994038,
+      "src": "nacional",
+      "mom": 1.4033,
+      "off": 17.31,
+      "blue": 18.0,
+      "blue_est": false
+    },
+    {
+      "m": "2017-09",
+      "cpi": 1.012905,
+      "src": "nacional",
+      "mom": 1.898,
+      "off": 17.33,
+      "blue": 18.0,
+      "blue_est": false
+    },
+    {
+      "m": "2017-10",
+      "cpi": 1.028248,
+      "src": "nacional",
+      "mom": 1.5148,
+      "off": 17.66,
+      "blue": 18.0,
+      "blue_est": false
+    },
+    {
+      "m": "2017-11",
+      "cpi": 1.042387,
+      "src": "nacional",
+      "mom": 1.3751,
+      "off": 17.301,
+      "blue": 18.0,
+      "blue_est": false
+    },
+    {
+      "m": "2017-12",
+      "cpi": 1.075139,
+      "src": "nacional",
+      "mom": 3.142,
+      "off": 18.649,
+      "blue": 18.0,
+      "blue_est": false
+    },
+    {
+      "m": "2018-01",
+      "cpi": 1.094033,
+      "src": "nacional",
+      "mom": 1.7574,
+      "off": 19.65,
+      "blue": 19.0,
+      "blue_est": false
+    },
+    {
+      "m": "2018-02",
+      "cpi": 1.120498,
+      "src": "nacional",
+      "mom": 2.419,
+      "off": 20.11,
+      "blue": 20.0,
+      "blue_est": false
+    },
+    {
+      "m": "2018-03",
+      "cpi": 1.146729,
+      "src": "nacional",
+      "mom": 2.341,
+      "off": 20.149,
+      "blue": 20.0,
+      "blue_est": false
+    },
+    {
+      "m": "2018-04",
+      "cpi": 1.178139,
+      "src": "nacional",
+      "mom": 2.7391,
+      "off": 20.535,
+      "blue": 21.0,
+      "blue_est": false
+    },
+    {
+      "m": "2018-05",
+      "cpi": 1.20259,
+      "src": "nacional",
+      "mom": 2.0754,
+      "off": 24.96,
+      "blue": 21.0,
+      "blue_est": false
+    },
+    {
+      "m": "2018-06",
+      "cpi": 1.247526,
+      "src": "nacional",
+      "mom": 3.7366,
+      "off": 28.85,
+      "blue": 26.0,
+      "blue_est": false
+    },
+    {
+      "m": "2018-07",
+      "cpi": 1.28622,
+      "src": "nacional",
+      "mom": 3.1017,
+      "off": 27.41,
+      "blue": 29.0,
+      "blue_est": false
+    },
+    {
+      "m": "2018-08",
+      "cpi": 1.336247,
+      "src": "nacional",
+      "mom": 3.8895,
+      "off": 36.85,
+      "blue": 28.0,
+      "blue_est": false
+    },
+    {
+      "m": "2018-09",
+      "cpi": 1.423561,
+      "src": "nacional",
+      "mom": 6.5343,
+      "off": 41.25,
+      "blue": 38.0,
+      "blue_est": false
+    },
+    {
+      "m": "2018-10",
+      "cpi": 1.500314,
+      "src": "nacional",
+      "mom": 5.3916,
+      "off": 35.95,
+      "blue": 41.0,
+      "blue_est": false
+    },
+    {
+      "m": "2018-11",
+      "cpi": 1.547624,
+      "src": "nacional",
+      "mom": 3.1533,
+      "off": 37.72,
+      "blue": 36.0,
+      "blue_est": false
+    },
+    {
+      "m": "2018-12",
+      "cpi": 1.587395,
+      "src": "nacional",
+      "mom": 2.5698,
+      "off": 37.7,
+      "blue": 38.0,
+      "blue_est": false
+    },
+    {
+      "m": "2019-01",
+      "cpi": 1.633529,
+      "src": "nacional",
+      "mom": 2.9063,
+      "off": 37.35,
+      "blue": 40.0,
+      "blue_est": false
+    },
+    {
+      "m": "2019-02",
+      "cpi": 1.695041,
+      "src": "nacional",
+      "mom": 3.7656,
+      "off": 39.15,
+      "blue": 38.0,
+      "blue_est": false
+    },
+    {
+      "m": "2019-03",
+      "cpi": 1.774361,
+      "src": "nacional",
+      "mom": 4.6795,
+      "off": 43.345,
+      "blue": 39.0,
+      "blue_est": false
+    },
+    {
+      "m": "2019-04",
+      "cpi": 1.83469,
+      "src": "nacional",
+      "mom": 3.4,
+      "off": 44.15,
+      "blue": 44.0,
+      "blue_est": false
+    },
+    {
+      "m": "2019-05",
+      "cpi": 1.891631,
+      "src": "nacional",
+      "mom": 3.1036,
+      "off": 44.76,
+      "blue": 46.0,
+      "blue_est": false
+    },
+    {
+      "m": "2019-06",
+      "cpi": 1.943046,
+      "src": "nacional",
+      "mom": 2.718,
+      "off": 42.45,
+      "blue": 46.0,
+      "blue_est": false
+    },
+    {
+      "m": "2019-07",
+      "cpi": 1.985752,
+      "src": "nacional",
+      "mom": 2.1979,
+      "off": 43.87,
+      "blue": 44.0,
+      "blue_est": false
+    },
+    {
+      "m": "2019-08",
+      "cpi": 2.064268,
+      "src": "nacional",
+      "mom": 3.954,
+      "off": 59.51,
+      "blue": 45.0,
+      "blue_est": false
+    },
+    {
+      "m": "2019-09",
+      "cpi": 2.185764,
+      "src": "nacional",
+      "mom": 5.8857,
+      "off": 57.595,
+      "blue": 63.0,
+      "blue_est": false
+    },
+    {
+      "m": "2019-10",
+      "cpi": 2.257751,
+      "src": "nacional",
+      "mom": 3.2934,
+      "off": 59.67,
+      "blue": 61.0,
+      "blue_est": false
+    },
+    {
+      "m": "2019-11",
+      "cpi": 2.353808,
+      "src": "nacional",
+      "mom": 4.2545,
+      "off": 59.94,
+      "blue": 68.0,
+      "blue_est": false
+    },
+    {
+      "m": "2019-12",
+      "cpi": 2.441928,
+      "src": "nacional",
+      "mom": 3.7437,
+      "off": 59.89,
+      "blue": 69.0,
+      "blue_est": false
+    },
+    {
+      "m": "2020-01",
+      "cpi": 2.496942,
+      "src": "nacional",
+      "mom": 2.2529,
+      "off": 60.35,
+      "blue": 78.0,
+      "blue_est": false
+    },
+    {
+      "m": "2020-02",
+      "cpi": 2.547221,
+      "src": "nacional",
+      "mom": 2.0136,
+      "off": 62.21,
+      "blue": 78.0,
+      "blue_est": false
+    },
+    {
+      "m": "2020-03",
+      "cpi": 2.632387,
+      "src": "nacional",
+      "mom": 3.3435,
+      "off": 64.469,
+      "blue": 78.0,
+      "blue_est": false
+    },
+    {
+      "m": "2020-04",
+      "cpi": 2.671782,
+      "src": "nacional",
+      "mom": 1.4966,
+      "off": 66.84,
+      "blue": 84.0,
+      "blue_est": false
+    },
+    {
+      "m": "2020-05",
+      "cpi": 2.713001,
+      "src": "nacional",
+      "mom": 1.5428,
+      "off": 68.54,
+      "blue": 118.0,
+      "blue_est": false
+    },
+    {
+      "m": "2020-06",
+      "cpi": 2.773868,
+      "src": "nacional",
+      "mom": 2.2435,
+      "off": 70.46,
+      "blue": 128.0,
+      "blue_est": false
+    },
+    {
+      "m": "2020-07",
+      "cpi": 2.82752,
+      "src": "nacional",
+      "mom": 1.9342,
+      "off": 72.32,
+      "blue": 128.0,
+      "blue_est": false
+    },
+    {
+      "m": "2020-08",
+      "cpi": 2.903866,
+      "src": "nacional",
+      "mom": 2.7001,
+      "off": 74.18,
+      "blue": 136.0,
+      "blue_est": false
+    },
+    {
+      "m": "2020-09",
+      "cpi": 2.986206,
+      "src": "nacional",
+      "mom": 2.8355,
+      "off": 76.18,
+      "blue": 133.0,
+      "blue_est": false
+    },
+    {
+      "m": "2020-10",
+      "cpi": 3.098516,
+      "src": "nacional",
+      "mom": 3.761,
+      "off": 78.32,
+      "blue": 147.0,
+      "blue_est": false
+    },
+    {
+      "m": "2020-11",
+      "cpi": 3.19642,
+      "src": "nacional",
+      "mom": 3.1597,
+      "off": 81.31,
+      "blue": 168.0,
+      "blue_est": false
+    },
+    {
+      "m": "2020-12",
+      "cpi": 3.324455,
+      "src": "nacional",
+      "mom": 4.0056,
+      "off": 84.15,
+      "blue": 153.0,
+      "blue_est": false
+    },
+    {
+      "m": "2021-01",
+      "cpi": 3.459063,
+      "src": "nacional",
+      "mom": 4.049,
+      "off": 87.33,
+      "blue": 166.0,
+      "blue_est": false
+    },
+    {
+      "m": "2021-02",
+      "cpi": 3.582712,
+      "src": "nacional",
+      "mom": 3.5746,
+      "off": 89.82,
+      "blue": 153.0,
+      "blue_est": false
+    },
+    {
+      "m": "2021-03",
+      "cpi": 3.755069,
+      "src": "nacional",
+      "mom": 4.8108,
+      "off": 92.0,
+      "blue": 147.0,
+      "blue_est": false
+    },
+    {
+      "m": "2021-04",
+      "cpi": 3.908287,
+      "src": "nacional",
+      "mom": 4.0803,
+      "off": 93.56,
+      "blue": 141.0,
+      "blue_est": false
+    },
+    {
+      "m": "2021-05",
+      "cpi": 4.038159,
+      "src": "nacional",
+      "mom": 3.323,
+      "off": 94.56,
+      "blue": 153.0,
+      "blue_est": false
+    },
+    {
+      "m": "2021-06",
+      "cpi": 4.166352,
+      "src": "nacional",
+      "mom": 3.1745,
+      "off": 95.72,
+      "blue": 155.0,
+      "blue_est": false
+    },
+    {
+      "m": "2021-07",
+      "cpi": 4.291219,
+      "src": "nacional",
+      "mom": 2.997,
+      "off": 96.69,
+      "blue": 169.0,
+      "blue_est": false
+    },
+    {
+      "m": "2021-08",
+      "cpi": 4.397147,
+      "src": "nacional",
+      "mom": 2.4685,
+      "off": 97.74,
+      "blue": 180.0,
+      "blue_est": false
+    },
+    {
+      "m": "2021-09",
+      "cpi": 4.553105,
+      "src": "nacional",
+      "mom": 3.5468,
+      "off": 98.74,
+      "blue": 180.0,
+      "blue_est": false
+    },
+    {
+      "m": "2021-10",
+      "cpi": 4.713204,
+      "src": "nacional",
+      "mom": 3.5163,
+      "off": 99.72,
+      "blue": 186.0,
+      "blue_est": false
+    },
+    {
+      "m": "2021-11",
+      "cpi": 4.832423,
+      "src": "nacional",
+      "mom": 2.5295,
+      "off": 100.96,
+      "blue": 196.0,
+      "blue_est": false
+    },
+    {
+      "m": "2021-12",
+      "cpi": 5.017987,
+      "src": "nacional",
+      "mom": 3.84,
+      "off": 102.72,
+      "blue": 200.0,
+      "blue_est": false
+    },
+    {
+      "m": "2022-01",
+      "cpi": 5.212468,
+      "src": "nacional",
+      "mom": 3.8757,
+      "off": 105.02,
+      "blue": 206.0,
+      "blue_est": false
+    },
+    {
+      "m": "2022-02",
+      "cpi": 5.45716,
+      "src": "nacional",
+      "mom": 4.6944,
+      "off": 107.45,
+      "blue": 214.0,
+      "blue_est": false
+    },
+    {
+      "m": "2022-03",
+      "cpi": 5.824362,
+      "src": "nacional",
+      "mom": 6.7288,
+      "off": 111.01,
+      "blue": 211.0,
+      "blue_est": false
+    },
+    {
+      "m": "2022-04",
+      "cpi": 6.17658,
+      "src": "nacional",
+      "mom": 6.0473,
+      "off": 115.31,
+      "blue": 200.0,
+      "blue_est": false
+    },
+    {
+      "m": "2022-05",
+      "cpi": 6.488511,
+      "src": "nacional",
+      "mom": 5.0502,
+      "off": 120.2,
+      "blue": 201.0,
+      "blue_est": false
+    },
+    {
+      "m": "2022-06",
+      "cpi": 6.832092,
+      "src": "nacional",
+      "mom": 5.2952,
+      "off": 125.23,
+      "blue": 206.0,
+      "blue_est": false
+    },
+    {
+      "m": "2022-07",
+      "cpi": 7.33809,
+      "src": "nacional",
+      "mom": 7.4062,
+      "off": 131.27,
+      "blue": 239.0,
+      "blue_est": false
+    },
+    {
+      "m": "2022-08",
+      "cpi": 7.84958,
+      "src": "nacional",
+      "mom": 6.9703,
+      "off": 138.73,
+      "blue": 282.0,
+      "blue_est": false
+    },
+    {
+      "m": "2022-09",
+      "cpi": 8.333547,
+      "src": "nacional",
+      "mom": 6.1655,
+      "off": 147.32,
+      "blue": 285.0,
+      "blue_est": false
+    },
+    {
+      "m": "2022-10",
+      "cpi": 8.862506,
+      "src": "nacional",
+      "mom": 6.3473,
+      "off": 156.91,
+      "blue": 284.0,
+      "blue_est": false
+    },
+    {
+      "m": "2022-11",
+      "cpi": 9.2982,
+      "src": "nacional",
+      "mom": 4.9161,
+      "off": 167.28,
+      "blue": 290.0,
+      "blue_est": false
+    },
+    {
+      "m": "2022-12",
+      "cpi": 9.774696,
+      "src": "nacional",
+      "mom": 5.1246,
+      "off": 177.16,
+      "blue": 313.0,
+      "blue_est": false
+    },
+    {
+      "m": "2023-01",
+      "cpi": 10.363903,
+      "src": "nacional",
+      "mom": 6.0279,
+      "off": 187.0,
+      "blue": 346.0,
+      "blue_est": false
+    },
+    {
+      "m": "2023-02",
+      "cpi": 11.050793,
+      "src": "nacional",
+      "mom": 6.6277,
+      "off": 197.15,
+      "blue": 377.0,
+      "blue_est": false
+    },
+    {
+      "m": "2023-03",
+      "cpi": 11.898968,
+      "src": "nacional",
+      "mom": 7.6752,
+      "off": 209.01,
+      "blue": 375.0,
+      "blue_est": false
+    },
+    {
+      "m": "2023-04",
+      "cpi": 12.898802,
+      "src": "nacional",
+      "mom": 8.4027,
+      "off": 222.68,
+      "blue": 392.0,
+      "blue_est": false
+    },
+    {
+      "m": "2023-05",
+      "cpi": 13.901394,
+      "src": "nacional",
+      "mom": 7.7728,
+      "off": 239.5,
+      "blue": 469.0,
+      "blue_est": false
+    },
+    {
+      "m": "2023-06",
+      "cpi": 14.728642,
+      "src": "nacional",
+      "mom": 5.9508,
+      "off": 256.7,
+      "blue": 490.0,
+      "blue_est": false
+    },
+    {
+      "m": "2023-07",
+      "cpi": 15.663153,
+      "src": "nacional",
+      "mom": 6.3449,
+      "off": 275.25,
+      "blue": 495.0,
+      "blue_est": false
+    },
+    {
+      "m": "2023-08",
+      "cpi": 17.611905,
+      "src": "nacional",
+      "mom": 12.4416,
+      "off": 350.0,
+      "blue": 560.0,
+      "blue_est": false
+    },
+    {
+      "m": "2023-09",
+      "cpi": 19.857379,
+      "src": "nacional",
+      "mom": 12.7498,
+      "off": 349.9501,
+      "blue": 730.0,
+      "blue_est": false
+    },
+    {
+      "m": "2023-10",
+      "cpi": 21.505887,
+      "src": "nacional",
+      "mom": 8.3017,
+      "off": 350.0,
+      "blue": 800.0,
+      "blue_est": false
+    },
+    {
+      "m": "2023-11",
+      "cpi": 24.26094,
+      "src": "nacional",
+      "mom": 12.8107,
+      "off": 360.5,
+      "blue": 915.0,
+      "blue_est": false
+    },
+    {
+      "m": "2023-12",
+      "cpi": 30.439152,
+      "src": "nacional",
+      "mom": 25.4657,
+      "off": 808.4501,
+      "blue": 955.0,
+      "blue_est": false
+    },
+    {
+      "m": "2024-01",
+      "cpi": 36.713947,
+      "src": "nacional",
+      "mom": 20.6142,
+      "off": 826.4001,
+      "blue": 1025.0,
+      "blue_est": false
+    },
+    {
+      "m": "2024-02",
+      "cpi": 41.575122,
+      "src": "nacional",
+      "mom": 13.2407,
+      "off": 842.2001,
+      "blue": 1195.0,
+      "blue_est": false
+    },
+    {
+      "m": "2024-03",
+      "cpi": 46.152418,
+      "src": "nacional",
+      "mom": 11.0097,
+      "off": 858.0001,
+      "blue": 1050.0,
+      "blue_est": false
+    },
+    {
+      "m": "2024-04",
+      "cpi": 50.228563,
+      "src": "nacional",
+      "mom": 8.8319,
+      "off": 876.5001,
+      "blue": 1010.0,
+      "blue_est": false
+    },
+    {
+      "m": "2024-05",
+      "cpi": 52.326131,
+      "src": "nacional",
+      "mom": 4.176,
+      "off": 895.5,
+      "blue": 1055.0,
+      "blue_est": false
+    },
+    {
+      "m": "2024-06",
+      "cpi": 54.721281,
+      "src": "nacional",
+      "mom": 4.5773,
+      "off": 912.0,
+      "blue": 1235.0,
+      "blue_est": false
+    },
+    {
+      "m": "2024-07",
+      "cpi": 56.927059,
+      "src": "nacional",
+      "mom": 4.0309,
+      "off": 933.0,
+      "blue": 1405.0,
+      "blue_est": false
+    },
+    {
+      "m": "2024-08",
+      "cpi": 59.302212,
+      "src": "nacional",
+      "mom": 4.1723,
+      "off": 953.5,
+      "blue": 1380.0,
+      "blue_est": false
+    },
+    {
+      "m": "2024-09",
+      "cpi": 61.359529,
+      "src": "nacional",
+      "mom": 3.4692,
+      "off": 970.5,
+      "blue": 1305.0,
+      "blue_est": false
+    },
+    {
+      "m": "2024-10",
+      "cpi": 63.011167,
+      "src": "nacional",
+      "mom": 2.6917,
+      "off": 992.0,
+      "blue": 1220.0,
+      "blue_est": false
+    },
+    {
+      "m": "2024-11",
+      "cpi": 64.540168,
+      "src": "nacional",
+      "mom": 2.4266,
+      "off": 1011.5,
+      "blue": 1190.0,
+      "blue_est": false
+    },
+    {
+      "m": "2024-12",
+      "cpi": 66.285401,
+      "src": "nacional",
+      "mom": 2.7041,
+      "off": 1032.0,
+      "blue": 1100.0,
+      "blue_est": false
+    },
+    {
+      "m": "2025-01",
+      "cpi": 67.751003,
+      "src": "nacional",
+      "mom": 2.211,
+      "off": 1053.5,
+      "blue": 1230.0,
+      "blue_est": false
+    },
+    {
+      "m": "2025-02",
+      "cpi": 69.37813,
+      "src": "nacional",
+      "mom": 2.4016,
+      "off": 1064.75,
+      "blue": 1220.0,
+      "blue_est": false
+    },
+    {
+      "m": "2025-03",
+      "cpi": 71.965473,
+      "src": "nacional",
+      "mom": 3.7293,
+      "off": 1074.0,
+      "blue": 1230.0,
+      "blue_est": false
+    },
+    {
+      "m": "2025-04",
+      "cpi": 73.966715,
+      "src": "nacional",
+      "mom": 2.7808,
+      "off": 1170.0,
+      "blue": 1315.0,
+      "blue_est": false
+    },
+    {
+      "m": "2025-05",
+      "cpi": 75.077036,
+      "src": "nacional",
+      "mom": 1.5011,
+      "off": 1188.0,
+      "blue": 1185.0,
+      "blue_est": false
+    },
+    {
+      "m": "2025-06",
+      "cpi": 76.292476,
+      "src": "nacional",
+      "mom": 1.6189,
+      "off": 1205.0,
+      "blue": 1165.0,
+      "blue_est": false
+    },
+    {
+      "m": "2025-07",
+      "cpi": 77.743318,
+      "src": "nacional",
+      "mom": 1.9017,
+      "off": 1357.0,
+      "blue": 1225.0,
+      "blue_est": false
+    },
+    {
+      "m": "2025-08",
+      "cpi": 79.201622,
+      "src": "nacional",
+      "mom": 1.8758,
+      "off": 1342.0,
+      "blue": 1335.0,
+      "blue_est": false
+    },
+    {
+      "m": "2025-09",
+      "cpi": 80.845816,
+      "src": "nacional",
+      "mom": 2.076,
+      "off": 1380.0,
+      "blue": 1355.0,
+      "blue_est": false
+    },
+    {
+      "m": "2025-10",
+      "cpi": 82.739179,
+      "src": "nacional",
+      "mom": 2.3419,
+      "off": 1445.0,
+      "blue": 1475.0,
+      "blue_est": false
+    },
+    {
+      "m": "2025-11",
+      "cpi": 84.785253,
+      "src": "nacional",
+      "mom": 2.4729,
+      "off": 1451.5,
+      "blue": 1445.0,
+      "blue_est": false
+    },
+    {
+      "m": "2025-12",
+      "cpi": 87.197624,
+      "src": "nacional",
+      "mom": 2.8453,
+      "off": 1455.0,
+      "blue": 1445.0,
+      "blue_est": false
+    },
+    {
+      "m": "2026-01",
+      "cpi": 89.710327,
+      "src": "nacional",
+      "mom": 2.8816,
+      "off": 1447.0,
+      "blue": 1530.0,
+      "blue_est": false
+    },
+    {
+      "m": "2026-02",
+      "cpi": 92.308625,
+      "src": "nacional",
+      "mom": 2.8963,
+      "off": 1397.0,
+      "blue": 1450.0,
+      "blue_est": false
+    },
+    {
+      "m": "2026-03",
+      "cpi": 95.431077,
+      "src": "nacional",
+      "mom": 3.3826,
+      "off": 1382.0,
+      "blue": 1420.0,
+      "blue_est": false
+    },
+    {
+      "m": "2026-04",
+      "cpi": 97.895279,
+      "src": "nacional",
+      "mom": 2.5822,
+      "off": 1391.5,
+      "blue": 1405.0,
+      "blue_est": false
+    },
+    {
+      "m": "2026-05",
+      "cpi": 100.0,
+      "src": "nacional",
+      "mom": 2.15,
+      "off": 1388.0,
+      "blue": 1400.0,
+      "blue_est": false
+    }
+  ],
+  "annual_inflation": [
+    {
+      "year": 1994,
+      "pct": 3.86,
+      "source": "gba"
+    },
+    {
+      "year": 1995,
+      "pct": 1.61,
+      "source": "gba"
+    },
+    {
+      "year": 1996,
+      "pct": 0.05,
+      "source": "gba"
+    },
+    {
+      "year": 1997,
+      "pct": 0.33,
+      "source": "gba"
+    },
+    {
+      "year": 1998,
+      "pct": 0.66,
+      "source": "gba"
+    },
+    {
+      "year": 1999,
+      "pct": -1.81,
+      "source": "gba"
+    },
+    {
+      "year": 2000,
+      "pct": -0.73,
+      "source": "gba"
+    },
+    {
+      "year": 2001,
+      "pct": -1.55,
+      "source": "gba"
+    },
+    {
+      "year": 2002,
+      "pct": 40.95,
+      "source": "gba"
+    },
+    {
+      "year": 2003,
+      "pct": 3.66,
+      "source": "gba"
+    },
+    {
+      "year": 2004,
+      "pct": 6.1,
+      "source": "gba"
+    },
+    {
+      "year": 2005,
+      "pct": 12.33,
+      "source": "gba"
+    },
+    {
+      "year": 2006,
+      "pct": 9.84,
+      "source": "gba"
+    },
+    {
+      "year": 2007,
+      "pct": 21.52,
+      "source": "sanluis"
+    },
+    {
+      "year": 2008,
+      "pct": 20.6,
+      "source": "sanluis"
+    },
+    {
+      "year": 2009,
+      "pct": 18.47,
+      "source": "sanluis"
+    },
+    {
+      "year": 2010,
+      "pct": 27.03,
+      "source": "sanluis"
+    },
+    {
+      "year": 2011,
+      "pct": 23.28,
+      "source": "sanluis"
+    },
+    {
+      "year": 2012,
+      "pct": 23.01,
+      "source": "sanluis"
+    },
+    {
+      "year": 2013,
+      "pct": 31.94,
+      "source": "sanluis"
+    },
+    {
+      "year": 2014,
+      "pct": 39.01,
+      "source": "sanluis"
+    },
+    {
+      "year": 2015,
+      "pct": 31.57,
+      "source": "sanluis"
+    },
+    {
+      "year": 2016,
+      "pct": 31.43,
+      "source": "nacional"
+    },
+    {
+      "year": 2017,
+      "pct": 24.8,
+      "source": "nacional"
+    },
+    {
+      "year": 2018,
+      "pct": 47.65,
+      "source": "nacional"
+    },
+    {
+      "year": 2019,
+      "pct": 53.83,
+      "source": "nacional"
+    },
+    {
+      "year": 2020,
+      "pct": 36.14,
+      "source": "nacional"
+    },
+    {
+      "year": 2021,
+      "pct": 50.94,
+      "source": "nacional"
+    },
+    {
+      "year": 2022,
+      "pct": 94.79,
+      "source": "nacional"
+    },
+    {
+      "year": 2023,
+      "pct": 211.41,
+      "source": "nacional"
+    },
+    {
+      "year": 2024,
+      "pct": 117.76,
+      "source": "nacional"
+    },
+    {
+      "year": 2025,
+      "pct": 31.55,
+      "source": "nacional"
+    }
+  ],
+  "anchors": {
+    "indec_nacional_annual": {
+      "2017": 24.8,
+      "2018": 47.6,
+      "2019": 53.8,
+      "2020": 36.1,
+      "2021": 50.9,
+      "2022": 94.8,
+      "2023": 211.4,
+      "2024": 117.8
+    },
+    "sanluis_annual": {
+      "2007": 21.5,
+      "2008": 20.6,
+      "2009": 18.5,
+      "2010": 27.0,
+      "2011": 23.3,
+      "2012": 23.0,
+      "2013": 31.9,
+      "2014": 39.0,
+      "2015": 31.6
+    },
+    "gba_annual": {
+      "2002": 40.9
+    },
+    "cum": {
+      "from_month": "2003-01",
+      "pesos": 1000.0,
+      "expect_today_approx": 1648923.0,
+      "rel_tol": 0.08,
+      "computed_today": 1648913.37
+    }
+  },
+  "citation": "Elaboración propia en base a series oficiales del INDEC (IPC) y del BCRA (tipo de cambio), vía datos.gob.ar, empalmadas con el IPC de San Luis para el período de intervención del INDEC (2007–2015), y cotización informal histórica de Bluelytics. Fuentes: INDEC (www.indec.gob.ar), BCRA (www.bcra.gob.ar), datos.gob.ar, bluelytics.com.ar."
+}

@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#2a5c8a" />
+    <title>¿Cuánto vale hoy? · Inflación y poder de compra del peso argentino</title>
+    <meta
+      name="description"
+      content="¿Cuánto valen hoy X pesos de otra época? Inflación argentina y poder de compra del peso desde 1993, con series reales del INDEC y el BCRA, empalmadas con el IPC de San Luis para los años de intervención del INDEC (2007–2015)."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:title" content="¿Cuánto vale hoy la plata de antes? · Inflación del peso argentino" />
+    <meta
+      property="og:description"
+      content="Convertí pesos de cualquier mes desde 1993 a pesos de hoy, con inflación acumulada, tasa anualizada y la divergencia del dólar oficial vs blue."
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="¿Cuánto vale hoy la plata de antes?" />
+    <meta name="twitter:description" content="Inflación argentina y poder de compra del peso, con datos reales del INDEC y el BCRA." />
+  </head>
+  <body>
+    <div id="sticky-bar" class="sticky-bar" hidden></div>
+
+    <main id="app">
+      <header class="site-header">
+        <p class="kicker">Inflación y poder de compra · Argentina</p>
+        <h1>¿Cuánto vale hoy la plata de antes?</h1>
+        <p class="lede">
+          Poné una cantidad de pesos y el mes en que la tenías. Te decimos cuánto valdría
+          <strong>hoy</strong> con la misma capacidad de compra —usando la inflación real del INDEC y del
+          BCRA, <strong>empalmada con el IPC de San Luis</strong> para los años en que el INDEC estuvo
+          intervenido (2007–2015)— y cuántos dólares eran entonces y ahora, al oficial y al blue.
+        </p>
+        <p class="source-badge" id="source-badge">cargando datos…</p>
+      </header>
+
+      <section class="controls" id="controls" aria-label="Tu cantidad de pesos">
+        <div class="control-row">
+          <span class="controls-title">Tu plata</span>
+          <span class="live-blue muted" id="live-blue"></span>
+        </div>
+        <div class="money-line">
+          <label class="money-field">
+            <span>Tenía esta cantidad de pesos</span>
+            <div class="money-input">
+              <span class="prefix">$</span>
+              <input id="amount-number" type="text" inputmode="numeric" autocomplete="off" value="1.000" />
+            </div>
+          </label>
+          <label class="money-field">
+            <span>en</span>
+            <div class="when-input">
+              <select id="start-month" class="sel" aria-label="Mes"></select>
+              <select id="start-year" class="sel" aria-label="Año"></select>
+            </div>
+          </label>
+        </div>
+      </section>
+
+      <section class="headline" id="headline" aria-live="polite">
+        <div class="result" id="result"></div>
+      </section>
+      <p class="explain" id="headline-explain"></p>
+
+      <section class="block" id="usd-block">
+        <h2>En dólares <span class="muted">(oficial vs. blue, antes y ahora)</span></h2>
+        <p class="explain" id="usd-intro"></p>
+        <div class="usd-cards" id="usd-cards"></div>
+        <figure><figcaption>Tu plata en dólares — entonces vs. el equivalente de hoy</figcaption><div class="chart" id="chart-usd"></div></figure>
+        <p class="foot" id="usd-foot"></p>
+      </section>
+
+      <section class="block">
+        <h2>Cómo se derrite la plata bajo el colchón</h2>
+        <p class="explain" id="decay-intro"></p>
+        <figure><figcaption id="decay-caption"></figcaption><div class="chart" id="chart-decay"></div></figure>
+        <p class="foot" id="decay-foot"></p>
+      </section>
+
+      <section class="block">
+        <h2>El dólar: oficial vs. blue <span class="muted">(la brecha en el tiempo)</span></h2>
+        <p class="explain" id="dollar-intro"></p>
+        <figure><figcaption>Pesos por dólar (escala logarítmica)</figcaption><div class="chart" id="chart-dollar"></div></figure>
+        <figure><figcaption>Brecha cambiaria — cuánto más caro está el blue que el oficial</figcaption><div class="chart" id="chart-brecha"></div></figure>
+        <p class="foot" id="dollar-foot"></p>
+      </section>
+
+      <section class="block">
+        <div class="control-row">
+          <h2 class="block-title">La inflación, año a año</h2>
+          <div class="seg seg-sm" id="infl-toggle" aria-label="Frecuencia">
+            <button type="button" class="seg-btn is-active" data-freq="annual">anual</button>
+            <button type="button" class="seg-btn" data-freq="monthly">mensual</button>
+          </div>
+        </div>
+        <p class="explain" id="infl-intro"></p>
+        <figure><figcaption id="infl-caption">Inflación interanual (diciembre a diciembre)</figcaption><div class="chart" id="chart-infl"></div></figure>
+        <p class="foot" id="infl-foot"></p>
+      </section>
+
+      <section class="block">
+        <h2>El empalme, a la vista <span class="muted">(de dónde sale cada tramo)</span></h2>
+        <p class="explain" id="index-intro"></p>
+        <figure><figcaption>Índice de precios empalmado (hoy = 100, escala logarítmica)</figcaption><div class="chart" id="chart-index"></div></figure>
+        <div class="seg-legend" id="seg-legend"></div>
+        <p class="foot" id="index-foot"></p>
+      </section>
+
+      <section class="block" id="blindspots">
+        <h2>Lo que esta herramienta no ve <span class="muted">(los límites)</span></h2>
+        <p class="explain">
+          Convierte pesos por inflación con datos reales, pero conviene tener a la vista los supuestos:
+        </p>
+        <ul class="blindspots-list" id="blindspots-list"></ul>
+      </section>
+
+      <section class="methodology" id="methodology">
+        <h2>Metodología</h2>
+        <div id="methodology-body"></div>
+      </section>
+
+      <footer class="site-footer" id="site-footer"></footer>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

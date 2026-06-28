@@ -1,0 +1,17 @@
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: interest-cohort=()
+  X-Frame-Options: DENY
+  Content-Security-Policy: default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self' https://dolarapi.com; base-uri 'self'; frame-ancestors 'none'
+
+# The committed data artifact is content-hashed by name (v1) — cache it hard.
+/series.v1.json
+  Cache-Control: public, max-age=86400
+
+# Short cache on the shell so a redeploy is picked up promptly.
+/index.html
+  Cache-Control: no-cache
+
+/
+  Cache-Control: no-cache

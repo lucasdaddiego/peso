@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Peso — inflación">
+  <rect width="64" height="64" rx="12" fill="#2a5c8a"/>
+  <!-- a peso sign over decaying bars: purchasing power eroding -->
+  <rect x="12" y="20" width="6" height="30" rx="1.5" fill="#ffffff" fill-opacity="0.32"/>
+  <rect x="24" y="28" width="6" height="22" rx="1.5" fill="#ffffff" fill-opacity="0.5"/>
+  <rect x="36" y="36" width="6" height="14" rx="1.5" fill="#ffffff" fill-opacity="0.72"/>
+  <rect x="48" y="42" width="6" height="8" rx="1.5" fill="#ffffff"/>
+  <text x="32" y="22" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="20" fill="#ffffff">$</text>
+</svg>
