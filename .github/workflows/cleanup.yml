@@ -1,0 +1,65 @@
+name: Cleanup previews (Cloudflare Pages)
+
+# When a PR closes (merged or not), delete the Cloudflare Pages *preview* deployments that were
+# created for its branch. Our deploys are direct-upload, so Cloudflare has no PR awareness and the
+# previews otherwise persist forever at their <hash>.valor-peso.pages.dev URLs.
+#
+# Production is never touched: we filter to --environment=preview AND the PR's own head branch
+# (a PR head is never the production branch, master).
+#
+# Uses the same secrets as deploy.yml: CLOUDFLARE_API_TOKEN (Pages: Edit) + CLOUDFLARE_ACCOUNT_ID.
+
+on:
+  pull_request:
+    types: [closed]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cleanup-${{ github.event.pull_request.number }}
+
+jobs:
+  cleanup:
+    name: Delete the PR branch's preview deployments
+    runs-on: ubuntu-latest
+    # Fork PRs don't receive the secrets — skip.
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    steps:
+      - name: Delete previews for ${{ github.head_ref }}
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          PROJECT: valor-peso
+          BRANCH: ${{ github.head_ref }}
+        run: |
+          set -euo pipefail
+          if [ -z "${CLOUDFLARE_API_TOKEN:-}" ]; then
+            echo "::warning::CLOUDFLARE_API_TOKEN not set — skipping preview cleanup."
+            exit 0
+          fi
+          wr() { npx -y wrangler@4 "$@"; }
+
+          # Only this branch's PREVIEW deployments — production (branch master) is excluded twice over.
+          ids=$(wr pages deployment list --project-name="$PROJECT" --environment=preview --json 2>/dev/null \
+                  | jq -r --arg b "$BRANCH" '.[] | select(.Environment == "Preview" and .Branch == $b) | .Id')
+
+          if [ -z "$ids" ]; then
+            echo "No preview deployments found for \`$BRANCH\`." | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          deleted=0
+          for id in $ids; do
+            echo "Deleting preview deployment $id"
+            if wr pages deployment delete "$id" --project-name="$PROJECT" --force; then
+              deleted=$((deleted + 1))
+            else
+              echo "::warning::Failed to delete $id"
+            fi
+          done
+          echo "Deleted $deleted preview deployment(s) for \`$BRANCH\`." | tee -a "$GITHUB_STEP_SUMMARY"
+
+          # Note: `wrangler pages deployment list` returns only recent deployments (no paging flag),
+          # which is plenty for a just-closed PR (its previews are recent). A large historical
+          # backlog would need manual pruning via `wrangler pages deployment delete <id>`.
