@@ -55,14 +55,22 @@ def validate() -> None:
     # Convertibility: 1 peso = 1 USD across 1993–2001 (the official ref rate hovers ~1.00).
     conv = [r["off"] for m, r in by_month.items() if "1993-01" <= m <= "2001-12"]
     worst = max(abs(x - config.CONVERTIBILITY_FX) for x in conv)
-    g.check("Tipo de cambio en convertibilidad", config.CONVERTIBILITY_FX + worst,
-            config.CONVERTIBILITY_FX, config.CONVERTIBILITY_FX_TOL)
+    g.check(
+        "Tipo de cambio en convertibilidad",
+        config.CONVERTIBILITY_FX + worst,
+        config.CONVERTIBILITY_FX,
+        config.CONVERTIBILITY_FX_TOL,
+    )
 
     print("\n=== HARD GATE: poder de compra acumulado (cross-check independiente) ===")
     cum = art["anchors"]["cum"]
-    g.check(f"${config.CUM_ANCHOR['pesos']:,.0f} de {config.CUM_ANCHOR['from_month']} → hoy",
-            cum["computed_today"], config.CUM_ANCHOR["expect_today_approx"],
-            config.CUM_ANCHOR["rel_tol"], rel=True)
+    g.check(
+        f"${config.CUM_ANCHOR['pesos']:,.0f} de {config.CUM_ANCHOR['from_month']} → hoy",
+        cum["computed_today"],
+        config.CUM_ANCHOR["expect_today_approx"],
+        config.CUM_ANCHOR["rel_tol"],
+        rel=True,
+    )
 
     # Structural sanity: base month is exactly 100 and the index is strictly positive throughout.
     base = by_month[art["base_month"]]["cpi"]

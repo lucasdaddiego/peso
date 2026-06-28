@@ -33,14 +33,16 @@ def _setup(tmp_path, monkeypatch, *, annual, cum_today=1000.0):
     monkeypatch.setattr(config, "INDEC_NACIONAL_ANNUAL", {2020: 36.1})
     monkeypatch.setattr(config, "SANLUIS_ANNUAL", {2010: 27.0})
     monkeypatch.setattr(config, "GBA_ANNUAL", {2002: 40.9})
-    monkeypatch.setattr(config, "CUM_ANCHOR",
-                        {"from_month": "2003-01", "pesos": 1000.0, "expect_today_approx": 1000.0, "rel_tol": 0.1})
+    monkeypatch.setattr(
+        config, "CUM_ANCHOR", {"from_month": "2003-01", "pesos": 1000.0, "expect_today_approx": 1000.0, "rel_tol": 0.1}
+    )
 
 
 _GOOD = [{"year": 2020, "pct": 36.1}, {"year": 2010, "pct": 27.0}, {"year": 2002, "pct": 40.9}]
 
 
 # --- Gate.check unit coverage ---
+
 
 def test_gate_absolute_pass_and_fail(capsys):
     g = validate.Gate()
@@ -59,6 +61,7 @@ def test_gate_relative_pass_and_zero_expected(capsys):
 
 
 # --- validate() integration ---
+
 
 def test_validate_passes(tmp_path, monkeypatch, capsys):
     _setup(tmp_path, monkeypatch, annual=_GOOD)
@@ -84,8 +87,9 @@ def test_validate_fails_on_non_positive_index(tmp_path, monkeypatch, capsys):
     monkeypatch.setattr(config, "INDEC_NACIONAL_ANNUAL", {2020: 36.1})
     monkeypatch.setattr(config, "SANLUIS_ANNUAL", {2010: 27.0})
     monkeypatch.setattr(config, "GBA_ANNUAL", {2002: 40.9})
-    monkeypatch.setattr(config, "CUM_ANCHOR",
-                        {"from_month": "2003-01", "pesos": 1000.0, "expect_today_approx": 1000.0, "rel_tol": 0.1})
+    monkeypatch.setattr(
+        config, "CUM_ANCHOR", {"from_month": "2003-01", "pesos": 1000.0, "expect_today_approx": 1000.0, "rel_tol": 0.1}
+    )
     with pytest.raises(SystemExit) as exc:
         validate.validate()
     assert exc.value.code == 1

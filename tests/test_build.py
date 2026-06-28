@@ -39,12 +39,29 @@ def test_build_blue_all_branches(tiny_window):
 def test_build_end_to_end(tiny_raw):
     art = build.build()
     assert set(art) == {
-        "schema_version", "generated_at", "currency", "vintage", "vintage_label", "base_month",
-        "start_month", "source", "series", "annual_inflation", "anchors", "citation",
+        "schema_version",
+        "generated_at",
+        "currency",
+        "vintage",
+        "vintage_label",
+        "base_month",
+        "start_month",
+        "source",
+        "series",
+        "annual_inflation",
+        "anchors",
+        "citation",
     }
     series = art["series"]
     assert [r["m"] for r in series] == [
-        "2005-01", "2005-02", "2005-03", "2005-04", "2005-05", "2005-06", "2005-07", "2005-08",
+        "2005-01",
+        "2005-02",
+        "2005-03",
+        "2005-04",
+        "2005-05",
+        "2005-06",
+        "2005-07",
+        "2005-08",
     ]
     assert series[0]["mom"] is None  # first month, no MoM
     assert {r["m"]: r["src"] for r in series}["2005-06"] == "nacional"

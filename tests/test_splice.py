@@ -15,7 +15,7 @@ def test_enumerate_months_rollover_and_single():
 
 
 def test_mom_source_picks_the_owning_series(tiny_window):
-    assert splice.mom_source("2005-02", GBA, SANLUIS, NACIONAL) is GBA      # <= SEG_A_END
+    assert splice.mom_source("2005-02", GBA, SANLUIS, NACIONAL) is GBA  # <= SEG_A_END
     assert splice.mom_source("2005-04", GBA, SANLUIS, NACIONAL) is SANLUIS  # intervened window
     assert splice.mom_source("2005-06", GBA, SANLUIS, NACIONAL) is SANLUIS  # the 2016-12-style overlap
     assert splice.mom_source("2005-07", GBA, SANLUIS, NACIONAL) is NACIONAL  # official again

@@ -50,8 +50,14 @@ GBA = {"2005-01": 100.0, "2005-02": 110.0, "2005-03": 121.0}
 SANLUIS = {"2005-03": 200.0, "2005-04": 220.0, "2005-05": 231.0, "2005-06": 242.55}
 NACIONAL = {"2005-06": 50.0, "2005-07": 55.0, "2005-08": 60.5}
 FX_OFICIAL = {  # daily-shaped monthly; convertibility-ish then a jump
-    "2005-01": 1.0, "2005-02": 1.0, "2005-03": 1.0, "2005-04": 2.0,
-    "2005-05": 2.5, "2005-06": 3.0, "2005-07": 3.2, "2005-08": 3.4,
+    "2005-01": 1.0,
+    "2005-02": 1.0,
+    "2005-03": 1.0,
+    "2005-04": 2.0,
+    "2005-05": 2.5,
+    "2005-06": 3.0,
+    "2005-07": 3.2,
+    "2005-08": 3.4,
 }
 BLUE = {"2005-05": 3.0, "2005-07": 4.5, "2005-08": 5.0}  # missing 2005-06 → carry; starts 2005-05
 
@@ -66,8 +72,9 @@ def tiny_window(monkeypatch):
     monkeypatch.setattr(config, "DATA_VINTAGE", "2005-08")
     monkeypatch.setattr(config, "BLUE_FIRST_MONTH", "2005-05")
     # The real cumulative cross-check anchors on 2003-01, outside this window — repoint it inside.
-    monkeypatch.setattr(config, "CUM_ANCHOR",
-                        {"from_month": "2005-02", "pesos": 1000.0, "expect_today_approx": 1614.0, "rel_tol": 0.1})
+    monkeypatch.setattr(
+        config, "CUM_ANCHOR", {"from_month": "2005-02", "pesos": 1000.0, "expect_today_approx": 1614.0, "rel_tol": 0.1}
+    )
     return config
 
 
@@ -82,6 +89,7 @@ def tiny_raw(tmp_path, monkeypatch, tiny_window):
     (raw / f"{config.FX_OFICIAL_ID}.json").write_text(series_json(FX_OFICIAL, day="15"), encoding="utf-8")
     (raw / "bluelytics_evolution.csv").write_text(bluelytics_csv(BLUE), encoding="utf-8")
     monkeypatch.setattr(config, "RAW_DIR", raw)
-    monkeypatch.setattr(config, "ARTIFACT_PATHS", [tmp_path / "data" / "series.v1.json",
-                                                   tmp_path / "web" / "public" / "series.v1.json"])
+    monkeypatch.setattr(
+        config, "ARTIFACT_PATHS", [tmp_path / "data" / "series.v1.json", tmp_path / "web" / "public" / "series.v1.json"]
+    )
     return raw

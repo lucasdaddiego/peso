@@ -14,11 +14,11 @@ def test_month_key():
 
 def test_monthly_from_rows_truncates_skips_null_and_takes_eop():
     rows = [
-        ["1992-12-01", 5.0],          # before SERIES_START -> dropped
-        ["2000-05-03", 10.0],         # kept
-        ["2000-05-28", 11.0],         # same month, later day -> overwrites (end of period)
-        ["2000-06-01", None],         # null -> skipped
-        ["2099-01-01", 99.0],         # after the vintage -> dropped
+        ["1992-12-01", 5.0],  # before SERIES_START -> dropped
+        ["2000-05-03", 10.0],  # kept
+        ["2000-05-28", 11.0],  # same month, later day -> overwrites (end of period)
+        ["2000-06-01", None],  # null -> skipped
+        ["2099-01-01", 99.0],  # after the vintage -> dropped
     ]
     out = load.monthly_from_rows(rows)
     assert out == {"2000-05": 11.0}

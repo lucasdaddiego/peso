@@ -39,7 +39,7 @@ def test_fetch_series_pages(monkeypatch):
     monkeypatch.setattr(fetch, "_PAGE", 2)
     pages = [
         json.dumps({"data": [["2000-01-01", 1], ["2000-02-01", 2]]}).encode(),  # full page -> continue
-        json.dumps({"data": [["2000-03-01", 3]]}).encode(),                     # short page -> stop
+        json.dumps({"data": [["2000-03-01", 3]]}).encode(),  # short page -> stop
     ]
     calls = iter(pages)
     monkeypatch.setattr(fetch, "_get", lambda url: next(calls))

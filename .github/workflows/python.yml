@@ -41,6 +41,8 @@ jobs:
         run: uv sync
       - name: Lint (ruff)
         run: uv run ruff check pipeline tests
+      - name: Format check (ruff)
+        run: uv run ruff format --check pipeline tests
       - name: Types (mypy)
         run: uv run mypy
       - name: Tests + coverage (fails under 100%)
