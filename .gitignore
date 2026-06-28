@@ -1,0 +1,42 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+.uv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+
+# --- Node / Vite ---
+web/node_modules/
+web/dist/
+web/.vite/
+web/coverage/
+
+# --- Raw fetched series (re-downloadable from datos.gob.ar / Bluelytics) — never commit ---
+data/raw/
+
+# --- Secrets / local env ---
+.env
+.env.*
+!.env.example
+
+# --- Editor / IDE / tooling (machine-specific) ---
+.claude/
+.vscode/
+.idea/
+*.log
+
+# --- Local planning notes (kept out of the public repo) ---
+PLAN.md
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+
+# NOTE: data/series.v1.json and web/public/series.v1.json ARE committed on purpose —
+# the precomputed, spliced, provenance-stamped artifact is the deliverable.
