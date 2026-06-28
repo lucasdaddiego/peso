@@ -5,7 +5,7 @@ PY         := uv run python
 WEB        := web
 NPM        := npm
 PORT       := 5180
-CF_PROJECT := peso
+CF_PROJECT := valor-peso
 
 # Sub-makes (data, ci) are sequential; silence the "Entering directory" chatter.
 MAKEFLAGS += --no-print-directory

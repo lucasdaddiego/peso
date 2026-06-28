@@ -1,6 +1,6 @@
 # peso
 
-[![Live demo](https://img.shields.io/badge/demo-live-F38020?logo=cloudflare&logoColor=white)](https://peso.pages.dev)
+[![Live demo](https://img.shields.io/badge/demo-live-F38020?logo=cloudflare&logoColor=white)](https://peso.daddiego.com.ar)
 [![CI (web)](https://github.com/lucasdaddiego/peso/actions/workflows/ci.yml/badge.svg)](https://github.com/lucasdaddiego/peso/actions/workflows/ci.yml)
 [![Python checks](https://github.com/lucasdaddiego/peso/actions/workflows/python.yml/badge.svg)](https://github.com/lucasdaddiego/peso/actions/workflows/python.yml)
 [![Data reproduces INDEC/BCRA](https://github.com/lucasdaddiego/peso/actions/workflows/data.yml/badge.svg)](https://github.com/lucasdaddiego/peso/actions/workflows/data.yml)
@@ -29,7 +29,7 @@ continuous monthly index, and converts any past peso amount into today's purchas
 value in dollars at the official **and** blue (informal) rates. No eyeballed inflation, no single
 broken series across the years the INDEC was intervened.
 
-**▶ Try it live: [peso.pages.dev](https://peso.pages.dev)**
+**▶ Try it live: [peso.daddiego.com.ar](https://peso.daddiego.com.ar)**
 
 <!-- screenshot placeholder: drop docs/demo.png and uncomment once deployed
 ![peso — what is X pesos from year Y worth today?](docs/demo.png)
@@ -142,8 +142,11 @@ the regenerated JSON. If a source ever revises a *past* month, `data.yml` flags 
 
 ## Deploy
 
-Static bundle + one JSON → ideal for **Cloudflare Pages** (`web/dist/`, headers in
-`web/public/_headers`). Published manually with `make deploy`.
+Static bundle + one JSON → ideal for **Cloudflare Pages**. Published manually with `make deploy`,
+which builds `web/dist/` and uploads it with `wrangler` (headers from `web/public/_headers`). The
+Pages project is **`valor-peso`** (`CF_PROJECT` in the Makefile), served at
+[valor-peso.pages.dev](https://valor-peso.pages.dev) behind the custom domain
+[peso.daddiego.com.ar](https://peso.daddiego.com.ar).
 
 ## A note on the data
 
