@@ -43,7 +43,8 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - name: Install uv
-        uses: astral-sh/setup-uv@v7
+        # setup-uv publishes no floating major tag past v7, so pin the exact release.
+        uses: astral-sh/setup-uv@v9.0.0
       - name: Sync Python deps
         run: uv sync
       - name: Fetch + splice + validate the artifact
