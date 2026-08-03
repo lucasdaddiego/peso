@@ -25,6 +25,14 @@ def test_forward_fill_raises_without_a_prior_value():
         build.forward_fill({"2005-02": 5.0}, ["2005-01", "2005-02"])
 
 
+def test_forward_fill_refuses_to_carry_past_max_gap():
+    # A short/partial source leaves a long trailing gap. Carrying it would stamp one stale value
+    # over every remaining month; the carry must stop and fail instead.
+    src = {"2005-01": 10.0, "2005-02": 11.0}
+    with pytest.raises(ValueError, match="max_gap"):
+        build.forward_fill(src, ["2005-01", "2005-02", "2005-03", "2005-04"])
+
+
 def test_build_blue_all_branches(tiny_window):
     months = ["2005-04", "2005-05", "2005-06", "2005-07"]
     official = {"2005-04": 2.0, "2005-05": 2.5, "2005-06": 3.0, "2005-07": 3.2}
@@ -73,6 +81,17 @@ def test_build_end_to_end(tiny_raw):
     # Both copies written and parseable.
     for p in config.ARTIFACT_PATHS:
         assert json.loads(p.read_text(encoding="utf-8"))["schema_version"] == build.SCHEMA_VERSION
+
+
+def test_build_fails_on_a_truncated_fx_snapshot(tiny_raw):
+    """A transient empty page mid-fetch truncates the FX series; the build must not emit an
+    artifact whose `off` is the last fetched rate carried across every later month."""
+    path = tiny_raw / f"{config.FX_OFICIAL_ID}.json"
+    rows = json.loads(path.read_text(encoding="utf-8"))
+    path.write_text(json.dumps([r for r in rows if r[0][:7] <= "2005-05"]), encoding="utf-8")
+    with pytest.raises(ValueError, match="max_gap"):
+        build.build()
+    assert not config.ARTIFACT_PATHS[0].exists()  # nothing written
 
 
 def test_build_main_success(tiny_raw):

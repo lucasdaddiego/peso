@@ -17,15 +17,31 @@ from . import config, load, splice
 SCHEMA_VERSION = 1
 
 
-def forward_fill(src: dict[str, float], months: list[str]) -> dict[str, float]:
-    """Project a monthly series onto `months`, carrying the last known value over any gaps."""
+def forward_fill(src: dict[str, float], months: list[str], *, max_gap: int = 1) -> dict[str, float]:
+    """Project a monthly series onto `months`, carrying the last known value over SHORT gaps.
+
+    The carry is bounded to `max_gap` consecutive missing months and raises past that. An
+    unbounded carry is what makes a short or partial fetch dangerous: the FX series is daily and
+    paged, so one empty page truncates it, and the last rate fetched would otherwise be stamped
+    over every remaining month of the artifact — a silently wrong build that no downstream gate
+    catches (validate() only pins the 1993–2001 convertibility band). Fail loudly instead.
+    """
     out: dict[str, float] = {}
     last: float | None = None
+    gap = 0
     for m in months:
         if m in src:
             last = src[m]
+            gap = 0
+        else:
+            gap += 1
         if last is None:
             raise ValueError(f"no value at or before {m} to forward-fill from")
+        if gap > max_gap:
+            raise ValueError(
+                f"no value for {m}: {gap} consecutive months carried (max_gap={max_gap}) — "
+                "the source series is short or partial"
+            )
         out[m] = last
     return out
 
@@ -66,7 +82,8 @@ def build() -> dict:
     index = splice.splice_index(gba, sanluis, nacional)
     mom = splice.monthly_inflation(index, months)
     annual = splice.annual_inflation(index)
-    fx_official = forward_fill(fx_off_raw, months)
+    # Bounded carry: a truncated/partial FX fetch must fail the build, not be papered over.
+    fx_official = forward_fill(fx_off_raw, months, max_gap=1)
     fx_blue, fx_blue_est = build_blue(fx_official, blue_raw, months)
 
     series = [
