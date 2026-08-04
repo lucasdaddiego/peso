@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-06-28T21:34:50+00:00",
+  "generated_at": "2026-08-04T00:55:42+00:00",
   "currency": "ARS",
   "vintage": "2026-05",
   "vintage_label": "mayo 2026",
@@ -3655,7 +3655,7 @@
       "cpi": 100.0,
       "src": "nacional",
       "mom": 2.15,
-      "off": 1388.0,
+      "off": 1408.0,
       "blue": 1400.0,
       "blue_est": false
     }
