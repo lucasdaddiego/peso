@@ -71,12 +71,17 @@ function intervenedMarks(yTop: number): Plot.Markish[] {
 // Purchasing-power decay (Observable Plot): the worth, in pesos de hoy, of holding `amount`
 // nominal pesos from `from` onward — it falls from the headline equivalent down to `amount`.
 // ---------------------------------------------------------------------------
+/** Worth of `amount` nominal pesos, in pesos de hoy, for every month from `from` onward.
+ *  Split out of renderDecay and exported so the maths is asserted on directly: the rendered SVG
+ *  only ever proves that *a* curve was drawn, not that it is the right one. */
+export function decaySeries(model: Model, from: string, amount: number): { x: number; v: number; m: string }[] {
+  const start = model.clampMonth(from);
+  return model.rows.filter((r) => r.m >= start).map((r) => ({ x: xOf(r.m), v: (amount * 100) / r.cpi, m: r.m }));
+}
+
 export function renderDecay(el: HTMLElement, model: Model, from: string, amount: number) {
   clear(el);
-  const start = model.clampMonth(from);
-  const data = model.rows
-    .filter((r) => r.m >= start)
-    .map((r) => ({ x: xOf(r.m), v: (amount * 100) / r.cpi, m: r.m }));
+  const data = decaySeries(model, from, amount);
   const startV = data[0].v;
   const endV = data[data.length - 1].v;
   const plot = Plot.plot({
@@ -139,9 +144,15 @@ export function renderDollar(el: HTMLElement, model: Model, from: string) {
 // ---------------------------------------------------------------------------
 // Brecha (blue/official − 1) over time (custom SVG area) — the parallel-market premium.
 // ---------------------------------------------------------------------------
+/** Parallel-market premium (blue over official, %) per month — negative when the blue traded
+ *  under the official rate. Exported alongside decaySeries, and for the same reason. */
+export function brechaSeries(rows: SeriesRow[]): { x: number; pct: number }[] {
+  return rows.map((r) => ({ x: xOf(r.m), pct: (r.blue / r.off - 1) * 100 }));
+}
+
 export function renderBrecha(el: HTMLElement, rows: SeriesRow[]) {
   clear(el);
-  const data = rows.map((r) => ({ x: xOf(r.m), pct: (r.blue / r.off - 1) * 100 }));
+  const data = brechaSeries(rows);
   const hi = Math.max(...data.map((d) => d.pct), 10);
   // Floor the axis at 0, but dip below when the blue actually traded under the official rate
   // (e.g. through 2011). Math.min(…, 0) keeps the floor at exactly 0 when there are no negatives.

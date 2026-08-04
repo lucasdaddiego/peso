@@ -8,7 +8,7 @@
 
 [![Python 3.14](https://img.shields.io/badge/python-3.14-3776AB?logo=python&logoColor=white)](pyproject.toml)
 [![TypeScript strict](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)](web/tsconfig.json)
-[![Vite](https://img.shields.io/badge/Vite-6-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white)](web/package.json)
 [![Observable Plot](https://img.shields.io/badge/charts-Observable_Plot-6c5ce7?logo=observable&logoColor=white)](https://observablehq.com/plot/)
 
 [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
@@ -121,8 +121,8 @@ docs/       metodologia.md
 
 Both layers are gated at **100% coverage** — statements **and** branches:
 
-- **`pipeline/`** — `pytest` against tiny synthetic series (no network), 45 tests.
-- **`web/src/`** — `vitest` + `jsdom`, every render path exercised against the committed artifact, 50 tests.
+- **`pipeline/`** — `pytest` against tiny synthetic series (no network), 49 tests.
+- **`web/src/`** — `vitest` + `jsdom`, every render path exercised against the committed artifact, 56 tests.
 
 `make test` runs both; `make lint` runs `ruff` + `mypy` + `tsc`. Three GitHub Actions enforce it,
 path-filtered so a web-only change never reaches for the data sources:

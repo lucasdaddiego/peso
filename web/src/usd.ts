@@ -7,7 +7,8 @@ export interface BlueRate {
 
 export async function fetchBlue(): Promise<BlueRate | null> {
   try {
-    const r = await fetch("https://dolarapi.com/v1/dolares/blue");
+    // Bounded: an unresponsive host must resolve to null (no badge), not hang for minutes.
+    const r = await fetch("https://dolarapi.com/v1/dolares/blue", { signal: AbortSignal.timeout(3000) });
     if (!r.ok) return null;
     const d = await r.json();
     // Guard the external shape: a missing/non-numeric rate must fall back to null, not NaN.

@@ -27,16 +27,12 @@ async function init() {
     return;
   }
   model = buildModel(data);
-  state.blue = await fetchBlue();
   // Stateless: no params, no storage. Strip any stray query string on load.
   if (location.search) history.replaceState(null, "", location.pathname);
 
   $("source-badge").innerHTML =
     `Datos hasta <strong>${data.vintage_label}</strong> · IPC INDEC + IPC San Luis (2007–2015) · ` +
     `dólar BCRA y Bluelytics · series reales vía datos.gob.ar`;
-  if (state.blue) {
-    $("live-blue").innerHTML = `dólar blue hoy: <strong>$${fmtNum(state.blue.venta)}</strong>`;
-  }
 
   populateWhen();
   wireControls();
@@ -45,6 +41,15 @@ async function init() {
   renderBlindspots();
   renderFooter();
   renderAll();
+
+  // The live blue is a badge on an already-complete page — every number above comes from the local
+  // artifact. Awaiting it before rendering would let a stalled dolarapi.com (connected but never
+  // answering, so the catch in usd.ts never fires) hold the whole page blank until the browser's
+  // own network timeout. Decorate afterwards instead.
+  void fetchBlue().then((blue) => {
+    state.blue = blue;
+    if (blue) $("live-blue").innerHTML = `dólar blue hoy: <strong>$${fmtNum(blue.venta)}</strong>`;
+  });
 
   let t: number;
   window.addEventListener("resize", () => {
@@ -195,6 +200,9 @@ function renderUsd() {
   const nowOff = model.usd(equiv, today, "off");
   const nowBlue = model.usd(equiv, today, "blue");
   const estThen = model.row(from).blue_est;
+  // The vintage month's blue can be carried too (Bluelytics behind the CPI). Presenting it as a
+  // real quote would fabricate the headline brecha, so it gets the same treatment as "entonces".
+  const estNow = model.row(today).blue_est;
 
   const card = (title: string, off: number, blue: number, est: boolean) =>
     `<div class="usd-card">
@@ -205,16 +213,18 @@ function renderUsd() {
 
   $("usd-cards").innerHTML =
     card(`${fmtARS(amount)} en ${fmtMonth(from)}`, thenOff, thenBlue, estThen) +
-    card(`${fmtARS(equiv)} hoy`, nowOff, nowBlue, false);
+    card(`${fmtARS(equiv)} hoy`, nowOff, nowBlue, estNow);
 
-  const brechaNow = model.brechaPct(today);
   const thenClause = estThen
     ? `En ${fmtMonth(from)} no había dólar blue (sin cepo, el paralelo no era relevante), así que <strong>${fmtARS(amount)}</strong> eran <strong>${fmtUSD(thenOff)}</strong>.`
     : `En ${fmtMonth(from)}, <strong>${fmtARS(amount)}</strong> eran <strong>${fmtUSD(thenOff)}</strong> al oficial y <strong>${fmtUSD(thenBlue)}</strong> al blue.`;
+  const nowClause = estNow
+    ? `Su equivalente de hoy (<strong>${fmtARS(equiv)}</strong>) son <strong>${fmtUSD(nowOff)}</strong> al oficial; para ${fmtMonth(today)} todavía no hay cotización blue en la serie, así que la comparación queda solo contra el oficial.`
+    : `Su equivalente de hoy (<strong>${fmtARS(equiv)}</strong>) son <strong>${fmtUSD(nowOff)}</strong> al oficial ` +
+      `pero apenas <strong>${fmtUSD(nowBlue)}</strong> al blue —una <strong>brecha</strong> del ${fmtPct(model.brechaPct(today))} entre los dos dólares de hoy.`;
   $("usd-intro").innerHTML =
     `Ajustar por inflación en pesos no es lo mismo que mantener el valor en dólares, y el dólar tiene dos precios. ` +
-    `${thenClause} Su equivalente de hoy (<strong>${fmtARS(equiv)}</strong>) son <strong>${fmtUSD(nowOff)}</strong> al oficial ` +
-    `pero apenas <strong>${fmtUSD(nowBlue)}</strong> al blue —una <strong>brecha</strong> del ${fmtPct(brechaNow)} entre los dos dólares de hoy.`;
+    `${thenClause} ${nowClause}`;
 
   const estNote = estThen
     ? ` El blue arranca en 2011: antes del cepo se usa el oficial.`
@@ -226,7 +236,7 @@ function renderUsd() {
     { label: `entonces · oficial`, usd: thenOff, kind: "off", when: "then" },
     { label: `entonces · blue`, usd: estThen ? thenOff : thenBlue, kind: "blue", when: "then" },
     { label: `hoy · oficial`, usd: nowOff, kind: "off", when: "now" },
-    { label: `hoy · blue`, usd: nowBlue, kind: "blue", when: "now" },
+    { label: `hoy · blue`, usd: estNow ? nowOff : nowBlue, kind: "blue", when: "now" },
   ]);
 }
 
@@ -339,7 +349,7 @@ function renderMethodology() {
     <h3>El dólar</h3>
     <p><strong>Oficial:</strong> tipo de cambio de referencia del BCRA (billete), diario desde 1992. <strong>Blue:</strong>
     cotización informal histórica de Bluelytics, desde 2011; antes del cepo no había un paralelo relevante, así que
-    se usa el oficial. Todo se promedia a fin de mes.</p>
+    se usa el oficial. Todo se lleva a frecuencia mensual tomando el valor de fin de mes.</p>
 
     <h3>Lo verificamos contra las cifras oficiales</h3>
     <p>El empalme reproduce la inflación interanual publicada por el INDEC para el IPC Nacional:</p>

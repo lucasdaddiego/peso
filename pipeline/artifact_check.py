@@ -18,7 +18,13 @@ import sys
 from pathlib import Path
 
 REL_TOL = 1e-6
-ABS_TOL = 0.011  # > one 2-decimal rounding quantum (0.01)
+ABS_TOL = 0.011  # > one 2-decimal rounding quantum (0.01) — annual pct, computed_today, the anchors
+# Columns emitted with more decimals need their own floor: one blanket 0.011 is enormous next to a
+# 6-decimal `cpi`, which sits below 1.0 for the first 24 years of the series (cpi[1993-01] =
+# 0.038975, where 0.011 accepts a 28% move — exactly the hand-edited number this module must catch).
+# Each entry is just over that column's own rounding quantum, so real drift fails and a last-digit
+# wobble still passes. Keyed on the final path segment, e.g. "/series[0]/cpi".
+ABS_TOL_BY_KEY = {"cpi": 1.1e-6, "mom": 1.1e-4, "off": 1.1e-4, "blue": 1.1e-4}
 IGNORE_KEYS = {"generated_at"}
 
 
@@ -41,7 +47,8 @@ def diffs(old, new, path: str = "") -> list[str]:
     if isinstance(old, bool) or isinstance(new, bool):
         return [] if old is new else [f"{path}: {old!r} != {new!r}"]
     if isinstance(old, (int, float)) and isinstance(new, (int, float)):
-        if math.isclose(old, new, rel_tol=REL_TOL, abs_tol=ABS_TOL):
+        abs_tol = ABS_TOL_BY_KEY.get(path.rsplit("/", 1)[-1], ABS_TOL)
+        if math.isclose(old, new, rel_tol=REL_TOL, abs_tol=abs_tol):
             return []
         return [f"{path}: {old} != {new} (beyond tolerance)"]
     return [] if old == new else [f"{path}: {old!r} != {new!r}"]

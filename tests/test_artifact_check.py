@@ -25,6 +25,19 @@ def test_numeric_beyond_tolerance():
     assert ac.diffs({"a": 1.0}, {"a": 2.0}) == ["/a: 1.0 != 2.0 (beyond tolerance)"]
 
 
+def test_fine_grained_columns_get_their_own_absolute_tolerance():
+    # cpi is 6-decimal and below 1.0 for 24 years: the 2-decimal ABS_TOL would accept a 23% move.
+    old, new = {"series": [{"cpi": 0.038975}]}, {"series": [{"cpi": 0.0479}]}
+    assert ac.diffs(old, new) == ["/series[0]/cpi: 0.038975 != 0.0479 (beyond tolerance)"]
+    # …while a last-digit wobble on that same column still passes.
+    assert ac.diffs(old, {"series": [{"cpi": 0.038976}]}) == []
+    # Same for the 4-decimal columns: a 0.01pp edit to mom is real drift, not rounding.
+    assert ac.diffs({"mom": 1.2345}, {"mom": 1.244}) == ["/mom: 1.2345 != 1.244 (beyond tolerance)"]
+    assert ac.diffs({"mom": 1.2345}, {"mom": 1.2346}) == []
+    # Unlisted keys keep the 2-decimal tolerance.
+    assert ac.diffs({"pct": 24.8}, {"pct": 24.81}) == []
+
+
 def test_dict_key_presence_both_directions():
     out = ac.diffs({"a": 1, "x": 1}, {"a": 1, "y": 1})
     assert any("missing in rebuilt" in d for d in out)

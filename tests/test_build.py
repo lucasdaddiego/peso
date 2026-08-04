@@ -94,6 +94,16 @@ def test_build_fails_on_a_truncated_fx_snapshot(tiny_raw):
     assert not config.ARTIFACT_PATHS[0].exists()  # nothing written
 
 
+def test_build_fails_when_no_blue_rows_parse(tiny_raw):
+    """Bluelytics renames the row label; every 'Blue' row drops out. The build must not fall back
+    to blue := official for the whole series (an invented convergence no gate would catch)."""
+    path = tiny_raw / "bluelytics_evolution.csv"
+    path.write_text(path.read_text(encoding="utf-8").replace(",Blue,", ",Informal,"), encoding="utf-8")
+    with pytest.raises(ValueError, match="bluelytics"):
+        build.build()
+    assert not config.ARTIFACT_PATHS[0].exists()  # nothing written
+
+
 def test_build_main_success(tiny_raw):
     runpy.run_module("pipeline.build", run_name="__main__")
     assert config.ARTIFACT_PATHS[0].exists()

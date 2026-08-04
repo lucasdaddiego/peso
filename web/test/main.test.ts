@@ -70,9 +70,32 @@ describe("init smoke", () => {
     await boot();
     expect($("result").innerHTML).toContain("de hoy");
     expect($("source-badge").innerHTML).toContain("San Luis");
-    expect($("live-blue").innerHTML).toContain("blue hoy");
     expect($("site-footer").innerHTML).toContain("Bluelytics");
     expect($("chart-decay").innerHTML).toContain("svg");
+    // the live badge lands after the page, not before it
+    await vi.waitFor(() => {
+      if (!$("live-blue").innerHTML.includes("blue hoy")) throw new Error("badge not painted");
+    });
+  });
+
+  it("renders the whole page even when the live-blue fetch never settles", async () => {
+    document.body.innerHTML = bodyHtml;
+    window.history.replaceState(null, "", "/");
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async (url: string) => {
+        if (String(url).includes("dolarapi")) return new Promise(() => {}); // connected, never answers
+        return { ok: true, json: async () => ARTIFACT };
+      }),
+    );
+    vi.resetModules();
+    await import("../src/main");
+    await vi.waitFor(() => {
+      if (!$("result").innerHTML) throw new Error("init not done");
+    });
+    expect($("result").innerHTML).toContain("de hoy");
+    expect($("chart-decay").innerHTML).toContain("svg");
+    expect($("live-blue").innerHTML).toBe(""); // only the badge is missing
   });
 
   it("strips a stray query string on load", async () => {
@@ -143,7 +166,18 @@ describe("USD section", () => {
     await boot();
     setWhen("2015", "6"); // post-2011 -> real blue
     expect($("usd-intro").innerHTML).toContain("al blue");
+    expect($("usd-intro").innerHTML).toContain("brecha");
     expect($("usd-foot").innerHTML).toContain("brecha era");
+  });
+
+  it("does not present a carried blue at the vintage as a real quote", async () => {
+    const a = clone();
+    a.series[a.series.length - 1].blue_est = true; // Bluelytics lagging the CPI -> carried rate
+    await boot({ artifact: a });
+    setWhen("2015", "6"); // post-cepo start, so only the "hoy" card is estimated
+    expect($("usd-cards").innerHTML).toContain("—"); // hoy · blue is blanked, not quoted
+    expect($("usd-intro").innerHTML).toContain("no hay cotización blue");
+    expect($("usd-intro").innerHTML).not.toContain("brecha"); // no fabricated headline gap
   });
 });
 
@@ -172,6 +206,13 @@ describe("amount control", () => {
 });
 
 describe("methodology", () => {
+  it("describes the FX aggregation the pipeline actually uses", async () => {
+    await boot();
+    // load.monthly_from_rows keeps the last daily value of the month; it does not average.
+    expect($("methodology-body").innerHTML).toContain("fin de mes");
+    expect($("methodology-body").innerHTML).not.toContain("promedia");
+  });
+
   it("marks a mismatch when an anchor year is not reproduced", async () => {
     const a = clone();
     a.anchors.indec_nacional_annual = { "2024": 50 }; // real 2024 ≈ 118 -> ✗

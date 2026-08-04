@@ -112,7 +112,8 @@ SEGMENTS: list[SegmentMeta] = [
 # --------------------------------------------------------------------------------------
 BLUELYTICS_CSV = "https://api.bluelytics.com.ar/v2/evolution.csv"
 BLUE_FIRST_MONTH = "2011-01"  # earliest Bluelytics blue datum; earlier months: blue := official
-FX_AGGREGATION = "month_end"  # use the last business-day rate of each month
+# Both FX series are collapsed to one rate per month at the last business day of the month; that is
+# hardcoded in load.monthly_from_rows / load.bluelytics_from_rows, not configurable from here.
 
 # --------------------------------------------------------------------------------------
 # Validation anchors — the build MUST reproduce these (within tolerance) or it fails.

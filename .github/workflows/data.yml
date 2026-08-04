@@ -2,7 +2,9 @@ name: Data reproduces INDEC/BCRA
 
 # The pipeline must still reproduce the official figures (`make data`), and the committed artifact
 # must match what the pipeline emits. Path-filtered to the pipeline/data files so a web-only PR
-# doesn't reach for the live sources.
+# doesn't reach for the live sources — but web/public/series.v1.json is one of the two committed
+# copies of the artifact, so it is in the filter too: editing the *served* copy alone must not skip
+# the only gate that checks it.
 #
 # Because the series are vintage-pinned (config.DATA_VINTAGE), every month <= the vintage is fixed,
 # so a fresh fetch reproduces the committed artifact even though the upstream APIs keep appending
@@ -14,6 +16,7 @@ on:
     paths:
       - "pipeline/**"
       - "data/**"
+      - "web/public/series.v1.json"
       - "Makefile"
       - "pyproject.toml"
       - "uv.lock"
@@ -23,6 +26,7 @@ on:
     paths:
       - "pipeline/**"
       - "data/**"
+      - "web/public/series.v1.json"
       - "Makefile"
       - "pyproject.toml"
       - "uv.lock"
@@ -42,6 +46,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+      # Before `make data` overwrites them both: the committed provenance copy and the served copy
+      # are written from one payload, so any divergence is a bad merge or a half-staged rebuild.
+      - name: The two committed copies of the artifact are identical
+        run: diff -q data/series.v1.json web/public/series.v1.json
       - name: Install uv
         # setup-uv publishes no floating major tag past v7, so pin the exact release.
         uses: astral-sh/setup-uv@v9.0.0

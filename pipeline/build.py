@@ -77,6 +77,12 @@ def build() -> dict:
     nacional = load.load_series_file(config.RAW_DIR / f"{config.IPC_NACIONAL_ID}.json")
     fx_off_raw = load.load_series_file(config.RAW_DIR / f"{config.FX_OFICIAL_ID}.json")
     blue_raw = load.load_bluelytics_file(config.RAW_DIR / "bluelytics_evolution.csv")
+    if not blue_raw:
+        # The parser keys on the exact label 'Blue'; a renamed value or header in the third-party
+        # CSV would drop every row, and build_blue would then quietly set blue := official for the
+        # whole series — the fake convergence its docstring forbids, with no gate downstream to
+        # catch it (validate() has no blue check). Fail the build instead.
+        raise ValueError("bluelytics: no 'Blue' rows parsed — check the CSV schema")
 
     months = splice.enumerate_months(config.SERIES_START, config.DATA_VINTAGE)
     index = splice.splice_index(gba, sanluis, nacional)
