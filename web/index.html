@@ -10,6 +10,11 @@
       name="description"
       content="¿Cuánto valen hoy X pesos de otra época? Inflación argentina y poder de compra del peso desde 1993, con series reales del INDEC y el BCRA, empalmadas con el IPC de San Luis para los años de intervención del INDEC (2007–2015)."
     />
+    <!-- Cloudflare serves this same site on valor-peso.pages.dev as well as
+         the custom domain, and a static robots.txt cannot tell the two hosts
+         apart. Without this, Google indexes both and picks a canonical itself. -->
+    <link rel="canonical" href="https://peso.daddiego.com.ar/" />
+    <meta property="og:url" content="https://peso.daddiego.com.ar/" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_AR" />
     <meta property="og:title" content="¿Cuánto vale hoy la plata de antes? · Inflación del peso argentino" />
