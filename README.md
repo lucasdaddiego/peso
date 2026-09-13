@@ -122,16 +122,19 @@ docs/       metodologia.md
 Both layers are gated at **100% coverage** — statements **and** branches:
 
 - **`pipeline/`** — `pytest` against tiny synthetic series (no network), 49 tests.
-- **`web/src/`** — `vitest` + `jsdom`, every render path exercised against the committed artifact, 56 tests.
+- **`web/src/`** — `vitest` + `jsdom`, every render path exercised against the committed artifact, 57 tests.
 
 `make test` runs both; `make lint` runs `ruff` + `mypy` + `tsc`. Three GitHub Actions enforce it,
-path-filtered so a web-only change never reaches for the data sources:
+path-filtered so a web-only change never reaches for the data sources; two more handle the
+deployment (see [Deploy](#deploy)):
 
-| Workflow | What it checks |
+| Workflow | What it does |
 | --- | --- |
 | `ci.yml` | web typecheck + `vitest` 100% gate + production build |
 | `python.yml` | `ruff` + `mypy` + `pytest` 100% gate (offline, fast) |
 | `data.yml` | the pipeline still reproduces INDEC/BCRA, and the committed artifact matches the rebuild |
+| `deploy.yml` | builds the site and publishes it to Cloudflare Pages (production on push, preview per PR) |
+| `cleanup.yml` | deletes a PR's preview deployments when the PR closes |
 
 ## Reproducibility
 
@@ -142,11 +145,14 @@ the regenerated JSON. If a source ever revises a *past* month, `data.yml` flags 
 
 ## Deploy
 
-Static bundle + one JSON → ideal for **Cloudflare Pages**. Published manually with `make deploy`,
-which builds `web/dist/` and uploads it with `wrangler` (headers from `web/public/_headers`). The
-Pages project is **`valor-peso`** (`CF_PROJECT` in the Makefile), served at
-[valor-peso.pages.dev](https://valor-peso.pages.dev) behind the custom domain
-[peso.daddiego.com.ar](https://peso.daddiego.com.ar).
+Static bundle + one JSON → ideal for **Cloudflare Pages**. `deploy.yml` builds `web/dist/` and
+uploads it with `wrangler` on every push to `master` (production) and on every pull request (a
+per-branch preview URL); `cleanup.yml` removes a PR's previews once it closes. Both need the
+`CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` repository secrets — without them the workflow
+still builds but skips the upload. `make deploy` does the same upload by hand (needs `wrangler`
+auth). Headers come from `web/public/_headers`. The Pages project is **`valor-peso`**
+(`CF_PROJECT` in the Makefile), served at [valor-peso.pages.dev](https://valor-peso.pages.dev)
+behind the custom domain [peso.daddiego.com.ar](https://peso.daddiego.com.ar).
 
 ## A note on the data
 

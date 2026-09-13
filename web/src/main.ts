@@ -102,8 +102,12 @@ function wireControls() {
   $("infl-toggle").querySelectorAll<HTMLButtonElement>(".seg-btn").forEach((btn) => {
     btn.onclick = () => {
       state.inflFreq = btn.dataset.freq as "annual" | "monthly";
-      $("infl-toggle").querySelectorAll(".seg-btn").forEach((b) => b.classList.remove("is-active"));
+      $("infl-toggle").querySelectorAll(".seg-btn").forEach((b) => {
+        b.classList.remove("is-active");
+        b.setAttribute("aria-pressed", "false");
+      });
       btn.classList.add("is-active");
+      btn.setAttribute("aria-pressed", "true");
       renderInfl();
     };
   });
@@ -200,6 +204,11 @@ function renderUsd() {
   const nowOff = model.usd(equiv, today, "off");
   const nowBlue = model.usd(equiv, today, "blue");
   const estThen = model.row(from).blue_est;
+  // blue_est covers two different situations: a pre-cepo month, where blue := official by
+  // construction, and a post-2011 month Bluelytics simply lacks, where the pipeline carries the
+  // last real quote. Only the first is "no había dólar blue"; the second must not be narrated as
+  // if the cepo had not existed yet.
+  const preCepo = from < data.source.fx_blue.first_month;
   // The vintage month's blue can be carried too (Bluelytics behind the CPI). Presenting it as a
   // real quote would fabricate the headline brecha, so it gets the same treatment as "entonces".
   const estNow = model.row(today).blue_est;
@@ -215,9 +224,11 @@ function renderUsd() {
     card(`${fmtARS(amount)} en ${fmtMonth(from)}`, thenOff, thenBlue, estThen) +
     card(`${fmtARS(equiv)} hoy`, nowOff, nowBlue, estNow);
 
-  const thenClause = estThen
-    ? `En ${fmtMonth(from)} no había dólar blue (sin cepo, el paralelo no era relevante), así que <strong>${fmtARS(amount)}</strong> eran <strong>${fmtUSD(thenOff)}</strong>.`
-    : `En ${fmtMonth(from)}, <strong>${fmtARS(amount)}</strong> eran <strong>${fmtUSD(thenOff)}</strong> al oficial y <strong>${fmtUSD(thenBlue)}</strong> al blue.`;
+  const thenClause = !estThen
+    ? `En ${fmtMonth(from)}, <strong>${fmtARS(amount)}</strong> eran <strong>${fmtUSD(thenOff)}</strong> al oficial y <strong>${fmtUSD(thenBlue)}</strong> al blue.`
+    : preCepo
+      ? `En ${fmtMonth(from)} no había dólar blue (sin cepo, el paralelo no era relevante), así que <strong>${fmtARS(amount)}</strong> eran <strong>${fmtUSD(thenOff)}</strong>.`
+      : `Para ${fmtMonth(from)} no hay cotización blue en la serie, así que <strong>${fmtARS(amount)}</strong> eran <strong>${fmtUSD(thenOff)}</strong> al oficial.`;
   const nowClause = estNow
     ? `Su equivalente de hoy (<strong>${fmtARS(equiv)}</strong>) son <strong>${fmtUSD(nowOff)}</strong> al oficial; para ${fmtMonth(today)} todavía no hay cotización blue en la serie, así que la comparación queda solo contra el oficial.`
     : `Su equivalente de hoy (<strong>${fmtARS(equiv)}</strong>) son <strong>${fmtUSD(nowOff)}</strong> al oficial ` +
@@ -226,9 +237,11 @@ function renderUsd() {
     `Ajustar por inflación en pesos no es lo mismo que mantener el valor en dólares, y el dólar tiene dos precios. ` +
     `${thenClause} ${nowClause}`;
 
-  const estNote = estThen
-    ? ` El blue arranca en 2011: antes del cepo se usa el oficial.`
-    : ` Entonces la brecha era del ${fmtPct(model.brechaPct(from))}.`;
+  const estNote = !estThen
+    ? ` Entonces la brecha era del ${fmtPct(model.brechaPct(from))}.`
+    : preCepo
+      ? ` El blue arranca en 2011: antes del cepo se usa el oficial.`
+      : ` Sin cotización blue para ${fmtMonth(from)}: se compara solo contra el oficial.`;
   $("usd-foot").innerHTML =
     `Oficial: tipo de cambio de referencia del BCRA. Blue: cotización informal (Bluelytics).${estNote}`;
 
@@ -297,7 +310,7 @@ function renderInfl() {
 function renderSticky() {
   $("sticky-bar").innerHTML =
     `<div class="sticky-inner"><span><strong>${fmtARS(state.amountARS)}</strong> de ${fmtMonth(state.startMonth)} ` +
-    `= <strong>${fmtARS(equivToday())}</strong> hoy</span><span class="sticky-edit">Editar ↑</span></div>`;
+    `= <strong>${fmtARS(equivToday())}</strong> hoy</span><button type="button" class="sticky-edit">Editar ↑</button></div>`;
 }
 
 function renderVisuals() {

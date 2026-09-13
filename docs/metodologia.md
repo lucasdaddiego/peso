@@ -59,7 +59,7 @@ El pipeline reproduce, dentro de tolerancia, cifras conocidas (o falla el build)
 - **IPC San Luis dic–dic 2007–2015** (la década intervenida): ~21–39 %/año — muy por encima del
   ~10 % que declaraba el INDEC oficial de esos años.
 - **IPC-GBA 2002** (colapso de la convertibilidad): 40,9 %.
-- **Tipo de cambio en convertibilidad:** ≈ 1,00 peso/dólar a lo largo de 1992–2001.
+- **Tipo de cambio en convertibilidad:** ≈ 1,00 peso/dólar a lo largo de 1993–2001 (la serie arranca en 1993).
 - **Cross-check acumulado independiente:** $1.000 de enero-2003 ≈ pesos de la vintage.
 
 ## Límites

@@ -179,16 +179,35 @@ describe("USD section", () => {
     expect($("usd-intro").innerHTML).toContain("no hay cotización blue");
     expect($("usd-intro").innerHTML).not.toContain("brecha"); // no fabricated headline gap
   });
+
+  it("does not narrate a carried post-cepo blue as a pre-cepo month", async () => {
+    const a = clone();
+    a.series[a.series.findIndex((r) => r.m === "2015-06")].blue_est = true; // Bluelytics gap -> carried quote
+    await boot({ artifact: a });
+    setWhen("2015", "6");
+    expect($("usd-cards").innerHTML).toContain("—"); // entonces · blue is blanked, not quoted
+    expect($("usd-intro").innerHTML).toContain("no hay cotización blue");
+    expect($("usd-intro").innerHTML).not.toContain("no había dólar blue"); // that copy is pre-cepo only
+    expect($("usd-foot").innerHTML).toContain("Sin cotización blue");
+    expect($("usd-foot").innerHTML).not.toContain("arranca en 2011");
+  });
 });
 
 describe("inflation toggle", () => {
-  it("switches between annual and monthly", async () => {
+  it("switches between annual and monthly, exposing the active state via aria-pressed", async () => {
     await boot();
-    (document.querySelector('[data-freq="monthly"]') as HTMLButtonElement).click();
+    const monthly = document.querySelector('[data-freq="monthly"]') as HTMLButtonElement;
+    const annual = document.querySelector('[data-freq="annual"]') as HTMLButtonElement;
+    expect(annual.getAttribute("aria-pressed")).toBe("true");
+    monthly.click();
     expect($("infl-caption").textContent).toContain("mensual");
     expect($("chart-infl").innerHTML).toContain("svg");
-    (document.querySelector('[data-freq="annual"]') as HTMLButtonElement).click();
+    expect(monthly.getAttribute("aria-pressed")).toBe("true");
+    expect(annual.getAttribute("aria-pressed")).toBe("false");
+    annual.click();
     expect($("infl-caption").textContent).toContain("interanual");
+    expect(annual.getAttribute("aria-pressed")).toBe("true");
+    expect(monthly.getAttribute("aria-pressed")).toBe("false");
   });
 });
 
@@ -231,7 +250,12 @@ describe("window events", () => {
     headline.getBoundingClientRect = () => ({ bottom: 0 }) as DOMRect;
     window.dispatchEvent(new Event("scroll"));
     expect($("sticky-bar").hidden).toBe(false);
-    $("sticky-bar").click(); // scrollIntoView (polyfilled) — must not throw
+    const scroll = vi.spyOn(Element.prototype, "scrollIntoView");
+    $("sticky-bar").click();
+    expect(scroll).toHaveBeenCalledTimes(1);
+    // "Editar" is a real button (keyboard-reachable); its click bubbles to the bar's handler.
+    ($("sticky-bar").querySelector("button.sticky-edit") as HTMLButtonElement).click();
+    expect(scroll).toHaveBeenCalledTimes(2);
   });
 
   it("re-renders visuals on resize (debounced)", async () => {
