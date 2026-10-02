@@ -56,7 +56,7 @@ describe("brechaSeries", () => {
     const b = charts.brechaSeries(ARTIFACT.series);
     const i = ARTIFACT.series.findIndex((r) => r.m === "2020-10");
     expect(b[i].x).toBeCloseTo(charts.xOf("2020-10"), 6);
-    expect(b[i].pct).toBeCloseTo(87.69, 2); // blue 147,00 vs oficial 78,32
+    expect(b[i].pct).toBeCloseTo(115.78, 2); // blue 169,00 (30 oct) vs oficial 78,32
     // A blue *below* the official rate reads negative — the ratio is not inverted.
     expect(charts.brechaSeries([{ ...ARTIFACT.series[0], off: 100, blue: 50 }])[0].pct).toBeCloseTo(-50, 6);
   });

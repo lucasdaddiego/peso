@@ -49,10 +49,12 @@ def load_series_file(path: Path) -> dict[str, float]:
 def bluelytics_from_rows(rows: list[dict]) -> dict[str, float]:
     """{month: blue venta} from Bluelytics CSV rows (type 'Blue'), end-of-period (last day wins).
 
-    `rows` are dicts with day/type/value_sell; the file is chronological so later days overwrite.
+    `rows` are dicts with day/type/value_sell. The live evolution.csv is newest-first, so the rows
+    are put in date order before later days overwrite: file order must not pick the 1st of the month
+    while the official rate (load.monthly_from_rows) takes the last business day.
     """
     out: dict[str, float] = {}
-    for r in rows:
+    for r in sorted(rows, key=lambda r: r["day"]):
         if r.get("type") != "Blue":
             continue
         m = month_key(r["day"])

@@ -40,6 +40,19 @@ def test_bluelytics_from_rows_keeps_blue_only_and_truncates():
     assert out == {"2012-01": 7.0}  # Oficial rows ignored; 1990-01 before vintage start dropped
 
 
+def test_bluelytics_from_rows_takes_month_end_from_a_newest_first_file():
+    """The live evolution.csv lists the newest day first. Aug-2019 opened at 45 and closed at 62
+    after the PASO devaluation; reading the file in its own order kept the 1st (45), a blue below
+    the end-of-month official rate and a negative brecha."""
+    import csv
+    import io
+
+    text = "day,type,value_buy,value_sell\n2019-08-30,Blue,58.00,62.00\n2019-08-30,Oficial,57.00,60.00\n2019-08-01,Blue,44.00,45.00\n"
+    rows = list(csv.DictReader(io.StringIO(text)))
+    assert load.bluelytics_from_rows(rows) == {"2019-08": 62.0}
+    assert load.bluelytics_from_rows(list(reversed(rows))) == {"2019-08": 62.0}
+
+
 def test_load_bluelytics_file(tmp_path):
     p = tmp_path / "b.csv"
     p.write_text(bluelytics_csv(blue={"2015-06": 13.0}), encoding="utf-8")

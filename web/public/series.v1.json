@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-04T00:55:42+00:00",
+  "generated_at": "2026-10-02T01:24:08+00:00",
   "currency": "ARS",
   "vintage": "2026-05",
   "vintage_label": "mayo 2026",
@@ -2144,7 +2144,7 @@
       "src": "sanluis",
       "mom": 1.908,
       "off": 4.471,
-      "blue": 5.0,
+      "blue": 6.0,
       "blue_est": false
     },
     {
@@ -2207,7 +2207,7 @@
       "src": "sanluis",
       "mom": 1.1811,
       "off": 4.918,
-      "blue": 6.0,
+      "blue": 7.0,
       "blue_est": false
     },
     {
@@ -2216,7 +2216,7 @@
       "src": "sanluis",
       "mom": 1.6673,
       "off": 4.978,
-      "blue": 7.0,
+      "blue": 8.0,
       "blue_est": false
     },
     {
@@ -2243,7 +2243,7 @@
       "src": "sanluis",
       "mom": 1.6339,
       "off": 5.187,
-      "blue": 8.0,
+      "blue": 9.0,
       "blue_est": false
     },
     {
@@ -2252,7 +2252,7 @@
       "src": "sanluis",
       "mom": 1.9105,
       "off": 5.284,
-      "blue": 10.0,
+      "blue": 9.0,
       "blue_est": false
     },
     {
@@ -2270,7 +2270,7 @@
       "src": "sanluis",
       "mom": 2.2632,
       "off": 5.505,
-      "blue": 8.0,
+      "blue": 9.0,
       "blue_est": false
     },
     {
@@ -2279,7 +2279,7 @@
       "src": "sanluis",
       "mom": 1.8987,
       "off": 5.672,
-      "blue": 8.0,
+      "blue": 9.0,
       "blue_est": false
     },
     {
@@ -2297,7 +2297,7 @@
       "src": "sanluis",
       "mom": 3.3465,
       "off": 5.912,
-      "blue": 9.0,
+      "blue": 10.0,
       "blue_est": false
     },
     {
@@ -2315,7 +2315,7 @@
       "src": "sanluis",
       "mom": 3.2548,
       "off": 6.521,
-      "blue": 9.0,
+      "blue": 10.0,
       "blue_est": false
     },
     {
@@ -2324,7 +2324,7 @@
       "src": "sanluis",
       "mom": 4.1843,
       "off": 8.01,
-      "blue": 10.0,
+      "blue": 13.0,
       "blue_est": false
     },
     {
@@ -2333,7 +2333,7 @@
       "src": "sanluis",
       "mom": 7.172,
       "off": 7.874,
-      "blue": 12.0,
+      "blue": 11.0,
       "blue_est": false
     },
     {
@@ -2369,7 +2369,7 @@
       "src": "sanluis",
       "mom": 1.7998,
       "off": 8.133,
-      "blue": 11.0,
+      "blue": 12.0,
       "blue_est": false
     },
     {
@@ -2378,7 +2378,7 @@
       "src": "sanluis",
       "mom": 1.968,
       "off": 8.213,
-      "blue": 12.0,
+      "blue": 13.0,
       "blue_est": false
     },
     {
@@ -2387,7 +2387,7 @@
       "src": "sanluis",
       "mom": 2.5141,
       "off": 8.401,
-      "blue": 13.0,
+      "blue": 14.0,
       "blue_est": false
     },
     {
@@ -2396,7 +2396,7 @@
       "src": "sanluis",
       "mom": 3.0938,
       "off": 8.43,
-      "blue": 14.0,
+      "blue": 16.0,
       "blue_est": false
     },
     {
@@ -2405,7 +2405,7 @@
       "src": "sanluis",
       "mom": 1.2549,
       "off": 8.5,
-      "blue": 16.0,
+      "blue": 14.0,
       "blue_est": false
     },
     {
@@ -2414,7 +2414,7 @@
       "src": "sanluis",
       "mom": 1.4673,
       "off": 8.524,
-      "blue": 14.0,
+      "blue": 13.0,
       "blue_est": false
     },
     {
@@ -2423,7 +2423,7 @@
       "src": "sanluis",
       "mom": 1.4748,
       "off": 8.551,
-      "blue": 13.0,
+      "blue": 14.0,
       "blue_est": false
     },
     {
@@ -2441,7 +2441,7 @@
       "src": "sanluis",
       "mom": 2.0019,
       "off": 8.726,
-      "blue": 14.0,
+      "blue": 13.0,
       "blue_est": false
     },
     {
@@ -2486,7 +2486,7 @@
       "src": "sanluis",
       "mom": 2.3041,
       "off": 9.19,
-      "blue": 13.0,
+      "blue": 15.0,
       "blue_est": false
     },
     {
@@ -2495,7 +2495,7 @@
       "src": "sanluis",
       "mom": 1.9149,
       "off": 9.296,
-      "blue": 15.0,
+      "blue": 16.0,
       "blue_est": false
     },
     {
@@ -2504,7 +2504,7 @@
       "src": "sanluis",
       "mom": 2.4415,
       "off": 9.422,
-      "blue": 15.0,
+      "blue": 16.0,
       "blue_est": false
     },
     {
@@ -2522,7 +2522,7 @@
       "src": "sanluis",
       "mom": 2.871,
       "off": 9.688,
-      "blue": 16.0,
+      "blue": 15.0,
       "blue_est": false
     },
     {
@@ -2531,7 +2531,7 @@
       "src": "sanluis",
       "mom": 6.4852,
       "off": 13.04,
-      "blue": 15.0,
+      "blue": 14.0,
       "blue_est": false
     },
     {
@@ -2549,7 +2549,7 @@
       "src": "sanluis",
       "mom": 2.7125,
       "off": 15.8,
-      "blue": 14.0,
+      "blue": 16.0,
       "blue_est": false
     },
     {
@@ -2558,7 +2558,7 @@
       "src": "sanluis",
       "mom": 2.9763,
       "off": 14.7,
-      "blue": 16.0,
+      "blue": 15.0,
       "blue_est": false
     },
     {
@@ -2585,7 +2585,7 @@
       "src": "sanluis",
       "mom": 1.4657,
       "off": 15.04,
-      "blue": 14.0,
+      "blue": 15.0,
       "blue_est": false
     },
     {
@@ -2612,7 +2612,7 @@
       "src": "sanluis",
       "mom": 1.6863,
       "off": 15.31,
-      "blue": 15.0,
+      "blue": 16.0,
       "blue_est": false
     },
     {
@@ -2639,7 +2639,7 @@
       "src": "nacional",
       "mom": 0.8559,
       "off": 15.89,
-      "blue": 16.0,
+      "blue": 17.0,
       "blue_est": false
     },
     {
@@ -2657,7 +2657,7 @@
       "src": "nacional",
       "mom": 2.0672,
       "off": 15.48,
-      "blue": 17.0,
+      "blue": 16.0,
       "blue_est": false
     },
     {
@@ -2693,7 +2693,7 @@
       "src": "nacional",
       "mom": 1.192,
       "off": 16.601,
-      "blue": 16.0,
+      "blue": 17.0,
       "blue_est": false
     },
     {
@@ -2702,7 +2702,7 @@
       "src": "nacional",
       "mom": 1.7323,
       "off": 17.64,
-      "blue": 17.0,
+      "blue": 18.0,
       "blue_est": false
     },
     {
@@ -2747,7 +2747,7 @@
       "src": "nacional",
       "mom": 3.142,
       "off": 18.649,
-      "blue": 18.0,
+      "blue": 19.0,
       "blue_est": false
     },
     {
@@ -2756,7 +2756,7 @@
       "src": "nacional",
       "mom": 1.7574,
       "off": 19.65,
-      "blue": 19.0,
+      "blue": 20.0,
       "blue_est": false
     },
     {
@@ -2774,7 +2774,7 @@
       "src": "nacional",
       "mom": 2.341,
       "off": 20.149,
-      "blue": 20.0,
+      "blue": 21.0,
       "blue_est": false
     },
     {
@@ -2792,7 +2792,7 @@
       "src": "nacional",
       "mom": 2.0754,
       "off": 24.96,
-      "blue": 21.0,
+      "blue": 26.0,
       "blue_est": false
     },
     {
@@ -2801,7 +2801,7 @@
       "src": "nacional",
       "mom": 3.7366,
       "off": 28.85,
-      "blue": 26.0,
+      "blue": 29.0,
       "blue_est": false
     },
     {
@@ -2819,7 +2819,7 @@
       "src": "nacional",
       "mom": 3.8895,
       "off": 36.85,
-      "blue": 28.0,
+      "blue": 39.0,
       "blue_est": false
     },
     {
@@ -2828,7 +2828,7 @@
       "src": "nacional",
       "mom": 6.5343,
       "off": 41.25,
-      "blue": 38.0,
+      "blue": 41.0,
       "blue_est": false
     },
     {
@@ -2837,7 +2837,7 @@
       "src": "nacional",
       "mom": 5.3916,
       "off": 35.95,
-      "blue": 41.0,
+      "blue": 37.0,
       "blue_est": false
     },
     {
@@ -2846,7 +2846,7 @@
       "src": "nacional",
       "mom": 3.1533,
       "off": 37.72,
-      "blue": 36.0,
+      "blue": 38.0,
       "blue_est": false
     },
     {
@@ -2855,7 +2855,7 @@
       "src": "nacional",
       "mom": 2.5698,
       "off": 37.7,
-      "blue": 38.0,
+      "blue": 40.0,
       "blue_est": false
     },
     {
@@ -2864,7 +2864,7 @@
       "src": "nacional",
       "mom": 2.9063,
       "off": 37.35,
-      "blue": 40.0,
+      "blue": 38.0,
       "blue_est": false
     },
     {
@@ -2873,7 +2873,7 @@
       "src": "nacional",
       "mom": 3.7656,
       "off": 39.15,
-      "blue": 38.0,
+      "blue": 39.0,
       "blue_est": false
     },
     {
@@ -2882,7 +2882,7 @@
       "src": "nacional",
       "mom": 4.6795,
       "off": 43.345,
-      "blue": 39.0,
+      "blue": 44.0,
       "blue_est": false
     },
     {
@@ -2891,7 +2891,7 @@
       "src": "nacional",
       "mom": 3.4,
       "off": 44.15,
-      "blue": 44.0,
+      "blue": 46.0,
       "blue_est": false
     },
     {
@@ -2909,7 +2909,7 @@
       "src": "nacional",
       "mom": 2.718,
       "off": 42.45,
-      "blue": 46.0,
+      "blue": 44.0,
       "blue_est": false
     },
     {
@@ -2918,7 +2918,7 @@
       "src": "nacional",
       "mom": 2.1979,
       "off": 43.87,
-      "blue": 44.0,
+      "blue": 45.0,
       "blue_est": false
     },
     {
@@ -2927,7 +2927,7 @@
       "src": "nacional",
       "mom": 3.954,
       "off": 59.51,
-      "blue": 45.0,
+      "blue": 63.0,
       "blue_est": false
     },
     {
@@ -2936,7 +2936,7 @@
       "src": "nacional",
       "mom": 5.8857,
       "off": 57.595,
-      "blue": 63.0,
+      "blue": 61.0,
       "blue_est": false
     },
     {
@@ -2945,7 +2945,7 @@
       "src": "nacional",
       "mom": 3.2934,
       "off": 59.67,
-      "blue": 61.0,
+      "blue": 68.0,
       "blue_est": false
     },
     {
@@ -2954,7 +2954,7 @@
       "src": "nacional",
       "mom": 4.2545,
       "off": 59.94,
-      "blue": 68.0,
+      "blue": 69.0,
       "blue_est": false
     },
     {
@@ -2963,7 +2963,7 @@
       "src": "nacional",
       "mom": 3.7437,
       "off": 59.89,
-      "blue": 69.0,
+      "blue": 78.0,
       "blue_est": false
     },
     {
@@ -2990,7 +2990,7 @@
       "src": "nacional",
       "mom": 3.3435,
       "off": 64.469,
-      "blue": 78.0,
+      "blue": 84.0,
       "blue_est": false
     },
     {
@@ -2999,7 +2999,7 @@
       "src": "nacional",
       "mom": 1.4966,
       "off": 66.84,
-      "blue": 84.0,
+      "blue": 120.0,
       "blue_est": false
     },
     {
@@ -3008,7 +3008,7 @@
       "src": "nacional",
       "mom": 1.5428,
       "off": 68.54,
-      "blue": 118.0,
+      "blue": 125.0,
       "blue_est": false
     },
     {
@@ -3017,7 +3017,7 @@
       "src": "nacional",
       "mom": 2.2435,
       "off": 70.46,
-      "blue": 128.0,
+      "blue": 126.0,
       "blue_est": false
     },
     {
@@ -3026,7 +3026,7 @@
       "src": "nacional",
       "mom": 1.9342,
       "off": 72.32,
-      "blue": 128.0,
+      "blue": 136.0,
       "blue_est": false
     },
     {
@@ -3044,7 +3044,7 @@
       "src": "nacional",
       "mom": 2.8355,
       "off": 76.18,
-      "blue": 133.0,
+      "blue": 146.0,
       "blue_est": false
     },
     {
@@ -3053,7 +3053,7 @@
       "src": "nacional",
       "mom": 3.761,
       "off": 78.32,
-      "blue": 147.0,
+      "blue": 169.0,
       "blue_est": false
     },
     {
@@ -3062,7 +3062,7 @@
       "src": "nacional",
       "mom": 3.1597,
       "off": 81.31,
-      "blue": 168.0,
+      "blue": 155.0,
       "blue_est": false
     },
     {
@@ -3071,7 +3071,7 @@
       "src": "nacional",
       "mom": 4.0056,
       "off": 84.15,
-      "blue": 153.0,
+      "blue": 166.0,
       "blue_est": false
     },
     {
@@ -3080,7 +3080,7 @@
       "src": "nacional",
       "mom": 4.049,
       "off": 87.33,
-      "blue": 166.0,
+      "blue": 153.0,
       "blue_est": false
     },
     {
@@ -3089,7 +3089,7 @@
       "src": "nacional",
       "mom": 3.5746,
       "off": 89.82,
-      "blue": 153.0,
+      "blue": 145.0,
       "blue_est": false
     },
     {
@@ -3098,7 +3098,7 @@
       "src": "nacional",
       "mom": 4.8108,
       "off": 92.0,
-      "blue": 147.0,
+      "blue": 141.0,
       "blue_est": false
     },
     {
@@ -3107,7 +3107,7 @@
       "src": "nacional",
       "mom": 4.0803,
       "off": 93.56,
-      "blue": 141.0,
+      "blue": 150.0,
       "blue_est": false
     },
     {
@@ -3116,7 +3116,7 @@
       "src": "nacional",
       "mom": 3.323,
       "off": 94.56,
-      "blue": 153.0,
+      "blue": 157.0,
       "blue_est": false
     },
     {
@@ -3125,7 +3125,7 @@
       "src": "nacional",
       "mom": 3.1745,
       "off": 95.72,
-      "blue": 155.0,
+      "blue": 168.0,
       "blue_est": false
     },
     {
@@ -3134,7 +3134,7 @@
       "src": "nacional",
       "mom": 2.997,
       "off": 96.69,
-      "blue": 169.0,
+      "blue": 180.0,
       "blue_est": false
     },
     {
@@ -3143,7 +3143,7 @@
       "src": "nacional",
       "mom": 2.4685,
       "off": 97.74,
-      "blue": 180.0,
+      "blue": 182.0,
       "blue_est": false
     },
     {
@@ -3152,7 +3152,7 @@
       "src": "nacional",
       "mom": 3.5468,
       "off": 98.74,
-      "blue": 180.0,
+      "blue": 186.0,
       "blue_est": false
     },
     {
@@ -3161,7 +3161,7 @@
       "src": "nacional",
       "mom": 3.5163,
       "off": 99.72,
-      "blue": 186.0,
+      "blue": 198.0,
       "blue_est": false
     },
     {
@@ -3170,7 +3170,7 @@
       "src": "nacional",
       "mom": 2.5295,
       "off": 100.96,
-      "blue": 196.0,
+      "blue": 202.0,
       "blue_est": false
     },
     {
@@ -3179,7 +3179,7 @@
       "src": "nacional",
       "mom": 3.84,
       "off": 102.72,
-      "blue": 200.0,
+      "blue": 208.0,
       "blue_est": false
     },
     {
@@ -3188,7 +3188,7 @@
       "src": "nacional",
       "mom": 3.8757,
       "off": 105.02,
-      "blue": 206.0,
+      "blue": 213.0,
       "blue_est": false
     },
     {
@@ -3197,7 +3197,7 @@
       "src": "nacional",
       "mom": 4.6944,
       "off": 107.45,
-      "blue": 214.0,
+      "blue": 211.0,
       "blue_est": false
     },
     {
@@ -3206,7 +3206,7 @@
       "src": "nacional",
       "mom": 6.7288,
       "off": 111.01,
-      "blue": 211.0,
+      "blue": 200.0,
       "blue_est": false
     },
     {
@@ -3224,7 +3224,7 @@
       "src": "nacional",
       "mom": 5.0502,
       "off": 120.2,
-      "blue": 201.0,
+      "blue": 206.0,
       "blue_est": false
     },
     {
@@ -3233,7 +3233,7 @@
       "src": "nacional",
       "mom": 5.2952,
       "off": 125.23,
-      "blue": 206.0,
+      "blue": 238.0,
       "blue_est": false
     },
     {
@@ -3242,7 +3242,7 @@
       "src": "nacional",
       "mom": 7.4062,
       "off": 131.27,
-      "blue": 239.0,
+      "blue": 296.0,
       "blue_est": false
     },
     {
@@ -3251,7 +3251,7 @@
       "src": "nacional",
       "mom": 6.9703,
       "off": 138.73,
-      "blue": 282.0,
+      "blue": 290.0,
       "blue_est": false
     },
     {
@@ -3260,7 +3260,7 @@
       "src": "nacional",
       "mom": 6.1655,
       "off": 147.32,
-      "blue": 285.0,
+      "blue": 288.0,
       "blue_est": false
     },
     {
@@ -3269,7 +3269,7 @@
       "src": "nacional",
       "mom": 6.3473,
       "off": 156.91,
-      "blue": 284.0,
+      "blue": 290.0,
       "blue_est": false
     },
     {
@@ -3278,7 +3278,7 @@
       "src": "nacional",
       "mom": 4.9161,
       "off": 167.28,
-      "blue": 290.0,
+      "blue": 314.0,
       "blue_est": false
     },
     {
@@ -3287,7 +3287,7 @@
       "src": "nacional",
       "mom": 5.1246,
       "off": 177.16,
-      "blue": 313.0,
+      "blue": 346.0,
       "blue_est": false
     },
     {
@@ -3296,7 +3296,7 @@
       "src": "nacional",
       "mom": 6.0279,
       "off": 187.0,
-      "blue": 346.0,
+      "blue": 381.0,
       "blue_est": false
     },
     {
@@ -3305,7 +3305,7 @@
       "src": "nacional",
       "mom": 6.6277,
       "off": 197.15,
-      "blue": 377.0,
+      "blue": 375.0,
       "blue_est": false
     },
     {
@@ -3314,7 +3314,7 @@
       "src": "nacional",
       "mom": 7.6752,
       "off": 209.01,
-      "blue": 375.0,
+      "blue": 395.0,
       "blue_est": false
     },
     {
@@ -3323,7 +3323,7 @@
       "src": "nacional",
       "mom": 8.4027,
       "off": 222.68,
-      "blue": 392.0,
+      "blue": 469.0,
       "blue_est": false
     },
     {
@@ -3332,7 +3332,7 @@
       "src": "nacional",
       "mom": 7.7728,
       "off": 239.5,
-      "blue": 469.0,
+      "blue": 490.0,
       "blue_est": false
     },
     {
@@ -3341,7 +3341,7 @@
       "src": "nacional",
       "mom": 5.9508,
       "off": 256.7,
-      "blue": 490.0,
+      "blue": 494.0,
       "blue_est": false
     },
     {
@@ -3350,7 +3350,7 @@
       "src": "nacional",
       "mom": 6.3449,
       "off": 275.25,
-      "blue": 495.0,
+      "blue": 550.0,
       "blue_est": false
     },
     {
@@ -3359,7 +3359,7 @@
       "src": "nacional",
       "mom": 12.4416,
       "off": 350.0,
-      "blue": 560.0,
+      "blue": 735.0,
       "blue_est": false
     },
     {
@@ -3368,7 +3368,7 @@
       "src": "nacional",
       "mom": 12.7498,
       "off": 349.9501,
-      "blue": 730.0,
+      "blue": 800.0,
       "blue_est": false
     },
     {
@@ -3377,7 +3377,7 @@
       "src": "nacional",
       "mom": 8.3017,
       "off": 350.0,
-      "blue": 800.0,
+      "blue": 920.0,
       "blue_est": false
     },
     {
@@ -3386,7 +3386,7 @@
       "src": "nacional",
       "mom": 12.8107,
       "off": 360.5,
-      "blue": 915.0,
+      "blue": 905.0,
       "blue_est": false
     },
     {
@@ -3395,7 +3395,7 @@
       "src": "nacional",
       "mom": 25.4657,
       "off": 808.4501,
-      "blue": 955.0,
+      "blue": 1025.0,
       "blue_est": false
     },
     {
@@ -3404,7 +3404,7 @@
       "src": "nacional",
       "mom": 20.6142,
       "off": 826.4001,
-      "blue": 1025.0,
+      "blue": 1195.0,
       "blue_est": false
     },
     {
@@ -3413,7 +3413,7 @@
       "src": "nacional",
       "mom": 13.2407,
       "off": 842.2001,
-      "blue": 1195.0,
+      "blue": 1030.0,
       "blue_est": false
     },
     {
@@ -3422,7 +3422,7 @@
       "src": "nacional",
       "mom": 11.0097,
       "off": 858.0001,
-      "blue": 1050.0,
+      "blue": 1010.0,
       "blue_est": false
     },
     {
@@ -3431,7 +3431,7 @@
       "src": "nacional",
       "mom": 8.8319,
       "off": 876.5001,
-      "blue": 1010.0,
+      "blue": 1055.0,
       "blue_est": false
     },
     {
@@ -3440,7 +3440,7 @@
       "src": "nacional",
       "mom": 4.176,
       "off": 895.5,
-      "blue": 1055.0,
+      "blue": 1225.0,
       "blue_est": false
     },
     {
@@ -3449,7 +3449,7 @@
       "src": "nacional",
       "mom": 4.5773,
       "off": 912.0,
-      "blue": 1235.0,
+      "blue": 1365.0,
       "blue_est": false
     },
     {
@@ -3458,7 +3458,7 @@
       "src": "nacional",
       "mom": 4.0309,
       "off": 933.0,
-      "blue": 1405.0,
+      "blue": 1370.0,
       "blue_est": false
     },
     {
@@ -3467,7 +3467,7 @@
       "src": "nacional",
       "mom": 4.1723,
       "off": 953.5,
-      "blue": 1380.0,
+      "blue": 1305.0,
       "blue_est": false
     },
     {
@@ -3476,7 +3476,7 @@
       "src": "nacional",
       "mom": 3.4692,
       "off": 970.5,
-      "blue": 1305.0,
+      "blue": 1235.0,
       "blue_est": false
     },
     {
@@ -3485,7 +3485,7 @@
       "src": "nacional",
       "mom": 2.6917,
       "off": 992.0,
-      "blue": 1220.0,
+      "blue": 1190.0,
       "blue_est": false
     },
     {
@@ -3494,7 +3494,7 @@
       "src": "nacional",
       "mom": 2.4266,
       "off": 1011.5,
-      "blue": 1190.0,
+      "blue": 1120.0,
       "blue_est": false
     },
     {
@@ -3503,7 +3503,7 @@
       "src": "nacional",
       "mom": 2.7041,
       "off": 1032.0,
-      "blue": 1100.0,
+      "blue": 1230.0,
       "blue_est": false
     },
     {
@@ -3512,7 +3512,7 @@
       "src": "nacional",
       "mom": 2.211,
       "off": 1053.5,
-      "blue": 1230.0,
+      "blue": 1220.0,
       "blue_est": false
     },
     {
@@ -3521,7 +3521,7 @@
       "src": "nacional",
       "mom": 2.4016,
       "off": 1064.75,
-      "blue": 1220.0,
+      "blue": 1230.0,
       "blue_est": false
     },
     {
@@ -3530,7 +3530,7 @@
       "src": "nacional",
       "mom": 3.7293,
       "off": 1074.0,
-      "blue": 1230.0,
+      "blue": 1325.0,
       "blue_est": false
     },
     {
@@ -3539,7 +3539,7 @@
       "src": "nacional",
       "mom": 2.7808,
       "off": 1170.0,
-      "blue": 1315.0,
+      "blue": 1185.0,
       "blue_est": false
     },
     {
@@ -3548,7 +3548,7 @@
       "src": "nacional",
       "mom": 1.5011,
       "off": 1188.0,
-      "blue": 1185.0,
+      "blue": 1180.0,
       "blue_est": false
     },
     {
@@ -3557,7 +3557,7 @@
       "src": "nacional",
       "mom": 1.6189,
       "off": 1205.0,
-      "blue": 1165.0,
+      "blue": 1215.0,
       "blue_est": false
     },
     {
@@ -3566,7 +3566,7 @@
       "src": "nacional",
       "mom": 1.9017,
       "off": 1357.0,
-      "blue": 1225.0,
+      "blue": 1335.0,
       "blue_est": false
     },
     {
@@ -3575,7 +3575,7 @@
       "src": "nacional",
       "mom": 1.8758,
       "off": 1342.0,
-      "blue": 1335.0,
+      "blue": 1350.0,
       "blue_est": false
     },
     {
@@ -3584,7 +3584,7 @@
       "src": "nacional",
       "mom": 2.076,
       "off": 1380.0,
-      "blue": 1355.0,
+      "blue": 1445.0,
       "blue_est": false
     },
     {
@@ -3593,7 +3593,7 @@
       "src": "nacional",
       "mom": 2.3419,
       "off": 1445.0,
-      "blue": 1475.0,
+      "blue": 1445.0,
       "blue_est": false
     },
     {
@@ -3602,7 +3602,7 @@
       "src": "nacional",
       "mom": 2.4729,
       "off": 1451.5,
-      "blue": 1445.0,
+      "blue": 1435.0,
       "blue_est": false
     },
     {
@@ -3611,7 +3611,7 @@
       "src": "nacional",
       "mom": 2.8453,
       "off": 1455.0,
-      "blue": 1445.0,
+      "blue": 1530.0,
       "blue_est": false
     },
     {
@@ -3620,7 +3620,7 @@
       "src": "nacional",
       "mom": 2.8816,
       "off": 1447.0,
-      "blue": 1530.0,
+      "blue": 1470.0,
       "blue_est": false
     },
     {
@@ -3629,7 +3629,7 @@
       "src": "nacional",
       "mom": 2.8963,
       "off": 1397.0,
-      "blue": 1450.0,
+      "blue": 1420.0,
       "blue_est": false
     },
     {
@@ -3638,7 +3638,7 @@
       "src": "nacional",
       "mom": 3.3826,
       "off": 1382.0,
-      "blue": 1420.0,
+      "blue": 1410.0,
       "blue_est": false
     },
     {
@@ -3647,7 +3647,7 @@
       "src": "nacional",
       "mom": 2.5822,
       "off": 1391.5,
-      "blue": 1405.0,
+      "blue": 1400.0,
       "blue_est": false
     },
     {
@@ -3656,7 +3656,7 @@
       "src": "nacional",
       "mom": 2.15,
       "off": 1408.0,
-      "blue": 1400.0,
+      "blue": 1430.0,
       "blue_est": false
     }
   ],
