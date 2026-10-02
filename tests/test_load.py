@@ -24,6 +24,21 @@ def test_monthly_from_rows_truncates_skips_null_and_takes_eop():
     assert out == {"2000-05": 11.0}
 
 
+def test_monthly_from_rows_takes_month_end_whatever_the_row_order():
+    """datos.gob.ar sends rows oldest-first today, but the end-of-period pick must not depend on
+    it: Bluelytics already showed that a newest-first file silently keeps the 1st of the month."""
+    rows = [
+        ["2000-05-31", 11.0],
+        ["2000-05-15", 10.5],
+        ["2000-05-02", 10.0],
+        ["2000-04-28", 9.0],
+        ["2000-04-03", 8.0],
+    ]
+    expected = {"2000-04": 9.0, "2000-05": 11.0}
+    assert load.monthly_from_rows(rows) == expected
+    assert load.monthly_from_rows(list(reversed(rows))) == expected
+
+
 def test_load_series_file(tmp_path):
     p = tmp_path / "s.json"
     p.write_text(series_json({"2010-01": 1.5, "2010-02": 1.6}), encoding="utf-8")

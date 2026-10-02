@@ -27,12 +27,13 @@ def _truncate(month: str) -> bool:
 def monthly_from_rows(rows: list[list]) -> dict[str, float]:
     """Collapse [date, value] rows to {month: value}, end-of-period (last non-null wins).
 
-    Rows are chronological; for a monthly series there's one per month, for a daily series the
-    last day of the month is taken. Null values are skipped. Months outside the vintage window
-    are dropped here so every downstream consumer sees the same pinned range.
+    The rows are put in date order first, so the result does not depend on the file order: for a
+    monthly series there's one per month, for a daily series the last day of the month is taken.
+    Null values are skipped. Months outside the vintage window are dropped here so every
+    downstream consumer sees the same pinned range.
     """
     out: dict[str, float] = {}
-    for date_str, value in rows:
+    for date_str, value in sorted(rows, key=lambda r: r[0]):
         if value is None:
             continue
         m = month_key(date_str)

@@ -35,12 +35,18 @@ def series_json(values: dict[str, float], day: str = "01") -> str:
 
 
 def bluelytics_csv(blue: dict[str, float], oficial: dict[str, float] | None = None) -> str:
-    """Render monthly blue/oficial dicts as a Bluelytics evolution.csv (one day per month)."""
-    lines = ["day,type,value_buy,value_sell"]
-    for m, v in (oficial or {}).items():
-        lines.append(f"{m}-15,Oficial,{v},{v}")
-    for m, v in blue.items():
-        lines.append(f"{m}-15,Blue,{v - 5},{v}")
+    """Render monthly blue/oficial dicts as a Bluelytics evolution.csv, newest day first.
+
+    Like the live file, the newest day comes first. Each month gets its given (month-end) value on
+    the 28th and a different early quote on the 1st, so a loader that keeps file order picks the
+    1st and every test that reads blue values through this fixture fails.
+    """
+    days: list[tuple[str, str, float]] = []
+    for kind, values in (("Oficial", oficial or {}), ("Blue", blue)):
+        for m, v in values.items():
+            days += [(f"{m}-28", kind, v), (f"{m}-01", kind, v - 1)]
+    days.sort(key=lambda d: d[0], reverse=True)
+    lines = ["day,type,value_buy,value_sell", *(f"{day},{kind},{v - 5},{v}" for day, kind, v in days)]
     return "\n".join(lines) + "\n"
 
 
