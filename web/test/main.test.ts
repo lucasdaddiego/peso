@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import indexHtml from "../index.html?raw";
+import seriesUrl from "../public/series.v1.json?url";
 import { ARTIFACT, clone } from "./fixture";
 
 const BLUE = { venta: 1515, fechaActualizacion: "2026-06-28" };
@@ -96,6 +97,15 @@ describe("init smoke", () => {
     expect($("result").innerHTML).toContain("de hoy");
     expect($("chart-decay").innerHTML).toContain("svg");
     expect($("live-blue").innerHTML).toBe(""); // only the badge is missing
+  });
+
+  it("loads the artifact from the bundler's asset URL, not the fixed public name", async () => {
+    // The fixed /series.v1.json name stays the same across data refreshes, so a cached copy goes
+    // stale. The ?url import makes Vite emit a content-hashed copy under /assets/ and hand back its URL.
+    await boot();
+    const urls = vi.mocked(fetch).mock.calls.map(([u]) => String(u));
+    expect(urls).toContain(seriesUrl);
+    expect(urls).not.toContain("/series.v1.json");
   });
 
   it("strips a stray query string on load", async () => {

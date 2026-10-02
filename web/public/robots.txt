@@ -15,8 +15,9 @@ User-agent: *
 Content-Signal: search=yes,ai-train=no,use=reference
 Allow: /
 
-# Nothing is disallowed on purpose: the page renders client-side from
-# /series.v1.json, so a crawler that cannot fetch that file sees an empty shell.
+# Nothing is disallowed on purpose: the page renders client-side from the data
+# artifact (/assets/series.v1-<hash>.json), so a crawler that cannot fetch that
+# file sees an empty shell.
 # Blocking the data artifact would cost the search listing, not protect it.
 
 # No AI model training. The AI *search* bots (OAI-SearchBot, Claude-SearchBot,

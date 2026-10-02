@@ -5,9 +5,16 @@
   X-Frame-Options: DENY
   Content-Security-Policy: default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self' https://dolarapi.com; base-uri 'self'; frame-ancestors 'none'
 
-# The committed data artifact is content-hashed by name (v1) — cache it hard.
+# Vite names every file under /assets/ by a hash of its content: the JS, the CSS and the data
+# artifact the page loads (/assets/series.v1-<hash>.json). New content gets a new name, so cache
+# these hard.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# The fixed-name copy of the artifact, kept for direct links. "v1" is the schema version, not a
+# content hash, so the name stays the same when the data changes: revalidate on every request.
 /series.v1.json
-  Cache-Control: public, max-age=86400
+  Cache-Control: no-cache
 
 # Short cache on the shell so a redeploy is picked up promptly.
 /index.html

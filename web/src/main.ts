@@ -4,6 +4,9 @@ import { fmtARS, fmtMonth, fmtNum, fmtPct, fmtPctBig, fmtUSD, fmtX, MESES, parse
 import { buildModel, monthsBetween, type Model } from "./inflation";
 import { fetchBlue, type BlueRate } from "./usd";
 import type { Artifact } from "./types";
+// ?url makes Vite emit a content-hashed copy (/assets/series.v1-<hash>.json) and return its URL, so
+// a data refresh gets a new name and a long browser cache can never serve the old values.
+import seriesUrl from "../public/series.v1.json?url";
 
 const $ = <T extends HTMLElement = HTMLElement>(id: string) => document.getElementById(id) as T;
 
@@ -19,7 +22,7 @@ let model: Model;
 
 async function init() {
   try {
-    const res = await fetch("/series.v1.json");
+    const res = await fetch(seriesUrl);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     data = await res.json();
   } catch {
