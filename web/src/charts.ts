@@ -1,5 +1,5 @@
 import * as Plot from "@observablehq/plot";
-import { fmtMonthShort, fmtShort } from "./format";
+import { fmtMonthShort, fmtShort, fmtUSD } from "./format";
 import type { Model } from "./inflation";
 import type { AnnualRow, SeriesRow } from "./types";
 
@@ -267,7 +267,7 @@ export function renderUsdBars(el: HTMLElement, bars: { label: string; usd: numbe
     const bw = Math.max(2, x(b.usd) - labelW);
     s += `<text x="0" y="${y + rowH / 2 + 1}" font-size="11" fill="${INK}">${b.label}</text>`;
     s += `<rect x="${labelW}" y="${y + 6}" width="${bw.toFixed(1)}" height="${rowH - 14}" rx="2" fill="${col}" fill-opacity="${b.when === "then" ? 0.55 : 1}"/>`;
-    s += `<text x="${(labelW + bw + 6).toFixed(1)}" y="${y + rowH / 2 + 1}" font-size="11" font-weight="700" fill="${col}">US$${Math.round(b.usd).toLocaleString("es-AR")}</text>`;
+    s += `<text x="${(labelW + bw + 6).toFixed(1)}" y="${y + rowH / 2 + 1}" font-size="11" font-weight="700" fill="${col}">${fmtUSD(b.usd)}</text>`;
   });
   s += `</svg>`;
   el.innerHTML = s;

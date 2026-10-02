@@ -144,6 +144,16 @@ describe("renderUsdBars", () => {
     expect(widths[1]).toBeCloseTo(230, 1);
     expect(el.textContent).toContain("US$1.000");
   });
+  it("labels small amounts with one decimal, like the cards", () => {
+    // $500 of 2026 is about US$0,36: a rounded "US$0" label hid it next to a visible bar.
+    const el = mountEl();
+    charts.renderUsdBars(el, [
+      { label: "a", usd: 12.34, kind: "off", when: "then" },
+      { label: "b", usd: 0.36, kind: "off", when: "now" },
+    ]);
+    const labels = [...el.querySelectorAll("text")].map((t) => t.textContent).filter((t) => t?.startsWith("US$"));
+    expect(labels).toEqual(["US$12,3", "US$0,4"]);
+  });
 });
 
 describe("zero-width containers", () => {
