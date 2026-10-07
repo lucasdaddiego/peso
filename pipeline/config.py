@@ -38,8 +38,8 @@ ARTIFACT_PATHS = [DATA_DIR / "series.v1.json", ROOT / "web" / "public" / "series
 # To update: bump DATA_VINTAGE to the latest COMPLETE month, run `make data`, commit.
 # (2026-05 is the last complete month of the national IPC as of the June-2026 build.)
 # --------------------------------------------------------------------------------------
-DATA_VINTAGE = "2026-05"
-VINTAGE_LABEL = "mayo 2026"
+DATA_VINTAGE = "2026-08"
+VINTAGE_LABEL = "agosto 2026"
 
 # --------------------------------------------------------------------------------------
 # Source series (datos.gob.ar "series de tiempo" API). Each id is a real, documented series;
