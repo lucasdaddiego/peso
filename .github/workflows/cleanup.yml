@@ -38,7 +38,8 @@ jobs:
             echo "::warning::CLOUDFLARE_API_TOKEN not set — skipping preview cleanup."
             exit 0
           fi
-          wr() { npx -y wrangler@4 "$@"; }
+          # Exact pin: this shell holds CLOUDFLARE_API_TOKEN, so no floating major resolved at run time.
+          wr() { npx -y wrangler@4.148.0 "$@"; }
 
           # Only this branch's PREVIEW deployments — production (branch master) is excluded twice over.
           ids=$(wr pages deployment list --project-name="$PROJECT" --environment=preview --json 2>/dev/null \

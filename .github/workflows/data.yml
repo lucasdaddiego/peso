@@ -37,7 +37,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: ci-data-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -45,14 +45,15 @@ jobs:
     name: Pipeline reproduces the official series
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       # Before `make data` overwrites them both: the committed provenance copy and the served copy
       # are written from one payload, so any divergence is a bad merge or a half-staged rebuild.
       - name: The two committed copies of the artifact are identical
         run: diff -q data/series.v1.json web/public/series.v1.json
       - name: Install uv
-        # setup-uv publishes no floating major tag past v7, so pin the exact release.
-        uses: astral-sh/setup-uv@v10.2.0
+        uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
       - name: Sync Python deps
         run: uv sync
       - name: Fetch + splice + validate the artifact

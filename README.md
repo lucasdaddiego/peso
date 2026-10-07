@@ -1,7 +1,7 @@
 # peso
 
 [![Live demo](https://img.shields.io/badge/demo-live-F38020?logo=cloudflare&logoColor=white)](https://peso.daddiego.com.ar)
-[![CI (web)](https://github.com/lucasdaddiego/peso/actions/workflows/ci.yml/badge.svg)](https://github.com/lucasdaddiego/peso/actions/workflows/ci.yml)
+[![Web (test + deploy)](https://github.com/lucasdaddiego/peso/actions/workflows/deploy.yml/badge.svg)](https://github.com/lucasdaddiego/peso/actions/workflows/deploy.yml)
 [![Python checks](https://github.com/lucasdaddiego/peso/actions/workflows/python.yml/badge.svg)](https://github.com/lucasdaddiego/peso/actions/workflows/python.yml)
 [![Data reproduces INDEC/BCRA](https://github.com/lucasdaddiego/peso/actions/workflows/data.yml/badge.svg)](https://github.com/lucasdaddiego/peso/actions/workflows/data.yml)
 [![Coverage 100%](https://img.shields.io/badge/coverage-100%25-brightgreen)](https://github.com/lucasdaddiego/peso/actions)
@@ -36,9 +36,9 @@ broken series across the years the INDEC was intervened.
 -->
 
 > **Validated to the official figures.** The spliced index reproduces INDEC's published Dec–Dec
-> inflation for 2017–2024 **to the decimal** (24.8 · 47.6 · 53.8 · 36.1 · 50.9 · 94.8 · 211.4 ·
-> 117.8 %), the IPC-GBA 2002 collapse (40.9 %), and 1:1 convertibility FX — with an independent
-> cross-check that **$1.000 of January 2003 ≈ $1.65M today**.
+> inflation for 2017–2025 **to the decimal** (24.8 · 47.6 · 53.8 · 36.1 · 50.9 · 94.8 · 211.4 ·
+> 117.8 · 31.5 %), the IPC-GBA 2002 collapse (40.9 %), and 1:1 convertibility FX — plus a pinned
+> cumulative cross-check that **$1.000 of January 2003 ≈ $1.65M today**.
 
 It has two parts:
 
@@ -62,7 +62,8 @@ It has two parts:
 - **Computed once, offline.** The frontend does no statistics: it looks up the precomputed monthly
   index and rates. Everything quantitative is in the committed artifact.
 - **Provenance + a validation gate.** Each series is pinned by id; the build **fails** if it stops
-  reproducing the official Dec–Dec figures, the convertibility peg, or the cumulative cross-check.
+  reproducing the official Dec–Dec figures, the convertibility peg, or the cumulative cross-check —
+  and if the vintage covers a December whose year has no anchor yet (one anchor per completed year).
 - **Vintage-pinned.** Every series is truncated to a fixed month, so the build is reproducible no
   matter when it runs.
 
@@ -103,14 +104,14 @@ rate.
   rebased so today = 100.
 - **FX.** BCRA reference dollar (official, from 1992) + Bluelytics (blue, from 2011; pre-cepo blue
   := official).
-- **Validation.** Reproduces INDEC Dec–Dec 2017–2024, San Luis 2007–2015, GBA 2002, convertibility
+- **Validation.** Reproduces INDEC Dec–Dec 2017–2025, San Luis 2007–2015, GBA 2002, convertibility
   1:1, and a cumulative cross-check — or the build fails.
 - Full notes: [`docs/metodologia.md`](docs/metodologia.md), and the "Metodología" section in the app.
 
 ## Project structure
 
 ```
-pipeline/   config (pinned series + anchors) · fetch · load · splice · build · validate · artifact_check
+pipeline/   config (pinned series + anchors) · fetch · load · splice · build · validate · artifact_check · watch
 tests/      pytest suite for pipeline/ — offline, synthetic fixtures, 100% statement+branch coverage
 data/       series.v1.json   (raw/ is gitignored)
 web/        index.html · src/{main,charts,inflation,format,usd,types}.ts · styles.css · test/ (vitest, 100%)
@@ -121,19 +122,19 @@ docs/       metodologia.md
 
 Both layers are gated at **100% coverage** — statements **and** branches:
 
-- **`pipeline/`** — `pytest` against tiny synthetic series (no network), 49 tests.
-- **`web/src/`** — `vitest` + `jsdom`, every render path exercised against the committed artifact, 57 tests.
+- **`pipeline/`** — `pytest` against tiny synthetic series (no network).
+- **`web/src/`** — `vitest` + `jsdom`, every render path exercised against the committed artifact.
 
-`make test` runs both; `make lint` runs `ruff` + `mypy` + `tsc`. Three GitHub Actions enforce it,
-path-filtered so a web-only change never reaches for the data sources; two more handle the
-deployment (see [Deploy](#deploy)):
+`make test` runs both; `make lint` runs `ruff` + `mypy` + `tsc`. GitHub Actions enforce it,
+path-filtered so a web-only change never reaches for the data sources; every action is pinned to
+a commit SHA and Dependabot (`.github/dependabot.yml`) keeps the pins, npm and uv current:
 
 | Workflow | What it does |
 | --- | --- |
-| `ci.yml` | web typecheck + `vitest` 100% gate + production build |
+| `deploy.yml` | web typecheck + `vitest` 100% gate + production build, then (only if that passed) the Cloudflare Pages deploy: production on push, preview per PR |
 | `python.yml` | `ruff` + `mypy` + `pytest` 100% gate (offline, fast) |
 | `data.yml` | the pipeline still reproduces INDEC/BCRA, and the committed artifact matches the rebuild |
-| `deploy.yml` | builds the site and publishes it to Cloudflare Pages (production on push, preview per PR) |
+| `data-update.yml` | monthly watch — bumps the vintage and opens a PR when INDEC publishes a newer month |
 | `cleanup.yml` | deletes a PR's preview deployments when the PR closes |
 
 ## Reproducibility
@@ -141,13 +142,17 @@ deployment (see [Deploy](#deploy)):
 The series are **vintage-pinned** in `pipeline/config.py` (`DATA_VINTAGE`): every month at or
 before the vintage is fixed, so a fresh fetch reproduces the committed artifact even as the upstream
 APIs append new months. To update to a newer month, bump `DATA_VINTAGE`, run `make data`, and commit
-the regenerated JSON. If a source ever revises a *past* month, `data.yml` flags the drift.
+the regenerated JSON; the monthly watch (`data-update.yml`, `pipeline/watch.py`) does exactly that
+and opens the PR. A bump that completes a calendar year must also add that year's INDEC Dec–Dec
+figure to `INDEC_NACIONAL_ANNUAL`, or `make data` fails (the PR body says which year). If a source
+ever revises a *past* month, `data.yml` flags the drift.
 
 ## Deploy
 
-Static bundle + one JSON → ideal for **Cloudflare Pages**. `deploy.yml` builds `web/dist/` and
-uploads it with `wrangler` on every push to `master` (production) and on every pull request (a
-per-branch preview URL); `cleanup.yml` removes a PR's previews once it closes. Both need the
+Static bundle + one JSON → ideal for **Cloudflare Pages**. `deploy.yml` runs the web tests, builds
+`web/dist/` and, only once the tests passed, uploads it with `wrangler` on every push to `master`
+(production) and on every pull request (a per-branch preview URL); `cleanup.yml` removes a PR's
+previews once it closes. Both need the
 `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` repository secrets — without them the workflow
 still builds but skips the upload. `make deploy` does the same upload by hand (needs `wrangler`
 auth). Headers come from `web/public/_headers`. The Pages project is **`valor-peso`**
