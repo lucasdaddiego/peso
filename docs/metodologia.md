@@ -54,8 +54,9 @@ correr `make data` y commitear el artefacto regenerado.
 
 El pipeline reproduce, dentro de tolerancia, cifras conocidas (o falla el build):
 
-- **IPC Nacional (INDEC), inflación interanual dic–dic 2017–2024:** 24,8 · 47,6 · 53,8 · 36,1 ·
-  50,9 · 94,8 · 211,4 · 117,8 %.
+- **IPC Nacional (INDEC), inflación interanual dic–dic 2017–2025:** 24,8 · 47,6 · 53,8 · 36,1 ·
+  50,9 · 94,8 · 211,4 · 117,8 · 31,5 %. Un ancla por cada año completo: si el vintage cubre un
+  diciembre sin ancla para su año, el build falla hasta agregarla.
 - **IPC San Luis dic–dic 2007–2015** (la década intervenida): ~21–39 %/año — muy por encima del
   ~10 % que declaraba el INDEC oficial de esos años.
 - **IPC-GBA 2002** (colapso de la convertibilidad): 40,9 %.

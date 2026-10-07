@@ -120,6 +120,10 @@ BLUE_FIRST_MONTH = "2011-01"  # earliest Bluelytics blue datum; earlier months: 
 # Inflación interanual diciembre–diciembre (%).
 # --------------------------------------------------------------------------------------
 # Official INDEC IPC Nacional, Dec–Dec (published headline figures). Segment C must reproduce these.
+# One anchor per COMPLETED calendar year is mandatory: validate.completed_years() fails the build when
+# a vintage covers a December whose year has no entry here, so a bump that crosses a year-end (the
+# watch's bump PR, or a manual one) must add that year's figure from INDEC's January IPC release
+# (https://www.indec.gob.ar/indec/web/Nivel4-Tema-3-5-31, "Índice de precios al consumidor").
 INDEC_NACIONAL_ANNUAL = {
     2017: 24.8,
     2018: 47.6,
@@ -129,7 +133,9 @@ INDEC_NACIONAL_ANNUAL = {
     2022: 94.8,
     2023: 211.4,
     2024: 117.8,
+    2025: 31.5,  # INDEC, IPC diciembre 2025 (serie 148.3: 10121.3715 / 7694.0075 = 31,55 %)
 }
+FIRST_NACIONAL_YEAR = 2017  # first full calendar year of segment C (base dic-2016)
 
 # San Luis Dec–Dec for the intervened decade (segment B reproduces these directly). The point is
 # the GAP vs the discredited official figures (which claimed ~10%/yr in 2008–2015).

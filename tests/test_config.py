@@ -36,3 +36,9 @@ def test_cum_anchor_shape():
 def test_citation_mentions_the_sources():
     for token in ("INDEC", "BCRA", "San Luis", "Bluelytics"):
         assert token in config.CITATION
+
+
+def test_nacional_anchors_are_contiguous_from_the_first_full_year():
+    years = sorted(config.INDEC_NACIONAL_ANNUAL)
+    assert years[0] == config.FIRST_NACIONAL_YEAR
+    assert years == list(range(years[0], years[-1] + 1))  # no skipped year

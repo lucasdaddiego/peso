@@ -1,7 +1,9 @@
 """Validation gate: assert the spliced series still reproduces the figures it must.
 
 HARD checks (build fails on any miss):
-  • INDEC IPC Nacional Dec–Dec inflation, 2017–2024 (the official headline numbers).
+  • INDEC IPC Nacional Dec–Dec inflation, 2017 → the last completed year (the official headline
+    numbers), and one anchor per completed year: a vintage that covers a December with no anchor
+    for its year fails until the figure is added to config.INDEC_NACIONAL_ANNUAL.
   • IPC San Luis Dec–Dec, 2007–2015 (the intervened-decade alternative the splice uses).
   • INDEC IPC-GBA 2002 (the convertibility-collapse year) and convertibility-era FX ≈ 1:1.
   • A cumulative purchasing-power cross-check ($1.000 de 2003 → pesos de la vintage).
@@ -35,6 +37,22 @@ class Gate:
         return ok
 
 
+def completed_years(vintage: str) -> list[int]:
+    """Calendar years of segment C whose Dec–Dec figure the vintage covers.
+
+    A year is complete once its December is in the series: for a December vintage that is the
+    vintage's own year, otherwise the year before. Starts at config.FIRST_NACIONAL_YEAR.
+    """
+    year, month = int(vintage[:4]), int(vintage[5:7])
+    last = year if month == 12 else year - 1
+    return list(range(config.FIRST_NACIONAL_YEAR, last + 1))
+
+
+def missing_anchor_years(vintage: str) -> list[int]:
+    """Completed years with no entry in config.INDEC_NACIONAL_ANNUAL (what a bump must add)."""
+    return [y for y in completed_years(vintage) if y not in config.INDEC_NACIONAL_ANNUAL]
+
+
 def validate() -> None:
     art = json.loads(config.ARTIFACT_PATHS[0].read_text(encoding="utf-8"))
     annual = {row["year"]: row["pct"] for row in art["annual_inflation"]}
@@ -44,6 +62,12 @@ def validate() -> None:
     print("\n=== HARD GATE: IPC Nacional (INDEC) Dec–Dec — la serie oficial debe reproducirse ===")
     for year, exp in config.INDEC_NACIONAL_ANNUAL.items():
         g.check(f"Inflación {year} (oficial)", annual.get(year, float("nan")), exp, 0.2, unit="pp")
+    for year in missing_anchor_years(config.DATA_VINTAGE):
+        print(
+            f"  [{RED}FAIL{RESET}] falta el ancla {year}: el vintage {config.DATA_VINTAGE} ya cubre diciembre {year}; "
+            f"agregá INDEC_NACIONAL_ANNUAL[{year}] con la variación dic–dic publicada por el INDEC"
+        )
+        g.failures += 1
 
     print("\n=== HARD GATE: IPC San Luis Dec–Dec (década intervenida) ===")
     for year, exp in config.SANLUIS_ANNUAL.items():
