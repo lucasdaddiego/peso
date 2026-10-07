@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { buildModel, monthsBetween } from "../src/inflation";
+import { buildModel, monthsBetween, validationRows } from "../src/inflation";
+import { ARTIFACT } from "./fixture";
 import type { Artifact, SeriesRow } from "../src/types";
 
 function row(m: string, cpi: number, off: number, blue: number): SeriesRow {
@@ -56,5 +57,19 @@ describe("model", () => {
   it("brechaPct is the blue-over-official gap", () => {
     expect(m.brechaPct("2000-02")).toBe(50); // 3/2 - 1
     expect(m.brechaPct("2000-01")).toBe(0);
+  });
+});
+
+describe("validationRows", () => {
+  it("matches present anchors and flags a missing one", () => {
+    const rows = validationRows(ARTIFACT.annual_inflation, ARTIFACT.anchors.indec_nacional_annual);
+    expect(rows.length).toBeGreaterThan(0);
+    expect(rows.every((r) => r.ok)).toBe(true); // committed artifact reproduces every anchor
+    expect(rows.map((r) => Number(r.year))).toEqual([...rows.map((r) => Number(r.year))].sort((x, y) => x - y));
+    expect(rows.map((r) => r.year)).toContain("2025"); // one anchor per completed year, 2025 included
+
+    const missing = validationRows([], { "2024": 117.8 });
+    expect(missing[0].ok).toBe(false);
+    expect(Number.isNaN(missing[0].ours)).toBe(true);
   });
 });

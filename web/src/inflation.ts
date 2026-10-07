@@ -1,4 +1,4 @@
-import type { Artifact, SeriesRow } from "./types";
+import type { AnnualRow, Artifact, SeriesRow } from "./types";
 
 /** Whole months from `a` to `b` ("YYYY-MM"), signed. monthsBetween("2003-01","2003-04") === 3. */
 export function monthsBetween(a: string, b: string): number {
@@ -64,4 +64,15 @@ export function buildModel(art: Artifact): Model {
     rows, byMonth, firstMonth, lastMonth,
     clampMonth, row, cpi, equivalent, cumulativePct, annualisedPct, usd, brechaPct,
   };
+}
+
+/** Validation table (methodology): each anchor year, the official Dec–Dec figure vs our reproduction. */
+export function validationRows(annual: AnnualRow[], anchors: Record<string, number>): { year: string; official: number; ours: number; ok: boolean }[] {
+  const byYear = new Map(annual.map((a) => [a.year, a.pct]));
+  return Object.entries(anchors)
+    .map(([y, official]) => {
+      const ours = byYear.get(Number(y)) ?? NaN;
+      return { year: y, official, ours, ok: Math.abs(ours - official) <= 0.2 };
+    })
+    .sort((a, b) => Number(a.year) - Number(b.year));
 }

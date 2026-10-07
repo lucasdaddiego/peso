@@ -10,8 +10,8 @@
   --accent-soft: rgba(42, 92, 138, 0.1);
   --warn: #9a3b2e;
   --ok: #2f6b3a;
-  /* chart palette (read by charts.ts) */
-  --chart-muted: #8a8a86;
+  /* chart palette (read by charts.ts); 4.8:1 on --paper, 5:1 on --card (11 px tick/label text) */
+  --chart-muted: #6f6f6a;
   --ink-rgb: 26, 26, 26;
   --accent-rgb: 42, 92, 138;
   --radius: 8px;

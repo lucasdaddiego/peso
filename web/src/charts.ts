@@ -48,6 +48,14 @@ function clear(el: HTMLElement) {
   el.replaceChildren();
 }
 
+/** Give the chart an accessible name: the <figcaption> beside it, or a generic one. The SVGs Plot
+ *  emits carry no text alternative, so without this a screen reader announces nothing. */
+function describe(el: HTMLElement) {
+  const caption = el.closest("figure")?.querySelector("figcaption")?.textContent ?? "";
+  el.setAttribute("role", "img");
+  el.setAttribute("aria-label", caption.trim() || "gráfico");
+}
+
 /** Decimal-year x coordinate for a month, e.g. "2003-07" → 2003.5. Robust across jsdom (no Dates). */
 export function xOf(month: string): number {
   const [y, m] = month.split("-").map(Number);
@@ -106,6 +114,7 @@ export function renderDecay(el: HTMLElement, model: Model, from: string, amount:
     ],
   });
   el.append(plot);
+  describe(el);
 }
 
 // ---------------------------------------------------------------------------
@@ -139,6 +148,7 @@ export function renderDollar(el: HTMLElement, model: Model, from: string) {
     ],
   });
   el.append(plot);
+  describe(el);
 }
 
 // ---------------------------------------------------------------------------
@@ -172,6 +182,7 @@ export function renderBrecha(el: HTMLElement, rows: SeriesRow[]) {
     ],
   });
   el.append(plot);
+  describe(el);
 }
 
 // ---------------------------------------------------------------------------
@@ -197,6 +208,7 @@ export function renderAnnual(el: HTMLElement, annual: AnnualRow[], highlightYear
     ],
   });
   el.append(plot);
+  describe(el);
 }
 
 // ---------------------------------------------------------------------------
@@ -221,6 +233,7 @@ export function renderMonthly(el: HTMLElement, rows: SeriesRow[], from: string) 
     ],
   });
   el.append(plot);
+  describe(el);
 }
 
 // ---------------------------------------------------------------------------
@@ -247,6 +260,7 @@ export function renderIndex(el: HTMLElement, model: Model, from: string) {
     ],
   });
   el.append(plot);
+  describe(el);
 }
 
 // ---------------------------------------------------------------------------
@@ -271,17 +285,5 @@ export function renderUsdBars(el: HTMLElement, bars: { label: string; usd: numbe
   });
   s += `</svg>`;
   el.innerHTML = s;
-}
-
-// ---------------------------------------------------------------------------
-// Validation table (methodology): each anchor year, the official figure vs our reproduction.
-// ---------------------------------------------------------------------------
-export function validationRows(annual: AnnualRow[], anchors: Record<string, number>): { year: string; official: number; ours: number; ok: boolean }[] {
-  const byYear = new Map(annual.map((a) => [a.year, a.pct]));
-  return Object.entries(anchors)
-    .map(([y, official]) => {
-      const ours = byYear.get(Number(y)) ?? NaN;
-      return { year: y, official, ours, ok: Math.abs(ours - official) <= 0.2 };
-    })
-    .sort((a, b) => Number(a.year) - Number(b.year));
+  describe(el);
 }

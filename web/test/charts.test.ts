@@ -167,15 +167,27 @@ describe("zero-width containers", () => {
   });
 });
 
-describe("validationRows", () => {
-  it("matches present anchors and flags a missing one", () => {
-    const rows = charts.validationRows(ARTIFACT.annual_inflation, ARTIFACT.anchors.indec_nacional_annual);
-    expect(rows.length).toBeGreaterThan(0);
-    expect(rows.every((r) => r.ok)).toBe(true); // committed artifact reproduces every anchor
-    expect(rows.map((r) => Number(r.year))).toEqual([...rows.map((r) => Number(r.year))].sort((x, y) => x - y));
+describe("accessible names", () => {
+  it("labels a chart with the figcaption beside it", () => {
+    const fig = document.createElement("figure");
+    fig.innerHTML = `<figcaption> Brecha cambiaria </figcaption><div class="chart"></div>`;
+    document.body.appendChild(fig);
+    const el = fig.querySelector(".chart") as HTMLElement;
+    charts.renderBrecha(el, ARTIFACT.series);
+    expect(el.getAttribute("role")).toBe("img");
+    expect(el.getAttribute("aria-label")).toBe("Brecha cambiaria");
+  });
 
-    const missing = charts.validationRows([], { "2024": 117.8 });
-    expect(missing[0].ok).toBe(false);
-    expect(Number.isNaN(missing[0].ours)).toBe(true);
+  it("falls back to a generic name without a caption (figure without one, or no figure)", () => {
+    const fig = document.createElement("figure");
+    const inFig = document.createElement("div");
+    fig.appendChild(inFig);
+    document.body.appendChild(fig);
+    charts.renderUsdBars(inFig, [{ label: "x", usd: 10, kind: "off", when: "now" }]);
+    expect(inFig.getAttribute("aria-label")).toBe("gráfico");
+    const bare = mountEl();
+    charts.renderAnnual(bare, ARTIFACT.annual_inflation, 2023);
+    expect(bare.getAttribute("role")).toBe("img");
+    expect(bare.getAttribute("aria-label")).toBe("gráfico");
   });
 });

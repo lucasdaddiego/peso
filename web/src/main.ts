@@ -1,12 +1,17 @@
 import "./styles.css";
-import * as charts from "./charts";
 import { fmtARS, fmtMonth, fmtNum, fmtPct, fmtPctBig, fmtUSD, fmtX, MESES, parseMoney } from "./format";
-import { buildModel, monthsBetween, type Model } from "./inflation";
+import { buildModel, monthsBetween, validationRows, type Model } from "./inflation";
 import { fetchBlue, type BlueRate } from "./usd";
 import type { Artifact } from "./types";
 // ?url makes Vite emit a content-hashed copy (/assets/series.v1-<hash>.json) and return its URL, so
 // a data refresh gets a new name and a long browser cache can never serve the old values.
 import seriesUrl from "../public/series.v1.json?url";
+
+// charts.ts carries Observable Plot + D3, most of the bundle. The headline, the USD cards and every
+// paragraph need none of it, so init() imports it only after the page has painted; until then
+// `charts` is null and the chart renders are no-ops (they run once the chunk lands).
+type Charts = typeof import("./charts");
+let charts: Charts | null = null;
 
 const $ = <T extends HTMLElement = HTMLElement>(id: string) => document.getElementById(id) as T;
 
@@ -30,13 +35,13 @@ async function init() {
     return;
   }
   model = buildModel(data);
-  // Stateless: no params, no storage. Strip any stray query string on load.
-  if (location.search) history.replaceState(null, "", location.pathname);
+  readUrlState();
 
   $("source-badge").innerHTML =
     `Datos hasta <strong>${data.vintage_label}</strong> · IPC INDEC + IPC San Luis (2007–2015) · ` +
     `dólar BCRA y Bluelytics · series reales vía datos.gob.ar`;
 
+  $<HTMLInputElement>("amount-number").value = fmtNum(state.amountARS);
   populateWhen();
   wireControls();
   setupSticky();
@@ -60,6 +65,32 @@ async function init() {
     t = window.setTimeout(renderVisuals, 150);
   });
   window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => renderAll());
+
+  // Now the heavy part: the chart library, in its own chunk, after the headline is on screen.
+  charts = await import("./charts");
+  renderVisuals();
+}
+
+// ---------- shareable state (the URL, never storage) ----------
+// ?a=<pesos>&m=<YYYY-MM> describes the whole page, so a result can be shared as a link. A valid
+// link is read on load and normalised; anything else is stripped. Nothing is persisted locally.
+const URL_AMOUNT_RE = /^\d{1,12}$/;
+const URL_MONTH_RE = /^\d{4}-(0[1-9]|1[0-2])$/;
+
+function readUrlState() {
+  const q = new URLSearchParams(location.search);
+  const a = q.get("a");
+  const m = q.get("m");
+  const amount = a !== null && URL_AMOUNT_RE.test(a) ? parseInt(a, 10) : null;
+  const month = m !== null && URL_MONTH_RE.test(m) ? model.clampMonth(m) : null;
+  if (amount !== null) state.amountARS = amount;
+  if (month !== null) state.startMonth = month;
+  if (amount !== null || month !== null) writeUrlState();
+  else if (location.search) history.replaceState(null, "", location.pathname);
+}
+
+function writeUrlState() {
+  history.replaceState(null, "", `?a=${state.amountARS}&m=${state.startMonth}`);
 }
 
 // ---------- controls ----------
@@ -94,11 +125,13 @@ function wireControls() {
   num.addEventListener("input", () => {
     reformatWithCaret(num);
     state.amountARS = parseMoney(num.value);
+    writeUrlState();
     renderAll();
   });
   for (const id of ["start-year", "start-month"]) {
     $<HTMLSelectElement>(id).addEventListener("change", () => {
       syncWhen();
+      writeUrlState();
       renderAll();
     });
   }
@@ -147,7 +180,6 @@ function setupSticky() {
 
 // ---------- render ----------
 function renderAll() {
-  charts.refreshPalette();
   renderHeadline();
   renderUsd();
   renderDecayText();
@@ -196,25 +228,45 @@ function segName(month: string): string {
   return { gba: "IPC-GBA del INDEC", sanluis: "IPC de San Luis", nacional: "IPC Nacional del INDEC" }[r.src];
 }
 
-function renderUsd() {
+/** The four USD endpoints of the current amount, and whether each blue is a real quote. */
+function usdFigures() {
   const amount = state.amountARS;
   const from = state.startMonth;
   const equiv = equivToday();
   const today = data.vintage;
+  return {
+    amount,
+    from,
+    equiv,
+    today,
+    thenOff: model.usd(amount, from, "off"),
+    thenBlue: model.usd(amount, from, "blue"),
+    nowOff: model.usd(equiv, today, "off"),
+    nowBlue: model.usd(equiv, today, "blue"),
+    // blue_est covers two different situations: a pre-cepo month, where blue := official by
+    // construction, and a post-2011 month Bluelytics simply lacks, where the pipeline carries the
+    // last real quote. Only the first is "no había dólar blue"; the second must not be narrated as
+    // if the cepo had not existed yet.
+    estThen: model.row(from).blue_est,
+    preCepo: from < data.source.fx_blue.first_month,
+    // The vintage month's blue can be carried too (Bluelytics behind the CPI). Presenting it as a
+    // real quote would fabricate the headline brecha, so it gets the same treatment as "entonces".
+    estNow: model.row(today).blue_est,
+  };
+}
 
-  const thenOff = model.usd(amount, from, "off");
-  const thenBlue = model.usd(amount, from, "blue");
-  const nowOff = model.usd(equiv, today, "off");
-  const nowBlue = model.usd(equiv, today, "blue");
-  const estThen = model.row(from).blue_est;
-  // blue_est covers two different situations: a pre-cepo month, where blue := official by
-  // construction, and a post-2011 month Bluelytics simply lacks, where the pipeline carries the
-  // last real quote. Only the first is "no había dólar blue"; the second must not be narrated as
-  // if the cepo had not existed yet.
-  const preCepo = from < data.source.fx_blue.first_month;
-  // The vintage month's blue can be carried too (Bluelytics behind the CPI). Presenting it as a
-  // real quote would fabricate the headline brecha, so it gets the same treatment as "entonces".
-  const estNow = model.row(today).blue_est;
+function usdBars() {
+  const u = usdFigures();
+  return [
+    { label: `entonces · oficial`, usd: u.thenOff, kind: "off" as const, when: "then" as const },
+    { label: `entonces · blue`, usd: u.estThen ? u.thenOff : u.thenBlue, kind: "blue" as const, when: "then" as const },
+    { label: `hoy · oficial`, usd: u.nowOff, kind: "off" as const, when: "now" as const },
+    { label: `hoy · blue`, usd: u.estNow ? u.nowOff : u.nowBlue, kind: "blue" as const, when: "now" as const },
+  ];
+}
+
+function renderUsd() {
+  const { amount, from, equiv, today, thenOff, thenBlue, nowOff, nowBlue, estThen, preCepo, estNow } = usdFigures();
 
   const card = (title: string, off: number, blue: number, est: boolean) =>
     `<div class="usd-card">
@@ -247,13 +299,6 @@ function renderUsd() {
       : ` Sin cotización blue para ${fmtMonth(from)}: se compara solo contra el oficial.`;
   $("usd-foot").innerHTML =
     `Oficial: tipo de cambio de referencia del BCRA. Blue: cotización informal (Bluelytics).${estNote}`;
-
-  charts.renderUsdBars($("chart-usd"), [
-    { label: `entonces · oficial`, usd: thenOff, kind: "off", when: "then" },
-    { label: `entonces · blue`, usd: estThen ? thenOff : thenBlue, kind: "blue", when: "then" },
-    { label: `hoy · oficial`, usd: nowOff, kind: "off", when: "now" },
-    { label: `hoy · blue`, usd: estNow ? nowOff : nowBlue, kind: "blue", when: "now" },
-  ]);
 }
 
 function renderDecayText() {
@@ -303,10 +348,10 @@ function renderInfl() {
   const fromYear = parseInt(state.startMonth.slice(0, 4), 10);
   if (state.inflFreq === "annual") {
     $("infl-caption").textContent = "Inflación interanual (diciembre a diciembre)";
-    charts.renderAnnual($("chart-infl"), data.annual_inflation, fromYear);
+    if (charts) charts.renderAnnual($("chart-infl"), data.annual_inflation, fromYear);
   } else {
     $("infl-caption").textContent = "Inflación mensual, desde el mes elegido";
-    charts.renderMonthly($("chart-infl"), data.series, state.startMonth);
+    if (charts) charts.renderMonthly($("chart-infl"), data.series, state.startMonth);
   }
 }
 
@@ -317,7 +362,9 @@ function renderSticky() {
 }
 
 function renderVisuals() {
+  if (!charts) return; // the chart chunk has not landed yet; init() renders once it does
   charts.refreshPalette();
+  charts.renderUsdBars($("chart-usd"), usdBars());
   charts.renderDecay($("chart-decay"), model, state.startMonth, state.amountARS);
   charts.renderDollar($("chart-dollar"), model, state.startMonth);
   charts.renderBrecha($("chart-brecha"), data.series);
@@ -338,8 +385,7 @@ function renderBlindspots() {
 
 function renderMethodology() {
   const segs = data.source.ipc_segments;
-  const rows = charts
-    .validationRows(data.annual_inflation, data.anchors.indec_nacional_annual)
+  const rows = validationRows(data.annual_inflation, data.anchors.indec_nacional_annual)
     .map((r) => `<tr><td>${r.year}</td><td>${fmtPct(r.official)}</td><td>${fmtPct(r.ours)}</td><td>${r.ok ? "✓" : "✗"}</td></tr>`)
     .join("");
   const segRows = segs

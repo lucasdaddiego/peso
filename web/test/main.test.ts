@@ -35,7 +35,15 @@ async function boot(opts: BootOpts = {}) {
   await vi.waitFor(() => {
     if (!document.getElementById("result")?.innerHTML) throw new Error("init not done");
   });
+  await waitForCharts();
   return M;
+}
+
+/** The chart chunk is imported after the headline paints; wait until the first chart is drawn. */
+async function waitForCharts() {
+  await vi.waitFor(() => {
+    if (!document.getElementById("chart-decay")?.innerHTML.includes("svg")) throw new Error("charts not painted");
+  });
 }
 
 const $ = (id: string) => document.getElementById(id) as HTMLElement;
@@ -94,9 +102,50 @@ describe("init smoke", () => {
     await vi.waitFor(() => {
       if (!$("result").innerHTML) throw new Error("init not done");
     });
+    await waitForCharts();
     expect($("result").innerHTML).toContain("de hoy");
-    expect($("chart-decay").innerHTML).toContain("svg");
     expect($("live-blue").innerHTML).toBe(""); // only the badge is missing
+  });
+
+  it("paints the headline and answers the controls before the chart chunk has arrived", async () => {
+    // Observable Plot is most of the bundle and only the charts need it, so main.ts imports
+    // charts.ts after the first paint. Hold that import back and check the page already works.
+    let release!: () => void;
+    const gate = new Promise<void>((r) => (release = r));
+    vi.doMock("../src/charts", async () => {
+      await gate;
+      return await vi.importActual<typeof import("../src/charts")>("../src/charts");
+    });
+    try {
+      document.body.innerHTML = bodyHtml;
+      window.history.replaceState(null, "", "/");
+      vi.stubGlobal(
+        "fetch",
+        vi.fn(async (url: string) =>
+          String(url).includes("dolarapi") ? { ok: true, json: async () => BLUE } : { ok: true, json: async () => ARTIFACT },
+        ),
+      );
+      vi.resetModules();
+      await import("../src/main");
+      await vi.waitFor(() => {
+        if (!$("result").innerHTML) throw new Error("init not done");
+      });
+      expect($("chart-decay").innerHTML).toBe(""); // no Plot yet
+      expect($("methodology-body").innerHTML).toContain("✓"); // the validation table needs no Plot
+      setInput("amount-number", "2000"); // renderAll -> the chart pass is a no-op for now
+      expect($("result").innerHTML).toContain("$2.000");
+      (document.querySelector('[data-freq="monthly"]') as HTMLButtonElement).click();
+      expect($("infl-caption").textContent).toContain("mensual");
+      expect($("chart-infl").innerHTML).toBe("");
+      (document.querySelector('[data-freq="annual"]') as HTMLButtonElement).click();
+      expect($("infl-caption").textContent).toContain("interanual");
+      release();
+      await waitForCharts();
+      expect($("chart-infl").innerHTML).toContain("svg");
+      expect($("chart-usd").innerHTML).toContain("US$");
+    } finally {
+      vi.doUnmock("../src/charts");
+    }
   });
 
   it("loads the artifact from the bundler's asset URL, not the fixed public name", async () => {
@@ -111,6 +160,39 @@ describe("init smoke", () => {
   it("strips a stray query string on load", async () => {
     await boot({ search: "/?foo=bar" });
     expect(window.location.search).toBe("");
+  });
+
+  it("reads a shared ?a=&m= link on load and keeps it in the URL", async () => {
+    await boot({ search: "/?a=5000&m=2010-06" });
+    expect($i("amount-number").value).toBe("5.000");
+    expect($s("start-year").value).toBe("2010");
+    expect($s("start-month").value).toBe("6");
+    expect($("result").innerHTML).toContain("$5.000</strong> de junio 2010");
+    expect(window.location.search).toBe("?a=5000&m=2010-06");
+  });
+
+  it("clamps an out-of-range month from the URL and normalises the query", async () => {
+    await boot({ search: "/?m=2099-01" });
+    expect($s("start-year").value).toBe(ARTIFACT.vintage.slice(0, 4));
+    expect(window.location.search).toBe(`?a=1000&m=${ARTIFACT.vintage}`); // the default amount, the clamped month
+  });
+
+  it("ignores malformed ?a=&m= values and strips them", async () => {
+    await boot({ search: "/?a=1e9&m=2003-13" });
+    expect($i("amount-number").value).toBe("1.000");
+    expect($s("start-year").value).toBe("2003");
+    expect(window.location.search).toBe("");
+  });
+
+  it("writes the current amount and month to the URL on every change, and stores nothing", async () => {
+    await boot();
+    expect(window.location.search).toBe(""); // a plain visit keeps the canonical URL
+    setInput("amount-number", "2500");
+    expect(window.location.search).toBe("?a=2500&m=2003-01");
+    setWhen("2005", "3");
+    expect(window.location.search).toBe("?a=2500&m=2005-03");
+    expect(localStorage.length).toBe(0);
+    expect(document.cookie).toBe("");
   });
 
   it("omits the live-blue badge when the rate is unavailable", async () => {
