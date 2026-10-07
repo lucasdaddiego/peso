@@ -134,7 +134,7 @@ a commit SHA and Dependabot (`.github/dependabot.yml`) keeps the pins, npm and u
 | `deploy.yml` | web typecheck + `vitest` 100% gate + production build, then (only if that passed) the Cloudflare Pages deploy: production on push, preview per PR |
 | `python.yml` | `ruff` + `mypy` + `pytest` 100% gate (offline, fast) |
 | `data.yml` | the pipeline still reproduces INDEC/BCRA, and the committed artifact matches the rebuild |
-| `data-update.yml` | monthly watch — bumps the vintage and opens a PR when INDEC publishes a newer month |
+| `data-update.yml` | monthly watch — when INDEC publishes a newer month, bumps the vintage and pushes it to master (which deploys); a draft PR instead when the rebuild needs a human (a new year's Dec–Dec anchor) |
 | `cleanup.yml` | deletes a PR's preview deployments when the PR closes |
 
 ## Reproducibility
@@ -142,9 +142,13 @@ a commit SHA and Dependabot (`.github/dependabot.yml`) keeps the pins, npm and u
 The series are **vintage-pinned** in `pipeline/config.py` (`DATA_VINTAGE`): every month at or
 before the vintage is fixed, so a fresh fetch reproduces the committed artifact even as the upstream
 APIs append new months. To update to a newer month, bump `DATA_VINTAGE`, run `make data`, and commit
-the regenerated JSON; the monthly watch (`data-update.yml`, `pipeline/watch.py`) does exactly that
-and opens the PR. A bump that completes a calendar year must also add that year's INDEC Dec–Dec
-figure to `INDEC_NACIONAL_ANNUAL`, or `make data` fails (the PR body says which year). If a source
+the regenerated JSON; the monthly watch (`data-update.yml`, `pipeline/watch.py`) does exactly that on
+the 20th and pushes the result to master with the `ipc-watch` deploy key (a bypass actor of the
+`protect-master` ruleset), so the site redeploys on its own. A bump that completes a calendar year
+must also add that year's INDEC Dec–Dec figure to `INDEC_NACIONAL_ANNUAL`, or `make data` fails:
+that bump arrives as a draft PR whose body says which year. Downstream,
+[argentina-income-percentile](https://github.com/lucasdaddiego/argentina-income-percentile) polls
+the deployed `series.v1.json` on the 21st. If a source
 ever revises a *past* month, `data.yml` flags the drift.
 
 ## Deploy

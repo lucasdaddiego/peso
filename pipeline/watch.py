@@ -14,7 +14,8 @@ Two modes:
   --pr-body  after the bump and `make data`: write the PR body from the rewritten pin, the
              PREV_VINTAGE and DATA_OUTCOME env vars, and the anchors the new vintage still needs.
 
-The bump is only mechanical. When the new vintage completes a calendar year (it covers a December
+When `make data` passes, the workflow pushes the bump straight to master (the push deploys); otherwise
+it opens a draft PR. The bump is only mechanical. When the new vintage completes a calendar year (it covers a December
 with no Dec–Dec anchor yet), `make data` fails on validate.missing_anchor_years until a human adds
 that year's INDEC figure to config.INDEC_NACIONAL_ANNUAL; the PR body says which year.
 """

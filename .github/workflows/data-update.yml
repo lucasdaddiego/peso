@@ -1,20 +1,26 @@
 name: IPC data watch
 
 # Monthly maintenance for the vintage-pinned series.
-#  - INDEC published a month newer than config.DATA_VINTAGE -> bump the pin, rebuild the artifact
-#    (`make data`) and open a PR with both. The PR is ready to merge when `make data` passed and a
-#    draft when it failed: a bump that completes a calendar year needs that year's Dec–Dec anchor in
-#    config.INDEC_NACIONAL_ANNUAL (validate.missing_anchor_years), which a human adds.
+#  - INDEC published a month newer than config.DATA_VINTAGE -> bump the pin and rebuild the artifact
+#    (`make data`). When the rebuild passes, the bump is pushed straight to master with the
+#    `ipc-watch` deploy key (a bypass actor of the `protect-master` ruleset): that push runs the
+#    usual checks and deploys the site like any other commit. When it fails — a bump that completes
+#    a calendar year needs that year's Dec–Dec anchor in config.INDEC_NACIONAL_ANNUAL
+#    (validate.missing_anchor_years), which a human adds; or a fetch error — the bump goes to a
+#    draft PR with the outcome in its body.
 #  - datos.gob.ar unreachable, or the current pin stops reproducing the anchors -> open a tracking issue.
 # INDEC publishes the IPC of month M around the middle of month M+1; the 20th leaves a margin.
+# Downstream: argentina-income-percentile polls the deployed series.v1.json on the 21st (cpi-sync).
 
 on:
   schedule:
     - cron: "0 9 20 * *" # 09:00 UTC on the 20th of every month
   workflow_dispatch:
 
+# The job token only opens PRs and issues. Every push (the bump on master, the fallback branch)
+# goes through the deploy key, so it triggers the normal workflows (a job-token push would not).
 permissions:
-  contents: write
+  contents: read
   pull-requests: write
   issues: write
 
@@ -26,8 +32,11 @@ jobs:
   watch:
     runs-on: ubuntu-latest
     steps:
-      # The bump step pushes a branch with the job token, so the checkout keeps its credentials.
+      # `ssh-key` switches the remote to SSH with the `ipc-watch` deploy key and keeps it for the
+      # push steps below (persist-credentials stays on for this job on purpose).
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ssh-key: ${{ secrets.IPC_WATCH_DEPLOY_KEY }}
 
       - name: Install uv
         uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
@@ -47,7 +56,7 @@ jobs:
           ISSUE_BODY_FILE: ipc-watch-body.md
         run: uv run python -m pipeline.watch
 
-      - name: Bump the vintage, rebuild the artifact and open the PR
+      - name: Bump the vintage and rebuild the artifact (push to master, or a draft PR)
         if: steps.watch.outputs.status == 'new_month'
         env:
           GH_TOKEN: ${{ github.token }}
@@ -55,11 +64,12 @@ jobs:
           NEXT_LABEL: ${{ steps.watch.outputs.next_label }}
           PREV_VINTAGE: ${{ steps.watch.outputs.current_vintage }}
           PR_BODY_FILE: ipc-bump-pr-body.md
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           set -euo pipefail
           BRANCH="data/ipc-${NEXT_VINTAGE}"
           if [ -n "$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number // empty')" ]; then
-            echo "A PR for $BRANCH is already open — skipping."
+            echo "A draft PR for $BRANCH is already open (it needs a human) — skipping."
             exit 0
           fi
           # The health check above rewrote the artifact at the old vintage (new generated_at only):
@@ -67,18 +77,22 @@ jobs:
           git checkout -- data/series.v1.json web/public/series.v1.json
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git checkout -b "$BRANCH"
           uv run python -m pipeline.watch --apply
           # Rebuild at the new pin. A failure (a year-end crossed without its anchor, a fetch error)
           # still gets a PR, as a draft, with the outcome in its body.
           if make data; then DATA_OUTCOME=success; else DATA_OUTCOME=failure; fi
-          DATA_OUTCOME="$DATA_OUTCOME" uv run python -m pipeline.watch --pr-body
           git add pipeline/config.py data/series.v1.json web/public/series.v1.json
-          git commit -m "data: bump vintage to ${NEXT_VINTAGE} (${NEXT_LABEL})"
+          git commit -m "data: bump vintage to ${NEXT_VINTAGE} (${NEXT_LABEL})" \
+            -m "Applied by the IPC data watch: ${RUN_URL}"
+          if [ "$DATA_OUTCOME" = success ]; then
+            git push origin HEAD:master
+            echo "Bumped ${PREV_VINTAGE} → ${NEXT_VINTAGE} on master; that push runs the checks and deploys."
+            exit 0
+          fi
+          DATA_OUTCOME="$DATA_OUTCOME" uv run python -m pipeline.watch --pr-body
+          git checkout -b "$BRANCH"
           git push --force -u origin "$BRANCH"
-          DRAFT=""
-          if [ "$DATA_OUTCOME" != "success" ]; then DRAFT="--draft"; fi
-          gh pr create $DRAFT \
+          gh pr create --draft \
             --title "data: bump vintage to ${NEXT_VINTAGE} (${NEXT_LABEL})" \
             --body-file "$PR_BODY_FILE"
 
