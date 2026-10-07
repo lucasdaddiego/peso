@@ -108,9 +108,11 @@ def issue_body(status: str, latest: str | None, health_failed: bool) -> str:
 
 def pr_body(current: str, latest: str, missing_years: list[int], data_ok: bool) -> str:
     anchors = (
-        "- [x] `make data` passed: the spliced series reproduces every anchor at the new vintage.\n"
+        "- [x] `make data` passed (the spliced series reproduces every anchor at the new vintage) and the "
+        "web tests pass against the rebuilt artifact.\n"
         if data_ok
-        else "- [ ] `make data` **failed** in the workflow; see its log. Run it locally and push the fix.\n"
+        else "- [ ] `make data` or the web tests **failed** in the workflow; see its log. Run `make data` and "
+        "`make test-web` locally and push the fix.\n"
     )
     if missing_years:
         years = ", ".join(str(y) for y in missing_years)

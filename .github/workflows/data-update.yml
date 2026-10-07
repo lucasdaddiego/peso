@@ -1,13 +1,14 @@
 name: IPC data watch
 
 # Monthly maintenance for the vintage-pinned series.
-#  - INDEC published a month newer than config.DATA_VINTAGE -> bump the pin and rebuild the artifact
-#    (`make data`). When the rebuild passes, the bump is pushed straight to master with the
-#    `ipc-watch` deploy key (a bypass actor of the `protect-master` ruleset): that push runs the
-#    usual checks and deploys the site like any other commit. When it fails — a bump that completes
-#    a calendar year needs that year's Dec–Dec anchor in config.INDEC_NACIONAL_ANNUAL
-#    (validate.missing_anchor_years), which a human adds; or a fetch error — the bump goes to a
-#    draft PR with the outcome in its body.
+#  - INDEC published a month newer than config.DATA_VINTAGE -> bump the pin, rebuild the artifact
+#    (`make data`) and run the web tests against it. When both pass, the bump is pushed straight
+#    to master with the `ipc-watch` deploy key (a bypass actor of the `protect-master` ruleset):
+#    that push runs the usual checks and deploys the site like any other commit. When either
+#    fails — a bump that completes a calendar year needs that year's Dec–Dec anchor in
+#    config.INDEC_NACIONAL_ANNUAL (validate.missing_anchor_years), which a human adds; a fetch
+#    error; a web test pinned to the old vintage — the bump goes to a draft PR with the outcome
+#    in its body.
 #  - datos.gob.ar unreachable, or the current pin stops reproducing the anchors -> open a tracking issue.
 # INDEC publishes the IPC of month M around the middle of month M+1; the 20th leaves a margin.
 # Downstream: argentina-income-percentile polls the deployed series.v1.json on the 21st (cpi-sync).
@@ -56,6 +57,21 @@ jobs:
           ISSUE_BODY_FILE: ipc-watch-body.md
         run: uv run python -m pipeline.watch
 
+      # The green path also runs the web tests against the rebuilt artifact: a test pinned to a
+      # vintage-dependent number must send the bump to a draft PR, never break master.
+      - name: Set up Node (web tests)
+        if: steps.watch.outputs.status == 'new_month'
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install web deps
+        if: steps.watch.outputs.status == 'new_month'
+        run: npm ci
+        working-directory: web
+
       - name: Bump the vintage and rebuild the artifact (push to master, or a draft PR)
         if: steps.watch.outputs.status == 'new_month'
         env:
@@ -78,9 +94,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           uv run python -m pipeline.watch --apply
-          # Rebuild at the new pin. A failure (a year-end crossed without its anchor, a fetch error)
-          # still gets a PR, as a draft, with the outcome in its body.
-          if make data; then DATA_OUTCOME=success; else DATA_OUTCOME=failure; fi
+          # Rebuild at the new pin and run the web tests against it. A failure (a year-end crossed
+          # without its anchor, a fetch error, a test pinned to the old vintage) still gets a PR, as
+          # a draft, with the outcome in its body.
+          if make data && make test-web; then DATA_OUTCOME=success; else DATA_OUTCOME=failure; fi
           git add pipeline/config.py data/series.v1.json web/public/series.v1.json
           git commit -m "data: bump vintage to ${NEXT_VINTAGE} (${NEXT_LABEL})" \
             -m "Applied by the IPC data watch: ${RUN_URL}"

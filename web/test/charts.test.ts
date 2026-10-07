@@ -43,8 +43,11 @@ describe("decaySeries", () => {
     const d = charts.decaySeries(M, "1993-01", 1000);
     expect(d.length).toBe(M.rows.length);
     expect(d[0].m).toBe("1993-01");
-    // 1.000 pesos de enero-1993 = 1000 * 100 / cpi[1993-01] (0.038975) pesos de hoy.
-    expect(d[0].v).toBeCloseTo(2565747.27, 1);
+    // 1.000 pesos de enero-1993 = 1000 * 100 / cpi[1993-01] pesos de hoy. Read the cpi from the
+    // artifact: the literal depends on the vintage, which the monthly watch moves.
+    const cpi0 = M.rows.find((r) => r.m === "1993-01")!.cpi;
+    expect(cpi0).toBeLessThan(1);
+    expect(d[0].v).toBeCloseTo((1000 * 100) / cpi0, 6);
     // …and by the vintage (cpi = 100) they are worth exactly their nominal selves.
     expect(d[d.length - 1].v).toBeCloseTo(1000, 6);
     expect(d[d.length - 1].v).toBeLessThan(d[0].v); // the curve falls, it does not rise
