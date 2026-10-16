@@ -79,7 +79,9 @@ def tiny_window(monkeypatch):
     monkeypatch.setattr(config, "BLUE_FIRST_MONTH", "2005-05")
     # The real cumulative cross-check anchors on 2003-01, outside this window — repoint it inside.
     monkeypatch.setattr(
-        config, "CUM_ANCHOR", {"from_month": "2005-02", "pesos": 1000.0, "expect_today_approx": 1614.0, "rel_tol": 0.1}
+        config,
+        "CUM_ANCHOR",
+        {"from_month": "2005-02", "to_month": "2005-07", "pesos": 1000.0, "expect_approx": 1614.0, "rel_tol": 0.1},
     )
     return config
 

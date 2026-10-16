@@ -324,6 +324,14 @@ describe("methodology", () => {
     expect($("methodology-body").innerHTML).not.toContain("promedia");
   });
 
+  it("presents the cumulative pin as a chaining check, not an independent source", async () => {
+    await boot();
+    const body = $("methodology-body").innerHTML;
+    expect(body).not.toContain("cross-check independiente");
+    expect(body).toContain("No es una fuente independiente");
+    expect(body).toContain("de mayo 2026"); // the pin's fixed end month, not "hoy"
+  });
+
   it("marks a mismatch when an anchor year is not reproduced", async () => {
     const a = clone();
     a.anchors.indec_nacional_annual = { "2024": 50 }; // real 2024 ≈ 118 -> ✗

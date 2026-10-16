@@ -22,7 +22,7 @@ def _artifact(*, annual, cum_today=1000.0):
             {"m": "2020-12", "cpi": 5.0, "off": 80.0, "blue": 140.0},
         ],
         "annual_inflation": annual,
-        "anchors": {"cum": {"computed_today": cum_today}},
+        "anchors": {"cum": {"computed": cum_today, "computed_today": cum_today}},
     }
 
 
@@ -37,7 +37,9 @@ def _setup(tmp_path, monkeypatch, *, annual, cum_today=1000.0):
     monkeypatch.setattr(config, "SANLUIS_ANNUAL", {2010: 27.0})
     monkeypatch.setattr(config, "GBA_ANNUAL", {2002: 40.9})
     monkeypatch.setattr(
-        config, "CUM_ANCHOR", {"from_month": "2003-01", "pesos": 1000.0, "expect_today_approx": 1000.0, "rel_tol": 0.1}
+        config,
+        "CUM_ANCHOR",
+        {"from_month": "2003-01", "to_month": "2020-12", "pesos": 1000.0, "expect_approx": 1000.0, "rel_tol": 0.1},
     )
 
 
@@ -94,7 +96,9 @@ def test_validate_fails_on_non_positive_index(tmp_path, monkeypatch, capsys):
     monkeypatch.setattr(config, "SANLUIS_ANNUAL", {2010: 27.0})
     monkeypatch.setattr(config, "GBA_ANNUAL", {2002: 40.9})
     monkeypatch.setattr(
-        config, "CUM_ANCHOR", {"from_month": "2003-01", "pesos": 1000.0, "expect_today_approx": 1000.0, "rel_tol": 0.1}
+        config,
+        "CUM_ANCHOR",
+        {"from_month": "2003-01", "to_month": "2020-12", "pesos": 1000.0, "expect_approx": 1000.0, "rel_tol": 0.1},
     )
     with pytest.raises(SystemExit) as exc:
         validate.validate()

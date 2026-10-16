@@ -161,21 +161,26 @@ CONVERTIBILITY_FX = 1.0  # 1 peso = 1 USD, Jan-1992 … Dec-2001
 CONVERTIBILITY_FX_TOL = 0.03  # daily ref rate hovers ~0.99–1.00
 
 
-# A hand-computed cumulative cross-check, independent of the per-year anchors: $1.000 de enero-2003
-# en pesos de la vintage. Derived once from the spliced index and pinned so a future change that
-# silently breaks the chaining is caught. Tolerance is generous (the splice can shift slightly when
-# a source revises a back-month); a gross error (wrong chaining) is orders of magnitude off.
+# A cumulative regression pin over a FIXED window: $1.000 de enero-2003 expressed in pesos of mayo-2026.
+# It is not an independent source: the figure was derived once from this same splice (at the 2026-05
+# vintage) and pinned, so it catches a change that silently breaks the chaining (a wrong segment
+# hand-off, a mis-ordered month), not an error shared by every build. Both ends are fixed months, so
+# the figure does not move when the vintage is bumped (the index is rebased on every bump, but a ratio
+# between two months is unchanged by the rebase). Tolerance is generous (the splice can shift slightly
+# when a source revises a back-month); a gross error (wrong chaining) is orders of magnitude off.
 class CumAnchor(TypedDict):
     from_month: str
+    to_month: str
     pesos: float
-    expect_today_approx: float
+    expect_approx: float
     rel_tol: float
 
 
 CUM_ANCHOR: CumAnchor = {
     "from_month": "2003-01",
+    "to_month": "2026-05",
     "pesos": 1000.0,
-    "expect_today_approx": 1648923.0,  # ≈ pesos de la vintage; cross-checked at build time
+    "expect_approx": 1648923.0,  # pesos of to_month; computed from the 2026-05 vintage
     "rel_tol": 0.08,
 }
 

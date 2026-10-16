@@ -61,7 +61,11 @@ El pipeline reproduce, dentro de tolerancia, cifras conocidas (o falla el build)
   ~10 % que declaraba el INDEC oficial de esos años.
 - **IPC-GBA 2002** (colapso de la convertibilidad): 40,9 %.
 - **Tipo de cambio en convertibilidad:** ≈ 1,00 peso/dólar a lo largo de 1993–2001 (la serie arranca en 1993).
-- **Cross-check acumulado independiente:** $1.000 de enero-2003 ≈ pesos de la vintage.
+- **Pin acumulado del encadenamiento:** $1.000 de enero-2003 ≈ $1.648.923 de mayo-2026 (±8 %). No
+  es una fuente independiente: el valor salió de este mismo empalme (vintage 2026-05) y quedó fijo,
+  así que detecta un error de encadenamiento (un tramo mal unido, un mes fuera de orden), no un error
+  que compartan todas las corridas. Los dos extremos son meses fijos, así que el pin no se mueve
+  cuando se actualiza el vintage.
 
 ## Límites
 

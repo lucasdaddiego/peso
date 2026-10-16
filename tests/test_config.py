@@ -29,8 +29,10 @@ def test_anchor_years_land_in_the_right_segments():
 
 def test_cum_anchor_shape():
     c = config.CUM_ANCHOR
-    assert set(c) == {"from_month", "pesos", "expect_today_approx", "rel_tol"}
-    assert c["pesos"] > 0 and c["expect_today_approx"] > 0 and 0 < c["rel_tol"] < 1
+    assert set(c) == {"from_month", "to_month", "pesos", "expect_approx", "rel_tol"}
+    assert c["pesos"] > 0 and c["expect_approx"] > 0 and 0 < c["rel_tol"] < 1
+    # A fixed window inside the series: the pin must not depend on the vintage.
+    assert config.SERIES_START <= c["from_month"] < c["to_month"] <= config.DATA_VINTAGE
 
 
 def test_citation_mentions_the_sources():

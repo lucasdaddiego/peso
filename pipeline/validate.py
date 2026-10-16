@@ -6,7 +6,8 @@ HARD checks (build fails on any miss):
     for its year fails until the figure is added to config.INDEC_NACIONAL_ANNUAL.
   • IPC San Luis Dec–Dec, 2007–2015 (the intervened-decade alternative the splice uses).
   • INDEC IPC-GBA 2002 (the convertibility-collapse year) and convertibility-era FX ≈ 1:1.
-  • A cumulative purchasing-power cross-check ($1.000 de 2003 → pesos de la vintage).
+  • A cumulative regression pin over a fixed window ($1.000 de 2003-01 → pesos de 2026-05), derived
+    from this same splice: it catches a chaining error, it is not an independent source.
 """
 
 from __future__ import annotations
@@ -86,13 +87,14 @@ def validate() -> None:
         config.CONVERTIBILITY_FX_TOL,
     )
 
-    print("\n=== HARD GATE: poder de compra acumulado (cross-check independiente) ===")
+    print("\n=== HARD GATE: poder de compra acumulado (pin de regresión del encadenamiento) ===")
     cum = art["anchors"]["cum"]
+    pin = config.CUM_ANCHOR
     g.check(
-        f"${config.CUM_ANCHOR['pesos']:,.0f} de {config.CUM_ANCHOR['from_month']} → hoy",
-        cum["computed_today"],
-        config.CUM_ANCHOR["expect_today_approx"],
-        config.CUM_ANCHOR["rel_tol"],
+        f"${pin['pesos']:,.0f} de {pin['from_month']} → {pin['to_month']}",
+        cum["computed"],
+        pin["expect_approx"],
+        pin["rel_tol"],
         rel=True,
     )
 

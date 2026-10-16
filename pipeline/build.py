@@ -105,7 +105,13 @@ def build() -> dict:
         for m in months
     ]
 
-    cum_today = round(config.CUM_ANCHOR["pesos"] * 100.0 / index[config.CUM_ANCHOR["from_month"]], 2)
+    cum = config.CUM_ANCHOR
+    if not cum["from_month"] <= cum["to_month"] <= config.DATA_VINTAGE:
+        raise ValueError(f"CUM_ANCHOR window {cum['from_month']}…{cum['to_month']} is outside the series")
+    # `computed` is the pinned fixed-window figure validate() checks; `computed_today` is the same
+    # amount in pesos of the vintage (what the web app shows).
+    cum_fixed = round(cum["pesos"] * index[cum["to_month"]] / index[cum["from_month"]], 2)
+    cum_today = round(cum["pesos"] * 100.0 / index[cum["from_month"]], 2)
 
     artifact = {
         "schema_version": SCHEMA_VERSION,
@@ -136,7 +142,7 @@ def build() -> dict:
             "indec_nacional_annual": {str(k): v for k, v in config.INDEC_NACIONAL_ANNUAL.items()},
             "sanluis_annual": {str(k): v for k, v in config.SANLUIS_ANNUAL.items()},
             "gba_annual": {str(k): v for k, v in config.GBA_ANNUAL.items()},
-            "cum": {**config.CUM_ANCHOR, "computed_today": cum_today},
+            "cum": {**cum, "computed": cum_fixed, "computed_today": cum_today},
         },
         "citation": config.CITATION,
     }

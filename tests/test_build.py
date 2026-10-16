@@ -83,6 +83,25 @@ def test_build_end_to_end(tiny_raw):
         assert json.loads(p.read_text(encoding="utf-8"))["schema_version"] == build.SCHEMA_VERSION
 
 
+def test_cum_pin_does_not_move_with_the_vintage(tiny_raw, monkeypatch):
+    """The cumulative pin compares two fixed months, so a vintage bump (which rebases the whole
+    index) leaves it unchanged. A pin on "pesos de la vintage" grew with every bump (≈2 % a month)
+    until the 8 % tolerance failed the build and the monthly watch could no longer push."""
+    at_aug = build.build()["anchors"]["cum"]
+    monkeypatch.setattr(config, "DATA_VINTAGE", "2005-07")
+    at_jul = build.build()["anchors"]["cum"]
+    assert at_aug["computed"] == at_jul["computed"]
+    assert at_aug["computed_today"] != at_jul["computed_today"]  # "today" does follow the vintage
+    # $1.000 of 2005-02 in pesos of 2005-07, by hand from the synthetic index.
+    assert at_jul["computed"] == at_jul["computed_today"]
+
+
+def test_build_fails_when_the_cum_window_leaves_the_series(tiny_raw, monkeypatch):
+    monkeypatch.setitem(config.CUM_ANCHOR, "to_month", "2005-09")  # after the 2005-08 vintage
+    with pytest.raises(ValueError, match="CUM_ANCHOR window"):
+        build.build()
+
+
 def test_build_fails_on_a_truncated_fx_snapshot(tiny_raw):
     """A transient empty page mid-fetch truncates the FX series; the build must not emit an
     artifact whose `off` is the last fetched rate carried across every later month."""

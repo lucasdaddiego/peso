@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-07T14:13:11+00:00",
+  "generated_at": "2026-10-16T02:23:12+00:00",
   "currency": "ARS",
   "vintage": "2026-08",
   "vintage_label": "agosto 2026",
@@ -3877,9 +3877,11 @@
     },
     "cum": {
       "from_month": "2003-01",
+      "to_month": "2026-05",
       "pesos": 1000.0,
-      "expect_today_approx": 1648923.0,
+      "expect_approx": 1648923.0,
       "rel_tol": 0.08,
+      "computed": 1648923.94,
       "computed_today": 1744013.67
     }
   },

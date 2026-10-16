@@ -38,7 +38,8 @@ broken series across the years the INDEC was intervened.
 > **Validated to the official figures.** The spliced index reproduces INDEC's published Dec–Dec
 > inflation for 2017–2025 **to the decimal** (24.8 · 47.6 · 53.8 · 36.1 · 50.9 · 94.8 · 211.4 ·
 > 117.8 · 31.5 %), the IPC-GBA 2002 collapse (40.9 %), and 1:1 convertibility FX — plus a pinned
-> cumulative cross-check that **$1.000 of January 2003 ≈ $1.65M today**.
+> cumulative regression check that **$1.000 of January 2003 ≈ $1.65M of May 2026** (derived once
+> from this same splice, so it catches a chaining error, not an error shared by every build).
 
 It has two parts:
 
@@ -62,7 +63,7 @@ It has two parts:
 - **Computed once, offline.** The frontend does no statistics: it looks up the precomputed monthly
   index and rates. Everything quantitative is in the committed artifact.
 - **Provenance + a validation gate.** Each series is pinned by id; the build **fails** if it stops
-  reproducing the official Dec–Dec figures, the convertibility peg, or the cumulative cross-check —
+  reproducing the official Dec–Dec figures, the convertibility peg, or the cumulative regression pin —
   and if the vintage covers a December whose year has no anchor yet (one anchor per completed year).
 - **Vintage-pinned.** Every series is truncated to a fixed month, so the build is reproducible no
   matter when it runs.
@@ -105,7 +106,7 @@ rate.
 - **FX.** BCRA reference dollar (official, from 1992) + Bluelytics (blue, from 2011; pre-cepo blue
   := official).
 - **Validation.** Reproduces INDEC Dec–Dec 2017–2025, San Luis 2007–2015, GBA 2002, convertibility
-  1:1, and a cumulative cross-check — or the build fails.
+  1:1, and a cumulative regression pin — or the build fails.
 - Full notes: [`docs/metodologia.md`](docs/metodologia.md), and the "Metodología" section in the app.
 
 ## Project structure

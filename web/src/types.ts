@@ -28,12 +28,15 @@ export interface Segment {
   note: string;
 }
 
+// A regression pin over a fixed window (from_month -> to_month), derived from the same splice.
 export interface CumAnchor {
   from_month: string;
+  to_month: string;
   pesos: number;
-  expect_today_approx: number;
+  expect_approx: number; // pinned value of `pesos` of from_month in pesos of to_month
   rel_tol: number;
-  computed_today: number;
+  computed: number; // this build's value for the same window (what the gate checks)
+  computed_today: number; // `pesos` of from_month in pesos of the vintage
 }
 
 export interface Artifact {

@@ -419,8 +419,9 @@ function renderMethodology() {
       <thead><tr><th>Año</th><th>INDEC</th><th>Nuestro cálculo</th><th></th></tr></thead>
       <tbody>${rows}</tbody>
     </table>
-    <p class="muted">Y un cross-check independiente: <strong>${fmtARS(cum.pesos)}</strong> de ${fmtMonth(cum.from_month)}
-    equivalen a <strong>${fmtARS(cum.computed_today)}</strong> de hoy.</p>
+    <p class="muted">Y un control del encadenamiento: <strong>${fmtARS(cum.pesos)}</strong> de ${fmtMonth(cum.from_month)}
+    equivalen a <strong>${fmtARS(cum.computed_today)}</strong> de hoy. No es una fuente independiente: sale del
+    mismo empalme y se compara con un valor fijado (${fmtARS(cum.expect_approx)} de ${fmtMonth(cum.to_month)}).</p>
 
     <h3>Qué tener en cuenta</h3>
     <ul>
