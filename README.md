@@ -6,7 +6,7 @@
 [![Data reproduces INDEC/BCRA](https://github.com/lucasdaddiego/peso/actions/workflows/data.yml/badge.svg)](https://github.com/lucasdaddiego/peso/actions/workflows/data.yml)
 [![Coverage 100%](https://img.shields.io/badge/coverage-100%25-brightgreen)](https://github.com/lucasdaddiego/peso/actions)
 
-[![Python 3.14](https://img.shields.io/badge/python-3.14-3776AB?logo=python&logoColor=white)](pyproject.toml)
+[![Python 3.15](https://img.shields.io/badge/python-3.15-3776AB?logo=python&logoColor=white)](pyproject.toml)
 [![TypeScript strict](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)](web/tsconfig.json)
 [![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white)](web/package.json)
 [![Observable Plot](https://img.shields.io/badge/charts-Observable_Plot-6c5ce7?logo=observable&logoColor=white)](https://observablehq.com/plot/)
