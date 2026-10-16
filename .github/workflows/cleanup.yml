@@ -39,7 +39,7 @@ jobs:
             exit 0
           fi
           # Exact pin: this shell holds CLOUDFLARE_API_TOKEN, so no floating major resolved at run time.
-          wr() { npx -y wrangler@4.148.0 "$@"; }
+          wr() { npx -y wrangler@4.151.0 "$@"; }
 
           # Only this branch's PREVIEW deployments — production (branch master) is excluded twice over.
           ids=$(wr pages deployment list --project-name="$PROJECT" --environment=preview --json 2>/dev/null \
