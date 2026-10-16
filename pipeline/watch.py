@@ -31,10 +31,11 @@ import urllib.error
 import urllib.request
 from collections.abc import Callable
 
-from . import config, validate
+from . import config, fetch, validate
 
 UA = "Mozilla/5.0 (peso data-watch)"
 TIMEOUT = 60
+PROBES = 6  # newest-month probes; the newest answer wins (replica skew, see latest_published_month)
 PINNED_FIELDS = ("DATA_VINTAGE", "VINTAGE_LABEL")
 MONTH_NAMES_ES = (
     "enero",
@@ -58,13 +59,10 @@ def month_label(month: str) -> str:
     return f"{MONTH_NAMES_ES[int(month[5:7]) - 1]} {month[:4]}"
 
 
-def latest_published_month(series_id: str = config.IPC_NACIONAL_ID) -> str | None:
-    """The newest month ('YYYY-MM') the API holds for `series_id`, or None when it cannot be read.
-
-    One row, newest first: the API's `sort=desc` + `limit=1`. A payload without `data` (an API
-    error, a retired id) or with a malformed date reads as unreachable, never as "up to date".
-    """
-    url = f"{config.SERIES_API}?ids={series_id}&format=json&limit=1&sort=desc"
+def _probe_latest(series_id: str, start_date: str) -> str | None:
+    """One probe of the newest month: one row, newest first (the API's `sort=desc` + `limit=1`).
+    `start_date` filters nothing; it gives the probe a URL of its own (the API caches by URL)."""
+    url = f"{config.SERIES_API}?ids={series_id}&format=json&start_date={start_date}&limit=1&sort=desc"
     req = urllib.request.Request(url, headers={"User-Agent": UA})
     try:
         with urllib.request.urlopen(req, timeout=TIMEOUT) as resp:
@@ -76,6 +74,21 @@ def latest_published_month(series_id: str = config.IPC_NACIONAL_ID) -> str | Non
         return None
     month = str(data[0][0])[:7]
     return month if MONTH_RE.match(month) else None
+
+
+def latest_published_month(series_id: str = config.IPC_NACIONAL_ID) -> str | None:
+    """The newest month ('YYYY-MM') the API holds for `series_id`, or None when it cannot be read.
+
+    A payload without `data` (an API error, a retired id) or with a malformed date reads as
+    unreachable, never as "up to date". The API answers from replicas that are not always in sync
+    (pipeline.fetch): a stale one reports an older newest month, so the newest of PROBES probes, each
+    under its own URL, wins.
+    Without that, detect() could see the new month and the --apply run a moment later could not,
+    which failed the bump step.
+    """
+    probes = (_probe_latest(series_id, d) for d in fetch.no_op_start_dates(PROBES))
+    months = [m for m in probes if m is not None]
+    return max(months, default=None)
 
 
 def issue_title(status: str) -> str:

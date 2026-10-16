@@ -1,7 +1,8 @@
 """Parse the raw snapshots in data/raw/ into clean monthly dicts (offline, pure).
 
 datos.gob.ar series come as [["YYYY-MM-DD", value], ...]. CPI series are monthly (one row per
-month); the FX series is daily, collapsed here to one rate per month (end of period — the last
+month); the official FX series arrives already collapsed by the API to one rate per month (end of
+period, config.FX_COLLAPSE), and a daily snapshot would be collapsed here the same way (the last
 business day's value). Bluelytics is a CSV of daily Oficial/Blue buy+sell rows.
 """
 

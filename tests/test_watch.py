@@ -53,6 +53,28 @@ def test_latest_published_month_reads_the_newest_row(monkeypatch):
     assert watch.latest_published_month() == "2026-08"
 
 
+def test_latest_published_month_takes_the_newest_probe(monkeypatch):
+    # A stale replica answered 2026-07 while the others had 2026-08 (2026-10-15); one probe could
+    # tell detect() "new month" and the --apply run "nothing newer", which failed the bump step.
+    answers = iter(
+        [
+            _api({"data": [["2026-07-01", 12076.4]]}),
+            urllib.error.URLError("reset"),
+            _api({"data": [["2026-08-01", 12276.8]]}),
+        ]
+        + [_api({"data": [["2026-07-01", 12076.4]]})] * (watch.PROBES - 3)
+    )
+
+    def _urlopen(req, timeout=0):
+        nxt = next(answers)
+        if isinstance(nxt, Exception):
+            raise nxt
+        return _FakeHTTP(nxt)
+
+    monkeypatch.setattr(urllib.request, "urlopen", _urlopen)
+    assert watch.latest_published_month() == "2026-08"
+
+
 @pytest.mark.parametrize(
     "body",
     [

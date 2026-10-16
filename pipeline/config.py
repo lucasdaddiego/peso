@@ -112,8 +112,11 @@ SEGMENTS: list[SegmentMeta] = [
 # --------------------------------------------------------------------------------------
 BLUELYTICS_CSV = "https://api.bluelytics.com.ar/v2/evolution.csv"
 BLUE_FIRST_MONTH = "2011-01"  # earliest Bluelytics blue datum; earlier months: blue := official
-# Both FX series are collapsed to one rate per month at the last business day of the month; that is
-# hardcoded in load.monthly_from_rows / load.bluelytics_from_rows, not configurable from here.
+# Both FX series are collapsed to one rate per month at the last business day of the month. For the
+# official rate the API does it (FX_COLLAPSE); for Bluelytics, load.bluelytics_from_rows does.
+# The API collapse returns ~400 monthly rows in one page. Paging the daily series instead broke on
+# 2026-10-15: the API's second page started at 2011-03, so 2005-09…2011-03 went missing.
+FX_COLLAPSE = "&collapse=month&collapse_aggregation=end_of_period"
 
 # --------------------------------------------------------------------------------------
 # Validation anchors — the build MUST reproduce these (within tolerance) or it fails.

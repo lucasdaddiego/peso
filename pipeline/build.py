@@ -21,8 +21,8 @@ def forward_fill(src: dict[str, float], months: list[str], *, max_gap: int = 1) 
     """Project a monthly series onto `months`, carrying the last known value over SHORT gaps.
 
     The carry is bounded to `max_gap` consecutive missing months and raises past that. An
-    unbounded carry is what makes a short or partial fetch dangerous: the FX series is daily and
-    paged, so one empty page truncates it, and the last rate fetched would otherwise be stamped
+    unbounded carry is what makes a short or partial fetch dangerous: a stale API replica or a
+    broken page truncates the FX series, and the last rate fetched would otherwise be stamped
     over every remaining month of the artifact — a silently wrong build that no downstream gate
     catches (validate() only pins the 1993–2001 convertibility band). Fail loudly instead.
     """
