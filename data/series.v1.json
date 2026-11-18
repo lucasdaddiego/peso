@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-16T02:23:12+00:00",
+  "generated_at": "2026-11-18T01:19:39+00:00",
   "currency": "ARS",
   "vintage": "2026-08",
   "vintage_label": "agosto 2026",
@@ -2887,9 +2887,9 @@
     },
     {
       "m": "2019-04",
-      "cpi": 1.734656,
+      "cpi": 1.735406,
       "src": "nacional",
-      "mom": 3.4,
+      "mom": 3.4447,
       "off": 44.15,
       "blue": 46.0,
       "blue_est": false
@@ -2898,7 +2898,7 @@
       "m": "2019-05",
       "cpi": 1.788493,
       "src": "nacional",
-      "mom": 3.1036,
+      "mom": 3.0591,
       "off": 44.76,
       "blue": 46.0,
       "blue_est": false
@@ -3436,9 +3436,9 @@
     },
     {
       "m": "2024-05",
-      "cpi": 49.473127,
+      "cpi": 49.473261,
       "src": "nacional",
-      "mom": 4.176,
+      "mom": 4.1763,
       "off": 895.5,
       "blue": 1225.0,
       "blue_est": false
@@ -3447,7 +3447,7 @@
       "m": "2024-06",
       "cpi": 51.737685,
       "src": "nacional",
-      "mom": 4.5773,
+      "mom": 4.5771,
       "off": 912.0,
       "blue": 1365.0,
       "blue_est": false
